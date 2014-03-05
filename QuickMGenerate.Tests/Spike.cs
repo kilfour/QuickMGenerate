@@ -32,8 +32,8 @@ namespace QuickMGenerate.Tests
 				from str in MGen.String()
 				from children in childGenerator.Many(5)
 				from stg in MGen.One<SomeThingToGenerate>()
-				from _ in MGen.Do(stg, s3 => s3.AString = str + i)
-				from __ in MGen.Do(stg, s3 => children.ForEach(c => s3.Children.Add(c)))
+				from _ in MGen.Apply(() => stg.AString = str + i)
+				from __ in MGen.Apply(() => children.ForEach(c => stg.Children.Add(c)))
 				select stg;
 
 			var result = generator.Generate(state);

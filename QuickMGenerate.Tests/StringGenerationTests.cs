@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using QuickMGenerate.UnderTheHood;
 using Xunit;
 
 namespace QuickMGenerate.Tests
@@ -10,9 +11,10 @@ namespace QuickMGenerate.Tests
 		{
 			var valid = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
 			var generator = MGen.String();
+			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				var val = generator.Generate();
+				var val = generator.Generate(state);
 				Assert.True(val.All(s => valid.Any(c => c == s)), val);
 			}
 		}
@@ -21,9 +23,10 @@ namespace QuickMGenerate.Tests
 		public void DefaultGeneratorStringIsNeverEmpty()
 		{
 			var generator = MGen.String();
+			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				var val = generator.Generate();
+				var val = generator.Generate(state);
 				Assert.True(val.Length > 0);
 			}
 		}
@@ -32,9 +35,10 @@ namespace QuickMGenerate.Tests
 		public void DefaultGeneratorStringIsSmallerThanTen()
 		{
 			var generator = MGen.String();
+			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				var val = generator.Generate();
+				var val = generator.Generate(state);
 				Assert.True(val.Length < 10);
 			}
 		}

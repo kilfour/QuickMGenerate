@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using QuickMGenerate.UnderTheHood;
+using Xunit;
 
 namespace QuickMGenerate.Tests
 {
@@ -8,9 +9,10 @@ namespace QuickMGenerate.Tests
 		public void Zero()
 		{
 			var generator = MGen.Int(0, 0);
+			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				Assert.Equal(0, generator.Generate());
+				Assert.Equal(0, generator.Generate(state));
 			}
 		}
 
@@ -18,9 +20,10 @@ namespace QuickMGenerate.Tests
 		public void DefaultGeneratorNeverGeneratesZero()
 		{
 			var generator = MGen.Int();
+			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				Assert.NotEqual(0, generator.Generate());
+				Assert.NotEqual(0, generator.Generate(state));
 			}
 		}
 	}

@@ -1,5 +1,4 @@
-﻿using QuickMGenerate.UnderTheHood;
-using Xunit;
+﻿using Xunit;
 
 namespace QuickMGenerate.Tests
 {
@@ -12,12 +11,10 @@ namespace QuickMGenerate.Tests
 				from _ in MGen.Replace(MGen.Int(42, 42))
 				from result in MGen.One<SomeThingToGenerate>()
 				select result;
+
+			var value = generator.Generate();
 			
-			var state = new State();
-			for (int i = 0; i < 10; i++)
-			{
-				Assert.Equal(42, generator.Generate(state).AnInt);
-			}
+			Assert.Equal(42, value.AnInt);
 		}
 
 		[Fact]
@@ -30,13 +27,10 @@ namespace QuickMGenerate.Tests
 				from result2 in MGen.One<SomeThingToGenerate>()
 				select new[] {result1, result2};
 
-			var state = new State();
-			for (int i = 0; i < 10; i++)
-			{
-				var array = generator.Generate(state);
-				Assert.Equal(42, array[0].AnInt);
-				Assert.Equal(666, array[1].AnInt);
-			}
+			var array = generator.Generate();
+
+			Assert.Equal(42, array[0].AnInt);
+			Assert.Equal(666, array[1].AnInt);
 		}
 
 		public class SomeThingToGenerate

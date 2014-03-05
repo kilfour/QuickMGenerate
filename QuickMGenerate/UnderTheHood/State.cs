@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuickMGenerate
+namespace QuickMGenerate.UnderTheHood
 {
 	public class State
 	{

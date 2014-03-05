@@ -1,4 +1,6 @@
-﻿namespace QuickMGenerate
+﻿using QuickMGenerate.UnderTheHood;
+
+namespace QuickMGenerate
 {
 	public static partial class MGen
 	{

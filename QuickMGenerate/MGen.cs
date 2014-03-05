@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
 {
@@ -30,10 +31,7 @@ namespace QuickMGenerate
 
 		}
 
-		public static Generator<State, string> String()
-		{
-			return s => new Result<State, string>("Hello", s);
-		}
+		
 
 		public static Generator<State, T> One<T>()
 		{

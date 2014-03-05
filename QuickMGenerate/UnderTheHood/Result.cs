@@ -1,4 +1,4 @@
-﻿namespace QuickMGenerate
+﻿namespace QuickMGenerate.UnderTheHood
 {
 	public class Result<TState, TValue>
 	{

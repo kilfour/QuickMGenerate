@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace QuickMGenerate.Tests
@@ -22,7 +21,7 @@ namespace QuickMGenerate.Tests
 				from i in MGen.Int()
 				select new SomeChild { AnInt = i };
 
-			var state = new State();
+			var state = new UnderTheHood.State();
 
 			Console.WriteLine(childGenerator.Generate(state).AnInt);
 			Console.WriteLine(childGenerator.Generate(state).AnInt);

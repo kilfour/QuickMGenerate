@@ -38,6 +38,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharGenerationTests.cs" />
     <Compile Include="IntGenerationTests.cs" />
     <Compile Include="Spike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -24,6 +24,8 @@ namespace QuickMGenerate
 
 		private static void SetIfIsAKnownPrimitive(object target, PropertyInfo propertyInfo, State state)
 		{
+			if(!state.PrimitiveGenerators.ContainsKey(propertyInfo.PropertyType))
+				return;
 			var primitiveGenerator = state.PrimitiveGenerators[propertyInfo.PropertyType];
 			if (primitiveGenerator != null)
 			{

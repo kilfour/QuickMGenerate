@@ -13,7 +13,9 @@ namespace QuickMGenerate.UnderTheHood
 		public readonly Dictionary<Type, Generator<State, object>> PrimitiveGenerators
 			= new Dictionary<Type, Generator<State, object>>
 			  	{
-			  		{ typeof(int), MGen.Int().AsObject() }
+			  		{ typeof(int), MGen.Int().AsObject() },
+					{ typeof(int?), MGen.Int().Nullable().AsObject() },
+					{ typeof(bool), MGen.Bool().AsObject() }
 				};
 	}
 }

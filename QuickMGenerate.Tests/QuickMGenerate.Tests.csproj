@@ -38,10 +38,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoolGeneration.cs" />
     <Compile Include="CharGeneration.cs" />
     <Compile Include="IgnoringProperties.cs" />
     <Compile Include="IntGeneration.cs" />
-    <Compile Include="ObjectWithInt.cs" />
     <Compile Include="ReplacingTheDefaultGeneration.cs" />
     <Compile Include="Spike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

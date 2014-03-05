@@ -38,6 +38,8 @@
     <Compile Include="Apply.cs" />
     <Compile Include="CharGen.cs" />
     <Compile Include="AsObject.cs" />
+    <Compile Include="BoolGen.cs" />
+    <Compile Include="Nullable.cs" />
     <Compile Include="Replace.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Generate.cs" />

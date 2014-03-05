@@ -1,5 +1,4 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 
 namespace QuickMGenerate.Tests
 {
@@ -24,23 +23,5 @@ namespace QuickMGenerate.Tests
 				Assert.NotEqual(0, generator.Generate());
 			}
 		}
-
-		//[Fact]
-		//public void UsingDomainGenerator()
-		//{
-		//    var generator = new DomainGenerator();
-		//    100.Times(() =>
-		//                {
-		//                    var something = generator.One<SomethingToGenerate>();
-		//                    Assert.NotEqual(0, something.PropOne);
-		//                    Assert.NotEqual(0, something.PropTwo);
-		//                });
-		//}
-
-		//public class SomethingToGenerate
-		//{
-		//    public Int32 PropOne { get; set; }
-		//    public int PropTwo { get; set; }
-		//}
 	}
 }

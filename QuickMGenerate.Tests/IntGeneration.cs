@@ -3,7 +3,7 @@ using Xunit;
 
 namespace QuickMGenerate.Tests
 {
-	public class IntGenerationTests
+	public class IntGeneration
 	{
 		[Fact]
 		public void Zero()

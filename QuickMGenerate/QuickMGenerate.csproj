@@ -45,6 +45,7 @@
     <Compile Include="IntGen.cs" />
     <Compile Include="Many.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnderTheHood\MyBinding.cs" />
     <Compile Include="UnderTheHood\Result.cs" />
     <Compile Include="UnderTheHood\State.cs" />
     <Compile Include="StringGen.cs" />

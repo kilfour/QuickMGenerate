@@ -4,7 +4,7 @@ using Xunit;
 
 namespace QuickMGenerate.Tests
 {
-	public class CharGenerationTests
+	public class CharGeneration
 	{
 		[Fact]
 		public void DefaultGeneratorAlwaysBetweenLowerCaseAAndLowerCaseZ()

@@ -18,6 +18,19 @@ namespace QuickMGenerate.Tests
 		}
 
 		[Fact]
+		public void NullableUsesReplacement()
+		{
+			var generator =
+				from _ in MGen.Replace(MGen.Int(42, 42).Nullable().NeverReturnNull())
+				from result in MGen.One<SomeThingToGenerate>()
+				select result;
+
+			var value = generator.Generate();
+
+			Assert.Equal(42, value.ANullableProperty);
+		}
+
+		[Fact]
 		public void MultipleReplacements()
 		{
 			var generator =
@@ -36,6 +49,7 @@ namespace QuickMGenerate.Tests
 		public class SomeThingToGenerate
 		{
 			public int AnInt { get; set; }
+			public int? ANullableProperty { get; set; }
 		}
 	}
 }

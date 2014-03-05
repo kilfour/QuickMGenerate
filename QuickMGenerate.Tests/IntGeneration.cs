@@ -33,15 +33,20 @@ namespace QuickMGenerate.Tests
 			var generator = MGen.Int().Nullable();
 			var state = new State();
 			var isSomeTimesNull = false;
+			var isSomeTimesNotNull = false;
 			for (int i = 0; i < 20; i++)
 			{
 				var value = generator.Generate(state);
 				if (value.HasValue)
-					Assert.NotEqual(0, value);
+				{
+					isSomeTimesNotNull = true;
+					Assert.NotEqual(0, value.Value);
+				}
 				else
 					isSomeTimesNull = true;
 			}
 			Assert.True(isSomeTimesNull);
+			Assert.True(isSomeTimesNotNull);
 		}
 
 		[Fact]
@@ -61,15 +66,20 @@ namespace QuickMGenerate.Tests
 			var generator = MGen.One<SomeThingToGenerate>();
 			var state = new State();
 			var isSomeTimesNull = false;
+			var isSomeTimesNotNull = false;
 			for (int i = 0; i < 10; i++)
 			{
 				var value = generator.Generate(state).ANullableInt;
 				if (value.HasValue)
-					Assert.NotEqual(0, value);
+				{
+					isSomeTimesNotNull = true;
+					Assert.NotEqual(0, value.Value);
+				}
 				else
 					isSomeTimesNull = true;
 			}
 			Assert.True(isSomeTimesNull);
+			Assert.True(isSomeTimesNotNull);
 		}
 
 		public class SomeThingToGenerate

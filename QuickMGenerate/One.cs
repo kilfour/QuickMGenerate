@@ -16,21 +16,23 @@ namespace QuickMGenerate
 						{
 							if(s.StuffToIgnore.Contains(propertyInfo))
 								continue;
-							SetIfIsAKnownPrimitive(instance, propertyInfo, s);
+							if (!IsAKnownPrimitive(s, propertyInfo))
+								continue;
+							SetPrimitive(instance, propertyInfo, s);
 						}
 						return new Result<State, T>(instance, s);
 					};
 		}
 
-		private static void SetIfIsAKnownPrimitive(object target, PropertyInfo propertyInfo, State state)
+		private static bool IsAKnownPrimitive(State state, PropertyInfo propertyInfo)
 		{
-			if(!state.PrimitiveGenerators.ContainsKey(propertyInfo.PropertyType))
-				return;
+			return state.PrimitiveGenerators.ContainsKey(propertyInfo.PropertyType);
+		}
+
+		private static void SetPrimitive(object target, PropertyInfo propertyInfo, State state)
+		{
 			var primitiveGenerator = state.PrimitiveGenerators[propertyInfo.PropertyType];
-			if (primitiveGenerator != null)
-			{
-				SetPropertyValue(propertyInfo, target, primitiveGenerator(state).Value);
-			}
+			SetPropertyValue(propertyInfo, target, primitiveGenerator(state).Value);
 		}
 
 		private static void SetPropertyValue(PropertyInfo propertyInfo, object target, object value)

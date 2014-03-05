@@ -39,6 +39,7 @@
     <Compile Include="CharGen.cs" />
     <Compile Include="AsObject.cs" />
     <Compile Include="BoolGen.cs" />
+    <Compile Include="Modify.cs" />
     <Compile Include="Nullable.cs" />
     <Compile Include="Replace.cs" />
     <Compile Include="EnumerableExtensions.cs" />

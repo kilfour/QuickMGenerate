@@ -1,4 +1,5 @@
-﻿using QuickMGenerate.UnderTheHood;
+﻿using System.Text;
+using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
 {
@@ -6,7 +7,16 @@ namespace QuickMGenerate
 	{
 		public static Generator<State, string> String()
 		{
-			return s => new Result<State, string>("Hello", s);
+			return s =>
+			       	{
+			       		int numberOfChars = s.Random.Next(1, 10);
+			       		var sb = new StringBuilder();
+			       		for (int i = 0; i < numberOfChars; i++)
+			       		{
+			       			sb.Append(Char()(s).Value);
+			       		}
+			       		return new Result<State, string>(sb.ToString(), s);
+			       	};
 		}
 	}
 }

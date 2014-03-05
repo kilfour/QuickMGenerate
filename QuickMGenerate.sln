@@ -1,7 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMGenerate", "QuickMGenerate\QuickMGenerate.csproj", "{DC53A3E3-ECFA-4B88-A808-0ABB5C9FE5CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMGenerate.Tests", "QuickMGenerate.Tests\QuickMGenerate.Tests.csproj", "{209EDE28-7C66-499E-91B5-ADA1839E5254}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC53A3E3-ECFA-4B88-A808-0ABB5C9FE5CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC53A3E3-ECFA-4B88-A808-0ABB5C9FE5CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC53A3E3-ECFA-4B88-A808-0ABB5C9FE5CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC53A3E3-ECFA-4B88-A808-0ABB5C9FE5CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{209EDE28-7C66-499E-91B5-ADA1839E5254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{209EDE28-7C66-499E-91B5-ADA1839E5254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{209EDE28-7C66-499E-91B5-ADA1839E5254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{209EDE28-7C66-499E-91B5-ADA1839E5254}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

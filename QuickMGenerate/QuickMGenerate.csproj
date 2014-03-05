@@ -40,6 +40,7 @@
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Generate.cs" />
     <Compile Include="One.cs" />
+    <Compile Include="UnderTheHood\ExpressionExtensions.cs" />
     <Compile Include="UnderTheHood\Generator.cs" />
     <Compile Include="GeneratorToLinq.cs" />
     <Compile Include="IntGen.cs" />
@@ -49,6 +50,8 @@
     <Compile Include="UnderTheHood\Result.cs" />
     <Compile Include="UnderTheHood\State.cs" />
     <Compile Include="StringGen.cs" />
+    <Compile Include="UnderTheHood\Unit.cs" />
+    <Compile Include="With.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharGeneration.cs" />
+    <Compile Include="IgnoringProperties.cs" />
     <Compile Include="IntGeneration.cs" />
     <Compile Include="ObjectWithInt.cs" />
     <Compile Include="Spike.cs" />

@@ -21,6 +21,8 @@ namespace QuickMGenerate
 						var instance = Activator.CreateInstance<T>();
 						foreach (var propertyInfo in instance.GetType().GetProperties(MyBinding.Flags))
 						{
+							if(s.StuffToIgnore.Contains(propertyInfo))
+								continue;
 							SetIfIsAKnownPrimitive(instance, propertyInfo, s);
 						}
 						return new Result<State, T>(instance, s);

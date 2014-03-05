@@ -42,6 +42,7 @@
     <Compile Include="IgnoringProperties.cs" />
     <Compile Include="IntGeneration.cs" />
     <Compile Include="ObjectWithInt.cs" />
+    <Compile Include="ReplacingTheDefaultGeneration.cs" />
     <Compile Include="Spike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringGeneration.cs" />

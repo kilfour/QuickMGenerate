@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using QuickMGenerate.UnderTheHood;
 
@@ -7,12 +6,6 @@ namespace QuickMGenerate
 {
 	public static partial class MGen
 	{
-		private static readonly Dictionary<Type, Generator<State, object>> PrimitiveGenerators
-			= new Dictionary<Type, Generator<State, object>>
-			  	{
-			  		{ typeof(int), Int().AsObject() }
-				};
-
 		public static Generator<State, T> One<T>()
 		{
 			return
@@ -29,19 +22,9 @@ namespace QuickMGenerate
 					};
 		}
 
-		public static Generator<State, object> AsObject<T>(this Generator<State, T> generator)
-		{
-			return
-				s =>
-					{  
-						var val = generator(s).Value;
-						return new Result<State, object>(val, s);
-					};
-		}
-
 		private static void SetIfIsAKnownPrimitive(object target, PropertyInfo propertyInfo, State state)
 		{
-			var primitiveGenerator = PrimitiveGenerators[propertyInfo.PropertyType];
+			var primitiveGenerator = state.PrimitiveGenerators[propertyInfo.PropertyType];
 			if (primitiveGenerator != null)
 			{
 				SetPropertyValue(propertyInfo, target, primitiveGenerator(state).Value);

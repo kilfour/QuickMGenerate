@@ -9,5 +9,11 @@ namespace QuickMGenerate.UnderTheHood
 		public readonly Random Random = new Random();
 
 		public readonly List<PropertyInfo> StuffToIgnore = new List<PropertyInfo>();
+
+		public readonly Dictionary<Type, Generator<State, object>> PrimitiveGenerators
+			= new Dictionary<Type, Generator<State, object>>
+			  	{
+			  		{ typeof(int), MGen.Int().AsObject() }
+				};
 	}
 }

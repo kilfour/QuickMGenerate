@@ -1,44 +1,37 @@
-﻿using System.Linq;
+﻿using QuickMGenerate.Tests.Tools;
 using QuickMGenerate.UnderTheHood;
 using Xunit;
 
-namespace QuickMGenerate.Tests
+namespace QuickMGenerate.Tests.Primitives
 {
-	public class CharGeneration
+	[Booleans(
+		Content = "Use `MGen.Bool()`. \n\nNo overload Exists.", 
+		Order = 0)]
+	public class BoolGeneration
 	{
-		private readonly char[] valid = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
-
 		[Fact]
-		public void DefaultGeneratorAlwaysBetweenLowerCaseAAndLowerCaseZ()
+		[Booleans(
+			Content = "The default generator generates True or False.", 
+			Order = 1)]
+		public void DefaultGeneratorSometimesGeneratesTrue()
 		{
-			var generator = MGen.Char();
+			var generator = MGen.Bool();
 			var state = new State();
-			for (int i = 0; i < 100; i++)
-			{
-				var val = generator.Generate(state);
-				Assert.True(valid.Any(c => c == val), val.ToString());
-			}
-		}
-
-		[Fact]
-		public void IsRandom()
-		{
-			var generator = MGen.Char();
-			var state = new State();
-			var val = generator.Generate(state);
-			var differs = false;
+			var isTrue = false;
 			for (int i = 0; i < 10; i++)
 			{
-				if (val != generator.Generate(state))
-					differs = true;
+				isTrue = isTrue || generator.Generate(state);
 			}
-			Assert.True(differs);
+			Assert.True(isTrue);
 		}
 
 		[Fact]
+		[Booleans(
+			Content = "Can be made to return `bool?` using the `.Nullable()` extension.", 
+			Order = 2)]
 		public void Nullable()
 		{
-			var generator = MGen.Char().Nullable();
+			var generator = MGen.Bool().Nullable();
 			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
@@ -48,7 +41,6 @@ namespace QuickMGenerate.Tests
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;
-					Assert.True(valid.Any(c => c == value.Value), value.Value.ToString());
 				}
 				else
 					isSomeTimesNull = true;
@@ -58,18 +50,25 @@ namespace QuickMGenerate.Tests
 		}
 
 		[Fact]
+		[Booleans(
+			Content = " - `bool` is automatically detected and generated for object properties.",
+			Order = 3)]
 		public void Property()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
 			var state = new State();
+			var isTrue = false;
 			for (int i = 0; i < 10; i++)
 			{
-				var value = generator.Generate(state).AProperty;
-				Assert.True(valid.Any(c => c == value), value.ToString());
+				isTrue = isTrue || generator.Generate(state).AProperty;
 			}
+			Assert.True(isTrue);
 		}
 
 		[Fact]
+		[Booleans(
+			Content = " - `bool?` is automatically detected and generated for object properties.",
+			Order = 4)]
 		public void NullableProperty()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
@@ -82,7 +81,6 @@ namespace QuickMGenerate.Tests
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;
-					Assert.True(valid.Any(c => c == value.Value), value.Value.ToString());
 				}
 				else
 					isSomeTimesNull = true;
@@ -93,8 +91,17 @@ namespace QuickMGenerate.Tests
 
 		public class SomeThingToGenerate
 		{
-			public char AProperty { get; set; }
-			public char? ANullableProperty { get; set; }
+			public bool AProperty { get; set; }
+			public bool? ANullableProperty { get; set; }
+		}
+
+		public class BooleansAttribute : GeneratingPrimitivesAttribute
+		{
+			public BooleansAttribute()
+			{
+				Caption = "Booleans";
+				CaptionOrder = 2;
+			}
 		}
 	}
 }

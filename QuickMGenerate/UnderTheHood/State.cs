@@ -13,6 +13,7 @@ namespace QuickMGenerate.UnderTheHood
 		public readonly Dictionary<Type, Generator<State, object>> PrimitiveGenerators
 			= new Dictionary<Type, Generator<State, object>>
 			  	{
+					{ typeof(string), MGen.String().AsObject() },
 			  		{ typeof(int), MGen.Int().AsObject() },
 					{ typeof(int?), MGen.Int().Nullable().AsObject() },
 					{ typeof(char), MGen.Char().AsObject() },

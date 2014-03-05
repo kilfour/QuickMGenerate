@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace QuickMGenerate
 {
-	public static class MGen
+	public static partial class MGen
 	{
 		public static T Generate<T>(this Generator<State, T> generator)
 		{
-			return generator(new State { Int = 1 }).Value;
+			return generator(new State()).Value;
 		}
 
 		public static T Generate<T>(this Generator<State, T> generator, State state)
@@ -28,11 +28,6 @@ namespace QuickMGenerate
 						return new Result<State, IEnumerable<T>>(list, s);
 					};
 
-		}
-
-		public static Generator<State, int> Int()
-		{
-			return s => new Result<State, int>(s.Int++, s);
 		}
 
 		public static Generator<State, string> String()

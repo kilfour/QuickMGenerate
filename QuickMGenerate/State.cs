@@ -1,7 +1,9 @@
-﻿namespace QuickMGenerate
+﻿using System;
+
+namespace QuickMGenerate
 {
 	public class State
 	{
-		public int Int;
+		public readonly Random Random = new Random();
 	}
 }

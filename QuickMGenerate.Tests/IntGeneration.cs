@@ -56,7 +56,7 @@ namespace QuickMGenerate.Tests
 			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				Assert.NotEqual(0, generator.Generate(state).AnInt);
+				Assert.NotEqual(0, generator.Generate(state).AProperty);
 			}
 		}
 
@@ -69,7 +69,7 @@ namespace QuickMGenerate.Tests
 			var isSomeTimesNotNull = false;
 			for (int i = 0; i < 10; i++)
 			{
-				var value = generator.Generate(state).ANullableInt;
+				var value = generator.Generate(state).ANullableProperty;
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;
@@ -84,8 +84,8 @@ namespace QuickMGenerate.Tests
 
 		public class SomeThingToGenerate
 		{
-			public int AnInt { get; set; }
-			public int? ANullableInt { get; set; }
+			public int AProperty { get; set; }
+			public int? ANullableProperty { get; set; }
 		}
 	}
 }

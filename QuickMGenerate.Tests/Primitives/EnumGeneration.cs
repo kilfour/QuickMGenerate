@@ -1,0 +1,72 @@
+﻿using QuickMGenerate.UnderTheHood;
+using Xunit;
+
+namespace QuickMGenerate.Tests.Primitives
+{
+	[Enums(
+		Content = "Use `MGen.Enum<T>()`, where T is the type of Enum you want to generate. \n\nNo overload Exists.",
+		Order = 0)]
+	public class EnumGeneration
+	{
+		[Fact]
+		[Enums(
+			Content = 
+"The default generator just picks a random value from all enemeration values.",
+			Order = 1)]
+		public void DefaultGenerator()
+		{
+			var generator = MGen.Enum<MyEnumeration>();
+			var state = new State();
+			var one = false;
+			var two = false;
+			for (int i = 0; i < 10; i++)
+			{
+				var value = generator.Generate(state);
+				one = one || value == MyEnumeration.MyOne;
+				two = two || value == MyEnumeration.Mytwo;
+			}
+			Assert.True(one);
+			Assert.True(two);
+		}
+
+		[Fact]
+		[Enums(
+			Content = " - An Enumeration is automatically detected and generated for object properties.",
+			Order = 3)]
+		public void Property()
+		{
+			var generator = MGen.One<SomeThingToGenerate>();
+			var state = new State();
+			var one = false;
+			var two = false;
+			for (int i = 0; i < 10; i++)
+			{
+				var value = generator.Generate(state).AnEnumeration;
+				one = one || value == MyEnumeration.MyOne;
+				two = two || value == MyEnumeration.Mytwo;
+			}
+			Assert.True(one);
+			Assert.True(two);
+		}
+
+		public class SomeThingToGenerate
+		{
+			public MyEnumeration AnEnumeration { get; set; }
+		}
+
+		public enum MyEnumeration
+		{
+			MyOne,
+			Mytwo
+		}
+
+		public class EnumsAttribute : GeneratingPrimitivesAttribute
+		{
+			public EnumsAttribute()
+			{
+				Caption = "Enumerations";
+				CaptionOrder = 10;
+			}
+		}
+	}
+}

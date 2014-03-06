@@ -40,15 +40,19 @@
   <ItemGroup>
     <Compile Include="CustomizeTypePluggableFunctionsSpike.cs" />
     <Compile Include="NumericStringSpike.cs" />
+    <Compile Include="Objects\GeneratingObjectsAttribute.cs" />
+    <Compile Include="Objects\IntGeneration.cs" />
     <Compile Include="Primitives\BoolGeneration.cs" />
     <Compile Include="Primitives\CharGeneration.cs" />
     <Compile Include="IgnoringProperties.cs" />
+    <Compile Include="Primitives\EnumGeneration.cs" />
+    <Compile Include="Primitives\CustomPrimitiveGenerators.cs" />
     <Compile Include="Primitives\LongGeneration.cs" />
     <Compile Include="Primitives\DateTimeGeneration.cs" />
     <Compile Include="Primitives\DecimalGeneration.cs" />
     <Compile Include="Primitives\IntGeneration.cs" />
     <Compile Include="ModifySpike.cs" />
-    <Compile Include="ReplacingTheDefaultGeneration.cs" />
+    <Compile Include="ReplacingPrimitiveGenerators.cs" />
     <Compile Include="Spike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Primitives\StringGeneration.cs" />
@@ -63,6 +67,7 @@
       <Name>QuickMGenerate</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

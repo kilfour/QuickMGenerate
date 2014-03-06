@@ -16,9 +16,16 @@ namespace QuickMGenerate
 						{
 							if(s.StuffToIgnore.Contains(propertyInfo))
 								continue;
-							if (!IsAKnownPrimitive(s, propertyInfo))
+							if (IsAKnownPrimitive(s, propertyInfo))
+							{
+								SetPrimitive(instance, propertyInfo, s);
 								continue;
-							SetPrimitive(instance, propertyInfo, s);
+							}
+							if (propertyInfo.PropertyType.IsEnum)
+							{
+								var value = GetEnumValue(propertyInfo.PropertyType, s);
+								SetPropertyValue(propertyInfo, instance, value);
+							}
 						}
 						return new Result<State, T>(instance, s);
 					};

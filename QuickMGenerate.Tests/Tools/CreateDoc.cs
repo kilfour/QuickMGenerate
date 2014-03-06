@@ -49,7 +49,6 @@ namespace QuickMGenerate.Tests.Tools
 			sb.AppendLine(Sidenotes);
 			using (var writer = new StreamWriter("../../../README.md", false))
 				writer.Write(sb.ToString());
-			Console.WriteLine(sb.ToString());
 		}
 
 		private const string Introduction =
@@ -62,6 +61,7 @@ Aiming for :
  - a terser (Linq) syntax 
  - a better way of dealing with state
  - better composability of generators
+ - better documentation
  - fun
 
 ---
@@ -75,9 +75,7 @@ These will be left out, but an easy means of implementing them yourselves, when 
 
 In contrary to my usual disdain for Extension Methods, QuickMGenerate makes heavy use of them.
 
-Par example :
-
-Casting generators :
+Par example, ... casting generators :
 
 ```
 public static Generator<State, string> AsString<T>(this Generator<State, T> generator)
@@ -90,13 +88,11 @@ Once you figure out the Generator Delegate, I reckon a lot of extensability is a
 
 F.i. the Nullable extension only shows up on generators for structs.
 
-In the future the TState generic type of the Generator will be introduced in the MGen class methods.
+In future the TState generic type of the Generator will be introduced in the MGen class methods.
 
 This will allow for an extension of the State object that is threaded around through the generators.
 
 Something that 'll be really usefull for QuickDotNetCheck for one.
-
----
 ";
 	}
 }

@@ -7,6 +7,7 @@ Aiming for :
  - a terser (Linq) syntax 
  - a better way of dealing with state
  - better composability of generators
+ - better documentation
  - fun
 
 ---
@@ -26,6 +27,12 @@ Can be made to return `int?` using the `.Nullable()` extension.
  - `Int32` is automatically detected and generated for object properties.
 
  - `int?` is automatically detected and generated for object properties.
+
+
+###A simple object.
+Use `MGen.One<T>()`, where T is the type of object you want to generate.
+
+The primitive properties of the object will be automatically filled in using the default (or replaced) generators.
 
 
 ###Chars
@@ -112,6 +119,38 @@ Can be made to return `long?` using the `.Nullable()` extension.
  - `long?` is automatically detected and generated for object properties.
 
 
+###Enumerations
+Use `MGen.Enum<T>()`, where T is the type of Enum you want to generate. 
+
+No overload Exists.
+
+The default generator just picks a random value from all enemeration values.
+
+ - An Enumeration is automatically detected and generated for object properties.
+
+
+###Custom Primitive Generators
+Any function that returns a value of type `Generator<State, T>` can be used as an MGen generator.
+
+Generator is defined as a delegate like so :
+```
+public delegate IResult<TState, TValue> Generator<TState, out TValue>(TState input)
+```
+
+
+So f.i. to define a generator that always returns the number forty-two we need a function that returns the following :
+```
+return s => new Result<State, int>(s.Random.Next(42, 42), s);
+```
+
+As you can see from the signature a state object is passed to the generator.
+This is where the random seed lives.
+If you want any kind of random, it is advised to use that one, like so :
+```
+return s => new Result<State, int>(s.Random.Next(42, 42), s);
+```
+
+
 
 ___
 ##On a side note
@@ -122,9 +161,7 @@ These will be left out, but an easy means of implementing them yourselves, when 
 
 In contrary to my usual disdain for Extension Methods, QuickMGenerate makes heavy use of them.
 
-Par example :
-
-Casting generators :
+Par example, ... casting generators :
 
 ```
 public static Generator<State, string> AsString<T>(this Generator<State, T> generator)
@@ -137,11 +174,9 @@ Once you figure out the Generator Delegate, I reckon a lot of extensability is a
 
 F.i. the Nullable extension only shows up on generators for structs.
 
-In the future the TState generic type of the Generator will be introduced in the MGen class methods.
+In future the TState generic type of the Generator will be introduced in the MGen class methods.
 
 This will allow for an extension of the State object that is threaded around through the generators.
 
 Something that 'll be really usefull for QuickDotNetCheck for one.
-
----
 

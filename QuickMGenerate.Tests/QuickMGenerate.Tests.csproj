@@ -44,6 +44,7 @@
     <Compile Include="CreatingCustomGenerators\CustomGeneratorsAttribute.cs" />
     <Compile Include="OtherUsefullGenerators\Casting.cs" />
     <Compile Include="OtherUsefullGenerators\Choosing.cs" />
+    <Compile Include="OtherUsefullGenerators\Apply.cs" />
     <Compile Include="OtherUsefullGenerators\OtherUsefullGeneratorsAttribute.cs" />
     <Compile Include="OtherUsefullGenerators\Constant.cs" />
     <Compile Include="CustomizeTypePluggableFunctionsSpike.cs" />

@@ -125,6 +125,25 @@ When asking for more unique values than the generator can supply, an exception i
 Multiple unique generators can be defined in one 'composed' generator without interfering with eachother.
 
 
+###Apply.
+Use the `.Apply<T>(Func<T, T> action)` extension method.
+
+Applies the specified Function to the generated value, returning the result.
+F.i. `MGen.Constant(41).Apply(i =>  i + 1)` will return 42.
+
+Par Example, when you want all decimals to be rounded to a certain precision : 
+```
+var generator = 
+	from _ in MGen.Decimal().Apply(d => Math.Round(d, 2)).Replace()
+	from result in MGen.One<SomeThingToGenerate>()
+	select result;
+```
+
+An overload exists with signature `Apply<T>(Action<T> action)`.
+This is usefull when dealing with objects and you just don't want to return said object.
+E.g. `MGen.One<SomeThingToGenerate>().Apply(session.Save)`.
+
+
 ###Casting Generators.
 Various extension methods allow for casting the generated value.
 

@@ -13,9 +13,9 @@ namespace QuickMGenerate
 						if (!s.GeneratorMemory.ContainsKey(generator))
 							s.GeneratorMemory[generator] = new List<T>();
 						var allreadyGenerated = (List<T>) s.GeneratorMemory[generator];
-						var result = generator(s);
 						for (int i = 0; i < 50; i++)
 						{
+							var result = generator(s);
 							if(!allreadyGenerated.Contains(result.Value))
 							{
 								allreadyGenerated.Add(result.Value);

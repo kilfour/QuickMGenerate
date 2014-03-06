@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping 
+  xmlns="urn:nhibernate-mapping-2.2" 
+  namespace="QuickMGenerate.NHibernate.Testing.Sample.Domain" 
+  assembly="QuickMGenerate.NHibernate.Testing.Sample">
+
+	<class name="SuperHero" optimistic-lock="dirty" dynamic-update="true">
+		<id name="Id" column="Id" >
+			<generator class="guid.comb" />
+		</id>
+		<property name="Name" length="50" not-null="true" />
+		<set name="SuperPowers" cascade="all-delete-orphan">
+			<key column="SuperHeroId" />
+			<one-to-many class="SuperPower" />
+		</set>
+	</class>
+
+	<class name="SuperPower" optimistic-lock="dirty" dynamic-update="true">
+		<id name="Id" column="Id" >
+			<generator class="guid.comb" />
+		</id>
+		<property name="Name" length="50" not-null="true" />
+		<property name="Description" length="255" not-null="true" />
+		<set name="SuperPowerEffects" cascade="all-delete-orphan">
+			<key column="SuperPowerId" />
+			<one-to-many class="SuperPowerEffect" />
+		</set>
+	</class>
+
+	<class name="SuperPowerEffect" optimistic-lock="dirty" dynamic-update="true">
+		<id name="Id" column="Id" >
+			<generator class="guid.comb" />
+		</id>
+		<property name="Name" length="50" not-null="true" />
+		<property name="Description" length="255" not-null="true" />
+	</class>
+	
+</hibernate-mapping>

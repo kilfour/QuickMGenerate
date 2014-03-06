@@ -19,7 +19,9 @@ namespace QuickMGenerate.UnderTheHood
 					{ typeof(char), MGen.Char().AsObject() },
 					{ typeof(char?), MGen.Char().Nullable().AsObject() },
 					{ typeof(bool), MGen.Bool().AsObject() },
-					{ typeof(bool?), MGen.Bool().Nullable().AsObject() }
+					{ typeof(bool?), MGen.Bool().Nullable().AsObject() },
+					{ typeof(decimal), MGen.Decimal().AsObject() },
+					{ typeof(decimal?), MGen.Decimal().Nullable().AsObject() }
 				};
 	}
 }

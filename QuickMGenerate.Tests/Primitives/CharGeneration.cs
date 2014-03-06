@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using QuickMGenerate.Tests.Tools;
 using QuickMGenerate.UnderTheHood;
 using Xunit;
@@ -110,6 +111,7 @@ namespace QuickMGenerate.Tests.Primitives
 		public class SomeThingToGenerate
 		{
 			public char AProperty { get; set; }
+			public Char ACharProperty { get; set; }
 			public char? ANullableProperty { get; set; }
 		}
 

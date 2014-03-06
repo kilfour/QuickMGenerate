@@ -41,6 +41,16 @@ Can be made to return `char?` using the `.Nullable()` extension.
  - `char?` is automatically detected and generated for object properties.
 
 
+###Strings
+Use `MGen.String()`. 
+
+No overload Exists.
+
+The Default generator generates a string of length higher than 0 and lower than 10.
+
+The default generator always generates every char element of the string to be between lower case 'a' and lower case 'z'.
+
+
 ###Booleans
 Use `MGen.Bool()`. 
 

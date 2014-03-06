@@ -1,5 +1,4 @@
-﻿using QuickMGenerate.Tests.Tools;
-using QuickMGenerate.UnderTheHood;
+﻿using QuickMGenerate.UnderTheHood;
 using Xunit;
 
 namespace QuickMGenerate.Tests.Primitives
@@ -100,7 +99,7 @@ namespace QuickMGenerate.Tests.Primitives
 			public BooleansAttribute()
 			{
 				Caption = "Booleans";
-				CaptionOrder = 2;
+				CaptionOrder = 3;
 			}
 		}
 	}

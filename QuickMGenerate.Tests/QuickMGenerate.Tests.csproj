@@ -42,6 +42,7 @@
     <Compile Include="Combining\LinqSyntax.cs" />
     <Compile Include="CreatingCustomGenerators\CustomGenerators.cs" />
     <Compile Include="CreatingCustomGenerators\CustomGeneratorsAttribute.cs" />
+    <Compile Include="OtherUsefullGenerators\Casting.cs" />
     <Compile Include="OtherUsefullGenerators\OtherUsefullGeneratorsAttribute.cs" />
     <Compile Include="OtherUsefullGenerators\Constant.cs" />
     <Compile Include="CustomizeTypePluggableFunctionsSpike.cs" />

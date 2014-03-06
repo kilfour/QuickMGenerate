@@ -38,7 +38,9 @@ Console.WriteLine(stringGenerator.Generate());
 ```
 Will output something like `28ziicuiq56`.
 
-Generators are reusable building blocks. In the following :
+Generators are reusable building blocks. 
+
+In the following :
 ```
 var generator =
 	from str in stringGenerator.Replace()
@@ -101,6 +103,14 @@ ___
 Use `MGen.Constant<T>(T value)`.
 
 this generator is most usefull in combination with others and is used to inject constants into combined generators.
+
+
+###Casting Generators.
+Various extension methods allow for casting the generated value.
+
+ - '.AsString()' : Invokes '.ToString()' on the generated value. Usefull f.i. to generate numeric strings.
+
+ - '.AsObject()' : Simply casts the generator itself from `Generator<State, T>` to `Generator<State, object>`. Mostly used internally.
 
 
 
@@ -247,7 +257,7 @@ return s => new Result<State, int>(s.Random.Next(42, 42), s);
 ___
 ##On a side note
 
-QuickGenerate has a lot of mostly unused and undocumented features.
+The old QuickGenerate has a lot of mostly unused and undocumented features.
 
 These will be left out, but an easy means of implementing them yourselves, when needed, will be provided.
 

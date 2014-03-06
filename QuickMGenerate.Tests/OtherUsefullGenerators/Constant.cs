@@ -17,12 +17,6 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 			Assert.Equal(42, MGen.Constant(42).Generate());
 		}
 
-		public enum MyEnumeration
-		{
-			MyOne,
-			Mytwo
-		}
-
 		public class ConstantAttribute : OtherUsefullGeneratorsAttribute
 		{
 			public ConstantAttribute()

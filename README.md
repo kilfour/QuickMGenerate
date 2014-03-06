@@ -158,6 +158,12 @@ Use `MGen.One<T>()`, where T is the type of object you want to generate.
 - The enumeration properties of the object will be automatically filled in using the default (or replaced) MGen.Enum<T> generator.
 
 
+###Many objects.
+Use The `.Many(int number)` generator extension.
+
+The generator will generate an IEnumerable<T> of `int number` elements where T is the result type of the extended generator.
+
+
 
 ___
 ##On a side note

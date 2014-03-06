@@ -100,7 +100,7 @@ namespace QuickMGenerate.Tests.Primitives
 			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (long i = 0; i < 10; i++)
+			for (long i = 0; i < 20; i++)
 			{
 				var value = generator.Generate(state).ANullableProperty;
 				if (value.HasValue)

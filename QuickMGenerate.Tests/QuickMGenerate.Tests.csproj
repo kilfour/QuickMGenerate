@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="CustomizeTypePluggableFunctionsSpike.cs" />
     <Compile Include="NumericStringSpike.cs" />
+    <Compile Include="Objects\ManyObjects.cs" />
     <Compile Include="Objects\GeneratingObjectsAttribute.cs" />
     <Compile Include="Objects\SimpleObject.cs" />
     <Compile Include="Primitives\BoolGeneration.cs" />

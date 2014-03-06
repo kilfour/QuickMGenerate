@@ -25,6 +25,27 @@ namespace QuickMGenerate
 							{
 								var value = GetEnumValue(propertyInfo.PropertyType, s);
 								SetPropertyValue(propertyInfo, instance, value);
+								continue;
+							}
+							if (propertyInfo.PropertyType.IsGenericType)
+							{
+								var genericType = propertyInfo.PropertyType.GetGenericTypeDefinition();
+								if(genericType != typeof(Nullable<>))
+									continue;
+								var genericArgument = propertyInfo.PropertyType.GetGenericArguments()[0];
+								if(!genericArgument.IsEnum)
+									continue;
+								if (s.Random.Next(0, 5) == 0)
+								{
+									SetPropertyValue(propertyInfo, instance, null);	
+								}
+								else
+								{
+									var value = GetEnumValue(genericArgument, s);
+									SetPropertyValue(propertyInfo, instance, System.Enum.ToObject(genericArgument, value));	
+								}
+								
+								continue;
 							}
 						}
 						return new Result<State, T>(instance, s);

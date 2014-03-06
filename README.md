@@ -227,6 +227,8 @@ The default generator just picks a random value from all enemeration values.
 
  - An Enumeration is automatically detected and generated for object properties.
 
+ - A nullable Enumeration is automatically detected and generated for object properties.
+
  - Passing in a non Enum type for T throws an ArgumentException.
 
 

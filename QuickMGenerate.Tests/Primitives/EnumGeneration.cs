@@ -52,6 +52,30 @@ namespace QuickMGenerate.Tests.Primitives
 
 		[Fact]
 		[Enums(
+			Content = " - A nullable Enumeration is automatically detected and generated for object properties.",
+			Order = 3)]
+		public void NullableProperty()
+		{
+			var generator = MGen.One<SomeThingToGenerate>();
+			var state = new State();
+			var isSomeTimesNull = false;
+			var isSomeTimesNotNull = false;
+			for (int i = 0; i < 20; i++)
+			{
+				var value = generator.Generate(state).ANullableProperty;
+				if (value.HasValue)
+				{
+					isSomeTimesNotNull = true;
+				}
+				else
+					isSomeTimesNull = true;
+			}
+			Assert.True(isSomeTimesNull);
+			Assert.True(isSomeTimesNotNull);
+		}
+
+		[Fact]
+		[Enums(
 			Content = " - Passing in a non Enum type for T throws an ArgumentException.",
 			Order = 3)]
 		public void Throws()
@@ -62,6 +86,7 @@ namespace QuickMGenerate.Tests.Primitives
 		public class SomeThingToGenerate
 		{
 			public MyEnumeration AnEnumeration { get; set; }
+			public MyEnumeration? ANullableProperty { get; set; }
 		}
 
 		public enum MyEnumeration

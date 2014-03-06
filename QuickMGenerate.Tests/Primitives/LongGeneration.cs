@@ -4,52 +4,50 @@ using Xunit;
 
 namespace QuickMGenerate.Tests.Primitives
 {
-	[Decimals(
-		Content = "Use `MGen.Decimal()`.",
+	[Longs(
+		Content = "Use `MGen.Long()`.",
 		Order = 0)]
-	public class DecimalGeneration
+	public class LongGeneration
 	{
 		[Fact]
-		[Decimals(
-			Content = "The overload `MGen.Decimal(int min, int max)` generates an int higher or equal than min and lower than max.",
+		[Longs(
+			Content = "The overload `MGen.Long(long min, long max)` generates a long higher or equal than min and lower than max.",
 			Order = 1)]
 		public void Zero()
 		{
-			var generator = MGen.Decimal(0, 0);
+			var generator = MGen.Long(0, 0);
 			var state = new State();
-			for (int i = 0; i < 10; i++)
+			for (long i = 0; i < 10; i++)
 			{
 				Assert.Equal(0, generator.Generate(state));
 			}
 		}
 
 		[Fact]
-		[Decimals(
+		[Longs(
 			Content = "The default generator is (min = 1, max = 100).",
 			Order = 2)]
 		public void DefaultGeneratorNeverGeneratesZero()
 		{
-			var generator = MGen.Decimal();
+			var generator = MGen.Long();
 			var state = new State();
-			for (int i = 0; i < 10; i++)
+			for (long i = 0; i < 10; i++)
 			{
-				var val = generator.Generate(state);
-				Assert.True(val > 1);
-				Assert.True(val < 100);
+				Assert.NotEqual(0, generator.Generate(state));
 			}
 		}
 
 		[Fact]
-		[Decimals(
-			Content = "Can be made to return `decimal?` using the `.Nullable()` extension.",
+		[Longs(
+			Content = "Can be made to return `long?` using the `.Nullable()` extension.",
 			Order = 3)]
 		public void Nullable()
 		{
-			var generator = MGen.Decimal().Nullable();
+			var generator = MGen.Long().Nullable();
 			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 20; i++)
+			for (long i = 0; i < 20; i++)
 			{
 				var value = generator.Generate(state);
 				if (value.HasValue)
@@ -65,30 +63,44 @@ namespace QuickMGenerate.Tests.Primitives
 		}
 
 		[Fact]
-		[Decimals(
-			Content = " - `decimal` is automatically detected and generated for object properties.",
+		[Longs(
+			Content = " - `long` is automatically detected and generated for object properties.",
 			Order = 4)]
 		public void Property()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
 			var state = new State();
-			for (int i = 0; i < 10; i++)
+			for (long i = 0; i < 10; i++)
 			{
 				Assert.NotEqual(0, generator.Generate(state).AProperty);
 			}
 		}
 
 		[Fact]
-		[Decimals(
-			Content = " - `decimal?` is automatically detected and generated for object properties.",
+		[Longs(
+			Content = " - `Int64` is automatically detected and generated for object properties.",
 			Order = 5)]
+		public void Long32Property()
+		{
+			var generator = MGen.One<SomeThingToGenerate>();
+			var state = new State();
+			for (long i = 0; i < 10; i++)
+			{
+				Assert.NotEqual(0, generator.Generate(state).AnInt64Property);
+			}
+		}
+
+		[Fact]
+		[Longs(
+			Content = " - `long?` is automatically detected and generated for object properties.",
+			Order = 6)]
 		public void NullableProperty()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
 			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 20; i++)
+			for (long i = 0; i < 10; i++)
 			{
 				var value = generator.Generate(state).ANullableProperty;
 				if (value.HasValue)
@@ -105,16 +117,17 @@ namespace QuickMGenerate.Tests.Primitives
 
 		public class SomeThingToGenerate
 		{
-			public decimal AProperty { get; set; }
-			public decimal? ANullableProperty { get; set; }
+			public long AProperty { get; set; }
+			public Int64 AnInt64Property { get; set; }
+			public long? ANullableProperty { get; set; }
 		}
 
-		public class DecimalsAttribute : GeneratingPrimitivesAttribute
+		public class LongsAttribute : GeneratingPrimitivesAttribute
 		{
-			public DecimalsAttribute()
+			public LongsAttribute()
 			{
-				Caption = "Decimals";
-				CaptionOrder = 5;
+				Caption = "Longs";
+				CaptionOrder = 7;
 			}
 		}
 	}

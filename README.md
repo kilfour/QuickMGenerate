@@ -95,4 +95,20 @@ Can be made to return `DateTime?` using the `.Nullable()` extension.
  - `DateTime?` is automatically detected and generated for object properties.
 
 
+###Longs
+Use `MGen.Long()`.
+
+The overload `MGen.Long(long min, long max)` generates a long higher or equal than min and lower than max.
+
+The default generator is (min = 1, max = 100).
+
+Can be made to return `long?` using the `.Nullable()` extension.
+
+ - `long` is automatically detected and generated for object properties.
+
+ - `Int64` is automatically detected and generated for object properties.
+
+ - `long?` is automatically detected and generated for object properties.
+
+
 

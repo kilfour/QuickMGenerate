@@ -23,7 +23,9 @@ namespace QuickMGenerate.UnderTheHood
 					{ typeof(decimal), MGen.Decimal().AsObject() },
 					{ typeof(decimal?), MGen.Decimal().Nullable().AsObject() },
 					{ typeof(DateTime), MGen.DateTime().AsObject() },
-					{ typeof(DateTime?), MGen.DateTime().Nullable().AsObject() }
+					{ typeof(DateTime?), MGen.DateTime().Nullable().AsObject() },
+					{ typeof(long), MGen.Long().AsObject() },
+					{ typeof(long?), MGen.Long().Nullable().AsObject() }
 				};
 	}
 }

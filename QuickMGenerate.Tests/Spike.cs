@@ -43,6 +43,7 @@ namespace QuickMGenerate.Tests
 				Console.WriteLine(someChild.AnInt);
 			}
 		}
+
 		public class SomeThingToGenerate
 		{
 			public string AString { get; set; }

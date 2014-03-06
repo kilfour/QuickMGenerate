@@ -1,5 +1,4 @@
-﻿using QuickMGenerate.Tests.Primitives;
-using Xunit;
+﻿using Xunit;
 
 namespace QuickMGenerate.Tests.Objects
 {
@@ -23,7 +22,7 @@ namespace QuickMGenerate.Tests.Objects
 			public int AProperty { get; set; }
 		}
 
-		public class SimpleObjectAttribute : GeneratingPrimitivesAttribute
+		public class SimpleObjectAttribute : GeneratingObjectsAttribute
 		{
 			public SimpleObjectAttribute()
 			{

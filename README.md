@@ -29,12 +29,6 @@ Can be made to return `int?` using the `.Nullable()` extension.
  - `int?` is automatically detected and generated for object properties.
 
 
-###A simple object.
-Use `MGen.One<T>()`, where T is the type of object you want to generate.
-
-The primitive properties of the object will be automatically filled in using the default (or replaced) generators.
-
-
 ###Chars
 Use `MGen.Char()`. 
 
@@ -128,6 +122,8 @@ The default generator just picks a random value from all enemeration values.
 
  - An Enumeration is automatically detected and generated for object properties.
 
+ - Passing in a non Enum type for T throws an ArgumentException.
+
 
 ###Custom Primitive Generators
 Any function that returns a value of type `Generator<State, T>` can be used as an MGen generator.
@@ -149,6 +145,15 @@ If you want any kind of random, it is advised to use that one, like so :
 ```
 return s => new Result<State, int>(s.Random.Next(42, 42), s);
 ```
+
+
+
+___
+##Generating Objects
+###A simple object.
+Use `MGen.One<T>()`, where T is the type of object you want to generate.
+
+The primitive properties of the object will be automatically filled in using the default (or replaced) generators.
 
 
 

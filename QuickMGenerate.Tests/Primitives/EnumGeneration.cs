@@ -1,4 +1,5 @@
-﻿using QuickMGenerate.UnderTheHood;
+﻿using System;
+using QuickMGenerate.UnderTheHood;
 using Xunit;
 
 namespace QuickMGenerate.Tests.Primitives
@@ -32,7 +33,7 @@ namespace QuickMGenerate.Tests.Primitives
 		[Fact]
 		[Enums(
 			Content = " - An Enumeration is automatically detected and generated for object properties.",
-			Order = 3)]
+			Order = 2)]
 		public void Property()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
@@ -47,6 +48,15 @@ namespace QuickMGenerate.Tests.Primitives
 			}
 			Assert.True(one);
 			Assert.True(two);
+		}
+
+		[Fact]
+		[Enums(
+			Content = " - Passing in a non Enum type for T throws an ArgumentException.",
+			Order = 3)]
+		public void Throws()
+		{
+			Assert.Throws<ArgumentException>(() => MGen.Enum<int>().Generate());
 		}
 
 		public class SomeThingToGenerate

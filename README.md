@@ -130,9 +130,10 @@ Casting generators :
 public static Generator<State, string> AsString<T>(this Generator<State, T> generator)
 {
 	return s => new Result<State, string>(generator(s).Value.ToString(), s);
-}```
+}
+```
 
-Once you figure out the Generator Delegate, I reckon a lot of extensability is available to you through custom extension method and it doesn't flood your intellisense because of the specific types.
+Once you figure out the Generator Delegate, I reckon a lot of extensability is available to you through custom extension methods and it doesn't flood your intellisense because of the specific types.
 
 F.i. the Nullable extension only shows up on generators for structs.
 

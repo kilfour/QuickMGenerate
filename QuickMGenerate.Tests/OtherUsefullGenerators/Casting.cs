@@ -12,7 +12,7 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 		[Casting(
 			Content =
 @" - `.AsString()` : Invokes `.ToString()` on the generated value and 
-casts the generator from `Generator<State, T>` to `Generator<State, object>`. 
+casts the generator from `Generator<State, T>` to `Generator<State, string>`. 
 Usefull f.i. to generate numeric strings.",
 			Order = 1)]
 		public void AsString()

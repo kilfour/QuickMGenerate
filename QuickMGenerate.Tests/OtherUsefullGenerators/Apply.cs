@@ -24,7 +24,7 @@ F.i. `MGen.Constant(41).Apply(i =>  i + 1)` will return 42.",
 		[Fact]
 		[Apply(
 			Content =
-@"Par Example, when you want all decimals to be rounded to a certain precision : 
+@"Par example, when you want all decimals to be rounded to a certain precision : 
 ```
 var generator = 
 	from _ in MGen.Decimal().Apply(d => Math.Round(d, 2)).Replace()

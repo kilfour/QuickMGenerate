@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using QuickMGenerate.UnderTheHood;
+﻿using QuickMGenerate.UnderTheHood;
 using Xunit;
 
 namespace QuickMGenerate.Tests
@@ -26,5 +24,4 @@ namespace QuickMGenerate.Tests
 			public bool ABool { get; set; }
 		}
 	}
-
 }

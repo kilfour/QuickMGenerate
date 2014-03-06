@@ -39,10 +39,34 @@ namespace QuickMGenerate.Tests.Objects
 			Assert.True(two);
 		}
 
+		[Fact]
+		[SimpleObject(
+			Content =
+@"- Also works for properties with private setters.",
+			Order = 1)]
+		public void FillsPrivateSetterProperties()
+		{
+			Assert.NotEqual(0, MGen.One<SomeThingToGenerate>().Generate().APropertyWithPrivateSetters);
+			var generator = MGen.One<SomeThingToGenerate>();
+			var state = new State();
+			var one = false;
+			var two = false;
+			for (int i = 0; i < 20; i++)
+			{
+				var value = generator.Generate(state).AnEnumerationWithPrivateSetter;
+				one = one || value == MyEnumeration.MyOne;
+				two = two || value == MyEnumeration.Mytwo;
+			}
+			Assert.True(one);
+			Assert.True(two);
+		}
+
 		public class SomeThingToGenerate
 		{
 			public int AProperty { get; set; }
+			public int APropertyWithPrivateSetters { get; private set; }
 			public MyEnumeration AnEnumeration { get; set; }
+			public MyEnumeration AnEnumerationWithPrivateSetter { get; private set; }
 		}
 
 		public enum MyEnumeration

@@ -1,11 +1,13 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Text;
+using Xunit;
 
 namespace QuickMGenerate.Tests.Tools
 {
 	public class CreateDoc
 	{
+		[Fact]
 		public void Go()
 		{
 			var typeattributes =

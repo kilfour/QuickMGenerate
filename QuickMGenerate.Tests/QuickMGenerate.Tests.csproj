@@ -41,7 +41,7 @@
     <Compile Include="CustomizeTypePluggableFunctionsSpike.cs" />
     <Compile Include="NumericStringSpike.cs" />
     <Compile Include="Objects\GeneratingObjectsAttribute.cs" />
-    <Compile Include="Objects\IntGeneration.cs" />
+    <Compile Include="Objects\SimpleObject.cs" />
     <Compile Include="Primitives\BoolGeneration.cs" />
     <Compile Include="Primitives\CharGeneration.cs" />
     <Compile Include="IgnoringProperties.cs" />

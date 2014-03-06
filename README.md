@@ -153,7 +153,9 @@ ___
 ###A simple object.
 Use `MGen.One<T>()`, where T is the type of object you want to generate.
 
-The primitive properties of the object will be automatically filled in using the default (or replaced) generators.
+- The primitive properties of the object will be automatically filled in using the default (or replaced) generators.
+
+- The enumeration properties of the object will be automatically filled in using the default (or replaced) MGen.Enum<T> generator.
 
 
 

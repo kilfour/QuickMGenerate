@@ -38,6 +38,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NumericStringSpike.cs" />
     <Compile Include="Primitives\BoolGeneration.cs" />
     <Compile Include="Primitives\CharGeneration.cs" />
     <Compile Include="IgnoringProperties.cs" />
@@ -47,6 +48,7 @@
     <Compile Include="Spike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Primitives\StringGeneration.cs" />
+    <Compile Include="StringBuilderSpike.cs" />
     <Compile Include="Tools\CreateDoc.cs" />
     <Compile Include="Tools\DocAttribute.cs" />
     <Compile Include="Primitives\GeneratingPrimitivesAttribute.cs" />

@@ -37,8 +37,9 @@
   <ItemGroup>
     <Compile Include="Apply.cs" />
     <Compile Include="CharGen.cs" />
-    <Compile Include="AsObject.cs" />
+    <Compile Include="As.cs" />
     <Compile Include="BoolGen.cs" />
+    <Compile Include="Append.cs" />
     <Compile Include="Primitive.cs" />
     <Compile Include="Modify.cs" />
     <Compile Include="Nullable.cs" />

@@ -108,9 +108,11 @@ this generator is most usefull in combination with others and is used to inject 
 ###Casting Generators.
 Various extension methods allow for casting the generated value.
 
- - '.AsString()' : Invokes '.ToString()' on the generated value. Usefull f.i. to generate numeric strings.
+ - `.AsString()` : Invokes `.ToString()` on the generated value and 
+casts the generator from `Generator<State, T>` to `Generator<State, object>`. 
+Usefull f.i. to generate numeric strings.
 
- - '.AsObject()' : Simply casts the generator itself from `Generator<State, T>` to `Generator<State, object>`. Mostly used internally.
+ - `.AsObject()` : Simply casts the generator itself from `Generator<State, T>` to `Generator<State, object>`. Mostly used internally.
 
 
 

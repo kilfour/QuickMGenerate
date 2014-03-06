@@ -29,7 +29,7 @@ namespace QuickMGenerate.Tests.Objects
 			var state = new State();
 			var one = false;
 			var two = false;
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 20; i++)
 			{
 				var value = generator.Generate(state).AnEnumeration;
 				one = one || value == MyEnumeration.MyOne;

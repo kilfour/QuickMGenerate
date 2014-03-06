@@ -10,8 +10,10 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 	{
 		[Fact]
 		[Casting(
-			Content = 
-@" - '.AsString()' : Invokes '.ToString()' on the generated value. Usefull f.i. to generate numeric strings.",
+			Content =
+@" - `.AsString()` : Invokes `.ToString()` on the generated value and 
+casts the generator from `Generator<State, T>` to `Generator<State, object>`. 
+Usefull f.i. to generate numeric strings.",
 			Order = 1)]
 		public void AsString()
 		{
@@ -21,7 +23,7 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 		[Fact]
 		[Casting(
 			Content =
-@" - '.AsObject()' : Simply casts the generator itself from `Generator<State, T>` to `Generator<State, object>`. Mostly used internally.",
+@" - `.AsObject()` : Simply casts the generator itself from `Generator<State, T>` to `Generator<State, object>`. Mostly used internally.",
 			Order = 1)]
 		public void AsObject()
 		{

@@ -33,7 +33,7 @@ Will output something like `28ziicuiq56`.",
 			Assert.Equal("42Hello666", generator.Generate());
 		}
 
-		public class LinqSyntaxAttribute : GeneratingObjectsAttribute
+		public class LinqSyntaxAttribute : CombiningGeneratorsAttribute
 		{
 			public LinqSyntaxAttribute()
 			{

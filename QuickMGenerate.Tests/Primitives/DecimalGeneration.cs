@@ -109,7 +109,7 @@ namespace QuickMGenerate.Tests.Primitives
 			public decimal? ANullableProperty { get; set; }
 		}
 
-		public class DecimalsAttribute : GeneratingPrimitivesAttribute
+		public class DecimalsAttribute : ThePrimitiveGeneratorsAttribute
 		{
 			public DecimalsAttribute()
 			{

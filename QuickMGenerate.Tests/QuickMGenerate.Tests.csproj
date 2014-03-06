@@ -40,6 +40,8 @@
   <ItemGroup>
     <Compile Include="Combining\CombiningGeneratorsAttribute.cs" />
     <Compile Include="Combining\LinqSyntax.cs" />
+    <Compile Include="CreatingCustomGenerators\CustomGenerators.cs" />
+    <Compile Include="CreatingCustomGenerators\CustomGeneratorsAttribute.cs" />
     <Compile Include="OtherUsefullGenerators\OtherUsefullGeneratorsAttribute.cs" />
     <Compile Include="OtherUsefullGenerators\Constant.cs" />
     <Compile Include="CustomizeTypePluggableFunctionsSpike.cs" />
@@ -51,20 +53,19 @@
     <Compile Include="Primitives\CharGeneration.cs" />
     <Compile Include="IgnoringProperties.cs" />
     <Compile Include="Primitives\EnumGeneration.cs" />
-    <Compile Include="Primitives\CustomPrimitiveGenerators.cs" />
+    <Compile Include="Primitives\GeneratingPrimitivesAttribute.cs" />
     <Compile Include="Primitives\LongGeneration.cs" />
     <Compile Include="Primitives\DateTimeGeneration.cs" />
     <Compile Include="Primitives\DecimalGeneration.cs" />
     <Compile Include="Primitives\IntGeneration.cs" />
     <Compile Include="ModifySpike.cs" />
-    <Compile Include="ReplacingPrimitiveGenerators.cs" />
-    <Compile Include="Spike.cs" />
+    <Compile Include="Objects\ReplacingPrimitiveGenerators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Primitives\StringGeneration.cs" />
     <Compile Include="StringBuilderSpike.cs" />
     <Compile Include="Tools\CreateDoc.cs" />
     <Compile Include="Tools\DocAttribute.cs" />
-    <Compile Include="Primitives\GeneratingPrimitivesAttribute.cs" />
+    <Compile Include="Primitives\ThePrimitiveGeneratorsAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuickMGenerate\QuickMGenerate.csproj">

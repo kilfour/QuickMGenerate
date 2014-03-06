@@ -122,7 +122,7 @@ namespace QuickMGenerate.Tests.Primitives
 			public long? ANullableProperty { get; set; }
 		}
 
-		public class LongsAttribute : GeneratingPrimitivesAttribute
+		public class LongsAttribute : ThePrimitiveGeneratorsAttribute
 		{
 			public LongsAttribute()
 			{

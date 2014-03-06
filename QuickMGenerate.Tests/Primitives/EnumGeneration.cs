@@ -70,7 +70,7 @@ namespace QuickMGenerate.Tests.Primitives
 			Mytwo
 		}
 
-		public class EnumsAttribute : GeneratingPrimitivesAttribute
+		public class EnumsAttribute : ThePrimitiveGeneratorsAttribute
 		{
 			public EnumsAttribute()
 			{

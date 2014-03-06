@@ -110,7 +110,7 @@ namespace QuickMGenerate.Tests.Primitives
 			public DateTime? ANullableProperty { get; set; }
 		}
 
-		public class DateTimesAttribute : GeneratingPrimitivesAttribute
+		public class DateTimesAttribute : ThePrimitiveGeneratorsAttribute
 		{
 			public DateTimesAttribute()
 			{

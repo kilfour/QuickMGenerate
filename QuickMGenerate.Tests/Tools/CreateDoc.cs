@@ -70,7 +70,7 @@ Aiming for :
 		private const string Sidenotes =
 @"##On a side note
 
-QuickGenerate has a lot of mostly unused and undocumented features.
+The old QuickGenerate has a lot of mostly unused and undocumented features.
 
 These will be left out, but an easy means of implementing them yourselves, when needed, will be provided.
 

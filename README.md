@@ -13,6 +13,99 @@ Aiming for :
 ---
 
 ##Generating Primitives
+###Introduction
+The MGen class has many methods which can be used to obtain a corresponding primitive.
+
+F.i. `MGen.Int()`. 
+
+Full details below in the chapter 'The Primitive Generators'.
+
+
+
+___
+##Combining Generators
+###Linq Syntax.
+Each MGen Generator can be used as a building block and combined using query expressions.
+
+F.i. the following :
+```
+var stringGenerator =
+	from a in MGen.Int()
+	from b in MGen.String()
+	from c in MGen.Int()
+	select a + b + c;
+Console.WriteLine(stringGenerator.Generate());
+```
+Will output something like `28ziicuiq56`.
+
+Generators are reusable building blocks. In the following :
+```
+var generator =
+	from str in stringGenerator.Replace()
+	from thing in MGen.One<SomeThingToGenerate>()
+	select thing;
+```
+We reuse the 'stringGenerator' defined above and replace the default string generator with our custom one. 
+All strings in the generated object will have the pattern defined by 'stringGenerator'.
+
+
+
+___
+##Generating Objects
+###A simple object.
+Use `MGen.One<T>()`, where T is the type of object you want to generate.
+
+- The primitive properties of the object will be automatically filled in using the default (or replaced) generators.
+
+- The enumeration properties of the object will be automatically filled in using the default (or replaced) MGen.Enum<T> generator.
+
+
+###Many objects.
+Use The `.Many(int number)` generator extension.
+
+The generator will generate an IEnumerable<T> of `int number` elements where T is the result type of the extended generator.
+
+
+###Replacing Primitive Generators
+Use the `.Replace()` extension method.
+
+Example
+```
+var generator =
+	from _ in MGen.Constant(42).Replace()
+	from result in MGen.One<SomeThingToGenerate>()
+	select result;
+```
+When executing above generator it will return a SomeThingToGenerate object where all integers have the value 42.
+
+Keep in mind that the .Replace() call returns a 'Unit' generator. 
+I.e. it does not really generate anything on it's own.
+
+
+Replacements can occur multiple times during one generation :
+```
+var generator =
+	from _ in MGen.Constant(42).Replace()
+	from result1 in MGen.One<SomeThingToGenerate>()
+	from __ in MGen.Constant(666).Replace()
+	from result2 in MGen.One<SomeThingToGenerate>()
+	select new[] { result1, result2 };
+```
+When executing above generator result1 will have all integers set to 42 and result2 to 666.
+
+
+
+___
+##Other usefull Generators
+###'Generating' constants.
+Use `MGen.Constant<T>(T value)`.
+
+this generator is most usefull in combination with others and is used to inject constants into combined generators.
+
+
+
+___
+##The Primitive Generators
 ###Integers
 Use `MGen.Int()`.
 
@@ -125,7 +218,10 @@ The default generator just picks a random value from all enemeration values.
  - Passing in a non Enum type for T throws an ArgumentException.
 
 
-###Custom Primitive Generators
+
+___
+##Creating Custom Generators
+###How To
 Any function that returns a value of type `Generator<State, T>` can be used as an MGen generator.
 
 Generator is defined as a delegate like so :
@@ -145,50 +241,6 @@ If you want any kind of random, it is advised to use that one, like so :
 ```
 return s => new Result<State, int>(s.Random.Next(42, 42), s);
 ```
-
-
-
-___
-##Combining Generators
-###Linq Syntax.
-Each MGen Generator can be used as a building block and combined using query expressions.
-
-F.i. the following :
-```
-var generator =
-	from a in MGen.Int()
-	from b in MGen.String()
-	from c in MGen.Int()
-	select a + b + c;
-Console.WriteLine(generator.Generate());
-```
-Will output something like `28ziicuiq56`.
-
-
-
-___
-##Generating Objects
-###A simple object.
-Use `MGen.One<T>()`, where T is the type of object you want to generate.
-
-- The primitive properties of the object will be automatically filled in using the default (or replaced) generators.
-
-- The enumeration properties of the object will be automatically filled in using the default (or replaced) MGen.Enum<T> generator.
-
-
-###Many objects.
-Use The `.Many(int number)` generator extension.
-
-The generator will generate an IEnumerable<T> of `int number` elements where T is the result type of the extended generator.
-
-
-
-___
-##Other usefull Generators
-###'Generating' constants.
-Use the `.Constant<T>(T value)` extension method.
-
-this generator is most usefull in combination with others and is used to inject constants into combined generators.
 
 
 

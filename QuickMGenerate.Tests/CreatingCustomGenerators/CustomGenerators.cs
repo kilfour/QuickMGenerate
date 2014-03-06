@@ -1,10 +1,9 @@
-﻿using System;
-using QuickMGenerate.UnderTheHood;
+﻿using QuickMGenerate.UnderTheHood;
 using Xunit;
 
-namespace QuickMGenerate.Tests.Primitives
+namespace QuickMGenerate.Tests.CreatingCustomGenerators
 {
-	[CustomPrimitiveGenerators(
+	[CustomGeneratorsExamples(
 		Content =
 @"Any function that returns a value of type `Generator<State, T>` can be used as an MGen generator.
 
@@ -14,10 +13,10 @@ public delegate IResult<TState, TValue> Generator<TState, out TValue>(TState inp
 ```
 ",
 		Order = 0)]
-	public class CustomPrimitiveGenerators
+	public class CustomGenerators
 	{
 		[Fact]
-		[CustomPrimitiveGenerators(
+		[CustomGeneratorsExamples(
 			Content =
 @"So f.i. to define a generator that always returns the number forty-two we need a function that returns the following :
 ```
@@ -35,7 +34,7 @@ return s => new Result<State, int>(42, s);
 		}
 
 		[Fact]
-		[CustomPrimitiveGenerators(
+		[CustomGeneratorsExamples(
 			Content =
 @"As you can see from the signature a state object is passed to the generator.
 This is where the random seed lives.
@@ -54,12 +53,12 @@ return s => new Result<State, int>(s.Random.Next(42, 42), s);
 			return s => new Result<State, int>(s.Random.Next(42, 42), s);
 		}
 
-		public class CustomPrimitiveGeneratorsAttribute : GeneratingPrimitivesAttribute
+		public class CustomGeneratorsExamplesAttribute : CustomGeneratorsAttribute
 		{
-			public CustomPrimitiveGeneratorsAttribute()
+			public CustomGeneratorsExamplesAttribute()
 			{
-				Caption = "Custom Primitive Generators";
-				CaptionOrder = 20;
+				Caption = "How To";
+				CaptionOrder = 0;
 			}
 		}
 	}

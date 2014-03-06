@@ -63,7 +63,7 @@ namespace QuickMGenerate.Tests.Primitives
 			public string AProperty { get; set; }
 		}
 
-		public class StringsAttribute : GeneratingPrimitivesAttribute
+		public class StringsAttribute : ThePrimitiveGeneratorsAttribute
 		{
 			public StringsAttribute()
 			{

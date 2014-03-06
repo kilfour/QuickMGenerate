@@ -94,7 +94,7 @@ namespace QuickMGenerate.Tests.Primitives
 			public bool? ANullableProperty { get; set; }
 		}
 
-		public class BooleansAttribute : GeneratingPrimitivesAttribute
+		public class BooleansAttribute : ThePrimitiveGeneratorsAttribute
 		{
 			public BooleansAttribute()
 			{

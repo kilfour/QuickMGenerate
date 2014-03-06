@@ -114,7 +114,7 @@ namespace QuickMGenerate.Tests.Primitives
 			public char? ANullableProperty { get; set; }
 		}
 
-		public class CharsAttribute : GeneratingPrimitivesAttribute
+		public class CharsAttribute : ThePrimitiveGeneratorsAttribute
 		{
 			public CharsAttribute()
 			{

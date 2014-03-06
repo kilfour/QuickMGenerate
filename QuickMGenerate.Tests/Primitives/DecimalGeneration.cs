@@ -113,7 +113,7 @@ namespace QuickMGenerate.Tests.Primitives
 		{
 			public DecimalsAttribute()
 			{
-				Caption = "Decimals";
+				Caption = "Decimals.";
 				CaptionOrder = 5;
 			}
 		}

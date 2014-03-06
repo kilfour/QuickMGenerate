@@ -98,7 +98,7 @@ namespace QuickMGenerate.Tests.Primitives
 		{
 			public BooleansAttribute()
 			{
-				Caption = "Booleans";
+				Caption = "Booleans.";
 				CaptionOrder = 3;
 			}
 		}

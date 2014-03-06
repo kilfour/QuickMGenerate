@@ -118,7 +118,7 @@ namespace QuickMGenerate.Tests.Primitives
 		{
 			public CharsAttribute()
 			{
-				Caption = "Chars";
+				Caption = "Chars.";
 				CaptionOrder = 1;
 			}
 		}

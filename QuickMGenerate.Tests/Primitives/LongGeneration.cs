@@ -126,7 +126,7 @@ namespace QuickMGenerate.Tests.Primitives
 		{
 			public LongsAttribute()
 			{
-				Caption = "Longs";
+				Caption = "Longs.";
 				CaptionOrder = 7;
 			}
 		}

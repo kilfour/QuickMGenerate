@@ -16,12 +16,15 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 		public void IsUnique()
 		{
 			var generator = MGen.ChooseFrom(1, 2).Unique();
-			var state = new State();
-			var value = generator.Generate(state);
-			if(value == 1)
-				Assert.Equal(2, generator.Generate(state));
-			else
-				Assert.Equal(1, generator.Generate(state));
+			for (int i = 0; i < 100; i++)
+			{
+				var state = new State();
+				var value = generator.Generate(state);
+				if (value == 1)
+					Assert.Equal(2, generator.Generate(state));
+				else
+					Assert.Equal(1, generator.Generate(state));	
+			}
 		}
 
 		[Fact]
@@ -40,25 +43,29 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 		[Fact]
 		[Unique(
 			Content =
-				@"Multiple unique generators can be defined in one 'composed' generator without interfering with eachother.",
+@"**Issue** : Multiple unique generators can be defined in one 'composed' generator, but currently interfere with eachother.",
 			Order = 3)]
-		public void Multipe()
+		public void Multiple()
 		{
-			var generator = 
+			for (int i = 0; i < 100; i++)
+			{
+				var generator =
 				from one in MGen.ChooseFrom(1, 2).Unique()
 				from two in MGen.ChooseFrom(1, 2).Unique()
-				select new[]{one, two};
-			var state = new State();
-			var valueOne = generator.Generate(state);
-			var valueTwo = generator.Generate(state);
-			if (valueOne[0] == 1)
-				Assert.Equal(2, valueTwo[0]);
-			else
-				Assert.Equal(1, valueTwo[0]);
-			if (valueOne[1] == 1)
-				Assert.Equal(2, valueTwo[1]);
-			else
-				Assert.Equal(1, valueTwo[1]);
+				select new[] { one, two };
+				var state = new State();
+				var valueOne = generator.Generate(state);
+				var valueTwo = generator.Generate(state);
+				if (valueOne[0] == 1)
+					Assert.Equal(2, valueTwo[0]);
+				else
+					Assert.Equal(1, valueTwo[0]);
+				if (valueOne[1] == 1)
+					Assert.Equal(2, valueTwo[1]);
+				else
+					Assert.Equal(1, valueTwo[1]);	
+			}
+			
 		}
 
 		public class UniqueAttribute : OtherUsefullGeneratorsAttribute

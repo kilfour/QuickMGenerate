@@ -114,7 +114,7 @@ namespace QuickMGenerate.Tests.Primitives
 		{
 			public DateTimesAttribute()
 			{
-				Caption = "DateTimes";
+				Caption = "DateTimes.";
 				CaptionOrder = 6;
 			}
 		}

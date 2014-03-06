@@ -28,7 +28,7 @@ namespace QuickMGenerate.Tests.Objects
 			public ManyObjectsAttribute()
 			{
 				Caption = "Many objects.";
-				CaptionOrder = 1;
+				CaptionOrder = 10;
 			}
 		}
 	}

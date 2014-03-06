@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using QuickMGenerate.UnderTheHood;
 
@@ -14,7 +15,7 @@ namespace QuickMGenerate
 						var instance = Activator.CreateInstance<T>();
 						foreach (var propertyInfo in instance.GetType().GetProperties(MyBinding.Flags))
 						{
-							if(s.StuffToIgnore.Contains(propertyInfo))
+							if(NeedsToBeIgnored(s, propertyInfo))
 								continue;
 							if (IsAKnownPrimitive(s, propertyInfo))
 							{
@@ -50,6 +51,15 @@ namespace QuickMGenerate
 						}
 						return new Result<State, T>(instance, s);
 					};
+		}
+
+		private static bool NeedsToBeIgnored(State s, PropertyInfo propertyInfo)
+		{
+			return
+				s.StuffToIgnore
+					.Any(
+						info => info.ReflectedType.IsAssignableFrom(propertyInfo.ReflectedType)
+						        && info.Name == propertyInfo.Name);
 		}
 
 		private static bool IsAKnownPrimitive(State state, PropertyInfo propertyInfo)

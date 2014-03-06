@@ -67,7 +67,7 @@ namespace QuickMGenerate.Tests.Primitives
 		{
 			public StringsAttribute()
 			{
-				Caption = "Strings";
+				Caption = "Strings.";
 				CaptionOrder = 2;
 			}
 		}

@@ -47,7 +47,7 @@ namespace QuickMGenerate.Tests.Primitives
 			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 30; i++)
 			{
 				var value = generator.Generate(state);
 				if (value.HasValue)
@@ -126,7 +126,7 @@ namespace QuickMGenerate.Tests.Primitives
 		{
 			public IntsAttribute()
 			{
-				Caption = "Integers";
+				Caption = "Integers.";
 				CaptionOrder = 0;
 			}
 		}

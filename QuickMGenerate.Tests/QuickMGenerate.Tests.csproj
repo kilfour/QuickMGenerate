@@ -42,6 +42,7 @@
     <Compile Include="Combining\LinqSyntax.cs" />
     <Compile Include="CreatingCustomGenerators\CustomGenerators.cs" />
     <Compile Include="CreatingCustomGenerators\CustomGeneratorsAttribute.cs" />
+    <Compile Include="Objects\IgnoringProperties.cs" />
     <Compile Include="OtherUsefullGenerators\Casting.cs" />
     <Compile Include="OtherUsefullGenerators\Choosing.cs" />
     <Compile Include="OtherUsefullGenerators\Apply.cs" />
@@ -55,7 +56,6 @@
     <Compile Include="OtherUsefullGenerators\Unique.cs" />
     <Compile Include="Primitives\BoolGeneration.cs" />
     <Compile Include="Primitives\CharGeneration.cs" />
-    <Compile Include="IgnoringProperties.cs" />
     <Compile Include="Primitives\EnumGeneration.cs" />
     <Compile Include="Primitives\GeneratingPrimitivesAttribute.cs" />
     <Compile Include="Primitives\LongGeneration.cs" />

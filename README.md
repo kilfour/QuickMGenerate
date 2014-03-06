@@ -64,6 +64,16 @@ Use `MGen.One<T>()`, where T is the type of object you want to generate.
 - Also works for properties with private setters.
 
 
+###Ignoring properties.
+Use the `.Ignore<T, TProperty>(Expression<Func<T, TProperty>> func)` extension method.
+
+The property specified will be ignored during generation.
+
+Derived classes generated also ignore the base property.
+
+*Note :* The Ignore 'generator' does not actually generate anything, it only influences further generation.
+
+
 ###Many objects.
 Use The `.Many(int number)` generator extension.
 
@@ -122,7 +132,7 @@ Makes sure that every generated value is unique.
 
 When asking for more unique values than the generator can supply, an exception is thrown.
 
-Multiple unique generators can be defined in one 'composed' generator without interfering with eachother.
+**Issue** : Multiple unique generators can be defined in one 'composed' generator, but currently interfere with eachother.
 
 
 ###Apply.
@@ -157,7 +167,7 @@ Usefull f.i. to generate numeric strings.
 
 ___
 ##The Primitive Generators
-###Integers
+###Integers.
 Use `MGen.Int()`.
 
 The overload `MGen.Int(int min, int max)` generates an int higher or equal than min and lower than max.
@@ -173,7 +183,7 @@ Can be made to return `int?` using the `.Nullable()` extension.
  - `int?` is automatically detected and generated for object properties.
 
 
-###Chars
+###Chars.
 Use `MGen.Char()`. 
 
 No overload Exists.
@@ -187,7 +197,7 @@ Can be made to return `char?` using the `.Nullable()` extension.
  - `char?` is automatically detected and generated for object properties.
 
 
-###Strings
+###Strings.
 Use `MGen.String()`. 
 
 No overload Exists.
@@ -199,7 +209,7 @@ The Default generator generates a string of length higher than 0 and lower than 
  - `string` is automatically detected and generated for object properties.
 
 
-###Booleans
+###Booleans.
 Use `MGen.Bool()`. 
 
 No overload Exists.
@@ -213,7 +223,7 @@ Can be made to return `bool?` using the `.Nullable()` extension.
  - `bool?` is automatically detected and generated for object properties.
 
 
-###Decimals
+###Decimals.
 Use `MGen.Decimal()`.
 
 The overload `MGen.Decimal(int min, int max)` generates an int higher or equal than min and lower than max.
@@ -227,7 +237,7 @@ Can be made to return `decimal?` using the `.Nullable()` extension.
  - `decimal?` is automatically detected and generated for object properties.
 
 
-###DateTimes
+###DateTimes.
 Use `MGen.DateTime()`.
 
 The overload `MGen.DateTimes(DateTime min, DateTime max)` generates a DateTime higher or equal than min and lower than max.
@@ -241,7 +251,7 @@ Can be made to return `DateTime?` using the `.Nullable()` extension.
  - `DateTime?` is automatically detected and generated for object properties.
 
 
-###Longs
+###Longs.
 Use `MGen.Long()`.
 
 The overload `MGen.Long(long min, long max)` generates a long higher or equal than min and lower than max.
@@ -257,7 +267,7 @@ Can be made to return `long?` using the `.Nullable()` extension.
  - `long?` is automatically detected and generated for object properties.
 
 
-###Enumerations
+###Enumerations.
 Use `MGen.Enum<T>()`, where T is the type of Enum you want to generate. 
 
 No overload Exists.

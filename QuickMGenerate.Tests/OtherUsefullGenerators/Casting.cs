@@ -35,7 +35,7 @@ Usefull f.i. to generate numeric strings.",
 			public CastingAttribute()
 			{
 				Caption = "Casting Generators.";
-				CaptionOrder = 1;
+				CaptionOrder = 10;
 			}
 		}
 	}

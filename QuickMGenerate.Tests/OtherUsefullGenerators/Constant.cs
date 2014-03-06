@@ -10,7 +10,7 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 		[Fact]
 		[Constant(
 			Content = 
-@"this generator is most usefull in combination with others and is used to inject constants into combined generators.",
+@"This generator is most usefull in combination with others and is used to inject constants into combined generators.",
 			Order = 1)]
 		public void JustReturnsValue()
 		{

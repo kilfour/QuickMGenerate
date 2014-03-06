@@ -43,7 +43,7 @@ namespace QuickMGenerate.Tests.Objects
 		[SimpleObject(
 			Content =
 @"- Also works for properties with private setters.",
-			Order = 1)]
+			Order = 3)]
 		public void FillsPrivateSetterProperties()
 		{
 			Assert.NotEqual(0, MGen.One<SomeThingToGenerate>().Generate().APropertyWithPrivateSetters);

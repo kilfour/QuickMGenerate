@@ -59,9 +59,9 @@ Use `MGen.One<T>()`, where T is the type of object you want to generate.
 
 - The primitive properties of the object will be automatically filled in using the default (or replaced) generators.
 
-- Also works for properties with private setters.
-
 - The enumeration properties of the object will be automatically filled in using the default (or replaced) MGen.Enum<T> generator.
+
+- Also works for properties with private setters.
 
 
 ###Many objects.
@@ -104,7 +104,15 @@ ___
 ###'Generating' constants.
 Use `MGen.Constant<T>(T value)`.
 
-this generator is most usefull in combination with others and is used to inject constants into combined generators.
+This generator is most usefull in combination with others and is used to inject constants into combined generators.
+
+
+###Picking an element out of a range.
+Use `MGen.ChooseFrom<T>(params T[] values)`.
+
+Picks a random value from a list of options.
+
+F.i. `MGen.ChooseFrom(1, 2)` will return either 1 or 2.
 
 
 ###Casting Generators.

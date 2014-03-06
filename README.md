@@ -146,7 +146,7 @@ Use the `.Apply<T>(Func<T, T> action)` extension method.
 Applies the specified Function to the generated value, returning the result.
 F.i. `MGen.Constant(41).Apply(i =>  i + 1)` will return 42.
 
-Par Example, when you want all decimals to be rounded to a certain precision : 
+Par example, when you want all decimals to be rounded to a certain precision : 
 ```
 var generator = 
 	from _ in MGen.Decimal().Apply(d => Math.Round(d, 2)).Replace()
@@ -163,7 +163,7 @@ E.g. `MGen.One<SomeThingToGenerate>().Apply(session.Save)`.
 Various extension methods allow for casting the generated value.
 
  - `.AsString()` : Invokes `.ToString()` on the generated value and 
-casts the generator from `Generator<State, T>` to `Generator<State, object>`. 
+casts the generator from `Generator<State, T>` to `Generator<State, string>`. 
 Usefull f.i. to generate numeric strings.
 
  - `.AsObject()` : Simply casts the generator itself from `Generator<State, T>` to `Generator<State, object>`. Mostly used internally.

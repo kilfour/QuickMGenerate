@@ -9,6 +9,27 @@ Aiming for :
  - better composability of generators
  - fun
 
+Also QuickGenerate has a lot of mostly unused and undocumented features.
+
+These will be left out, but an easy means of implementing them yourselves, when needed, will be provided.
+
+In contrary to my usual disdain for Extension Methods, QuickMGenerate makes heavy use of them.
+
+Par example :
+
+Casting generators :
+
+```
+public static Generator<State, string> AsString<T>(this Generator<State, T> generator)
+{
+	return s => new Result<State, string>(generator(s).Value.ToString(), s);
+}```
+
+Once you figure out the Generator Delegate, I reckon a lot of extensability is available to you through this method and it doesn't flood your intellisense because of the specific types.
+
+F.i. the Nullable extension only shows up on generators for structs.
+
+---
 
 ##Generating Primitives
 ###Integers
@@ -112,3 +133,4 @@ Can be made to return `long?` using the `.Nullable()` extension.
 
 
 
+___

@@ -6,22 +6,12 @@ namespace QuickMGenerate
 	{
 		public static Generator<State, object> AsObject<T>(this Generator<State, T> generator)
 		{
-			return
-				s =>
-					{  
-						var val = generator(s).Value;
-						return new Result<State, object>(val, s);
-					};
+			return s => new Result<State, object>(generator(s).Value, s);
 		}
 
 		public static Generator<State, string> AsString<T>(this Generator<State, T> generator)
 		{
-			return
-				s =>
-					{  
-						var val = generator(s).Value;
-						return new Result<State, string>(val.ToString(), s);
-					};
+			return s => new Result<State, string>(generator(s).Value.ToString(), s);
 		}
 	}
 }

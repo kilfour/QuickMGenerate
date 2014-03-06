@@ -6,7 +6,7 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 	{
 		public OtherUsefullGeneratorsAttribute()
 		{
-			Chapter = "Other usefull Generators";
+			Chapter = "Other Usefull Generators";
 			ChapterOrder = 20;
 		}
 	}

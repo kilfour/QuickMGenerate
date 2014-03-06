@@ -100,7 +100,7 @@ When executing above generator result1 will have all integers set to 42 and resu
 
 
 ___
-##Other usefull Generators
+##Other Usefull Generators
 ###'Generating' constants.
 Use `MGen.Constant<T>(T value)`.
 
@@ -121,6 +121,8 @@ Use the `.Unique()` extension method.
 Makes sure that every generated value is unique.
 
 When asking for more unique values than the generator can supply, an exception is thrown.
+
+Multiple unique generators can be defined in one 'composed' generator without interfering with eachother.
 
 
 ###Casting Generators.

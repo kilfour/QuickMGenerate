@@ -38,6 +38,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Combining\CombiningGeneratorsAttribute.cs" />
+    <Compile Include="Combining\LinqSyntax.cs" />
+    <Compile Include="OtherUsefullGenerators\OtherUsefullGeneratorsAttribute.cs" />
+    <Compile Include="OtherUsefullGenerators\Constant.cs" />
     <Compile Include="CustomizeTypePluggableFunctionsSpike.cs" />
     <Compile Include="NumericStringSpike.cs" />
     <Compile Include="Objects\ManyObjects.cs" />

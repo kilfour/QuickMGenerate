@@ -40,6 +40,7 @@
     <Compile Include="As.cs" />
     <Compile Include="BoolGen.cs" />
     <Compile Include="Append.cs" />
+    <Compile Include="Constant.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="LongGen.cs" />
     <Compile Include="DateTimeGen.cs" />

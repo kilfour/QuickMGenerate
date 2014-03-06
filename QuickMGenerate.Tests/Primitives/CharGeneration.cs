@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using QuickMGenerate.Tests.Tools;
 using QuickMGenerate.UnderTheHood;
 using Xunit;
 

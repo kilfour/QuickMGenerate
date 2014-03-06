@@ -22,7 +22,7 @@ namespace QuickMGenerate.Tests.Objects
 		[SimpleObject(
 			Content =
 @"- The enumeration properties of the object will be automatically filled in using the default (or replaced) MGen.Enum<T> generator.",
-			Order = 1)]
+			Order = 2)]
 		public void FillsEnumerations()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();

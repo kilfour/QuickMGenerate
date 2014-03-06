@@ -158,10 +158,34 @@ Use `MGen.One<T>()`, where T is the type of object you want to generate.
 - The enumeration properties of the object will be automatically filled in using the default (or replaced) MGen.Enum<T> generator.
 
 
+###Linq Syntax.
+Each MGen Generator can be used as a building block and combined using query expressions.
+
+F.i. the following :
+```
+var generator =
+	from a in MGen.Int()
+	from b in MGen.String()
+	from c in MGen.Int()
+	select a + b + c;
+Console.WriteLine(generator.Generate());
+```
+Will output something like `28ziicuiq56`.
+
+
 ###Many objects.
 Use The `.Many(int number)` generator extension.
 
 The generator will generate an IEnumerable<T> of `int number` elements where T is the result type of the extended generator.
+
+
+
+___
+##Other usefull Generators
+###'Generating' constants.
+Use the `.Constant<T>(T value)` extension method.
+
+this generator is most usefull in combination with others and is used to inject constants into combined generators.
 
 
 

@@ -9,14 +9,6 @@ namespace QuickMGenerate.Tests
 		[Fact]
 		public void FirstShot()
 		{
-			var x =
-				from a in MGen.Int()
-				from b in MGen.String()
-				from c in MGen.Int()
-				select a + b + c;
-
-			Console.WriteLine(x.Generate());
-
 			var childGenerator =
 				from i in MGen.Int()
 				select new SomeChild { AnInt = i };

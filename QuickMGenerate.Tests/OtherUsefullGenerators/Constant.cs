@@ -3,7 +3,7 @@
 namespace QuickMGenerate.Tests.OtherUsefullGenerators
 {
 	[Constant(
-		Content = "Use the `.Constant<T>(T value)` extension method.",
+		Content = "Use `MGen.Constant<T>(T value)`.",
 		Order = 0)]
 	public class Constant
 	{

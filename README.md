@@ -10,7 +10,7 @@ Aiming for :
  - better documentation
  - fun
 
-**Warning : ** This Lib is still in Alpha ;-).
+**Warning** :  This Lib is still in Alpha ;-).
 Interface subject to change.
 
  ---

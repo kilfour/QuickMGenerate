@@ -42,6 +42,10 @@
     <Compile Include="Append.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Choosing.cs" />
+    <Compile Include="Data\FemaleFirstNames.cs" />
+    <Compile Include="Data\Firstnames.cs" />
+    <Compile Include="Data\LastNames.cs" />
+    <Compile Include="Data\MaleFirstNames.cs" />
     <Compile Include="HeyITriedFiftyTimesButCouldNotGetADifferentValue.cs" />
     <Compile Include="Unique.cs" />
     <Compile Include="Enum.cs" />

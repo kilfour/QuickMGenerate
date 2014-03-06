@@ -26,4 +26,5 @@ namespace QuickMGenerate.Tests
 			public bool ABool { get; set; }
 		}
 	}
+
 }

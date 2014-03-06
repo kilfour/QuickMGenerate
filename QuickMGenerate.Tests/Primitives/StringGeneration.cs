@@ -29,7 +29,7 @@ namespace QuickMGenerate.Tests.Primitives
 		[Fact]
 		[Strings(
 			Content = "The Default generator generates a string of length higher than 0 and lower than 10.",
-			Order = 0)]
+			Order = 2)]
 		public void DefaultGeneratorStringIsBetweenOneAndTen()
 		{
 			var generator = MGen.String();
@@ -40,6 +40,27 @@ namespace QuickMGenerate.Tests.Primitives
 				Assert.True(val.Length > 0);
 				Assert.True(val.Length < 10);
 			}
+		}
+
+		[Fact]
+		[Strings(
+			Content = " - `string` is automatically detected and generated for object properties.",
+			Order = 3)]
+		public void Property()
+		{
+			var generator = MGen.One<SomeThingToGenerate>();
+			var state = new State();
+			for (int i = 0; i < 10; i++)
+			{
+				var value = generator.Generate(state).AProperty;
+				Assert.NotNull(value);
+				Assert.NotEqual("", value);
+			}
+		}
+
+		public class SomeThingToGenerate
+		{
+			public string AProperty { get; set; }
 		}
 
 		public class StringsAttribute : GeneratingPrimitivesAttribute

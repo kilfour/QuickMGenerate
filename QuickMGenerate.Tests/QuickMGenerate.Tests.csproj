@@ -42,6 +42,7 @@
     <Compile Include="Primitives\BoolGeneration.cs" />
     <Compile Include="Primitives\CharGeneration.cs" />
     <Compile Include="IgnoringProperties.cs" />
+    <Compile Include="Primitives\DateTimeGeneration.cs" />
     <Compile Include="Primitives\DecimalGeneration.cs" />
     <Compile Include="Primitives\IntGeneration.cs" />
     <Compile Include="ModifySpike.cs" />

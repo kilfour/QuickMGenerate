@@ -21,12 +21,17 @@ public delegate IResult<TState, TValue> Generator<TState, out TValue>(TState inp
 			Content =
 @"So f.i. to define a generator that always returns the number forty-two we need a function that returns the following :
 ```
-return s => new Result<State, int>(s.Random.Next(42, 42), s);
+return s => new Result<State, int>(42, s);
 ```",
 			Order = 1)]
 		public void CustomGeneratorExample()
 		{
 			Assert.Equal(42, Generate42().Generate());
+		}
+
+		public Generator<State, int> Generate42()
+		{
+			return s => new Result<State, int>(42, s);
 		}
 
 		[Fact]
@@ -42,11 +47,6 @@ return s => new Result<State, int>(s.Random.Next(42, 42), s);
 		public void CustomGeneratorExampleWithRandom()
 		{
 			Assert.Equal(42, Generate42OtherWay().Generate());
-		}
-
-		public Generator<State, int> Generate42()
-		{
-			return s => new Result<State, int>(42, s);
 		}
 
 		public Generator<State, int> Generate42OtherWay()

@@ -136,7 +136,7 @@ public delegate IResult<TState, TValue> Generator<TState, out TValue>(TState inp
 
 So f.i. to define a generator that always returns the number forty-two we need a function that returns the following :
 ```
-return s => new Result<State, int>(s.Random.Next(42, 42), s);
+return s => new Result<State, int>(42, s);
 ```
 
 As you can see from the signature a state object is passed to the generator.
@@ -149,15 +149,7 @@ return s => new Result<State, int>(s.Random.Next(42, 42), s);
 
 
 ___
-##Generating Objects
-###A simple object.
-Use `MGen.One<T>()`, where T is the type of object you want to generate.
-
-- The primitive properties of the object will be automatically filled in using the default (or replaced) generators.
-
-- The enumeration properties of the object will be automatically filled in using the default (or replaced) MGen.Enum<T> generator.
-
-
+##Combining Generators
 ###Linq Syntax.
 Each MGen Generator can be used as a building block and combined using query expressions.
 
@@ -171,6 +163,17 @@ var generator =
 Console.WriteLine(generator.Generate());
 ```
 Will output something like `28ziicuiq56`.
+
+
+
+___
+##Generating Objects
+###A simple object.
+Use `MGen.One<T>()`, where T is the type of object you want to generate.
+
+- The primitive properties of the object will be automatically filled in using the default (or replaced) generators.
+
+- The enumeration properties of the object will be automatically filled in using the default (or replaced) MGen.Enum<T> generator.
 
 
 ###Many objects.

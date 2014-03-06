@@ -115,6 +115,14 @@ Picks a random value from a list of options.
 F.i. `MGen.ChooseFrom(1, 2)` will return either 1 or 2.
 
 
+###Generating unique values.
+Use the `.Unique()` extension method.
+
+Makes sure that every generated value is unique.
+
+When asking for more unique values than the generator can supply, an exception is thrown.
+
+
 ###Casting Generators.
 Various extension methods allow for casting the generated value.
 

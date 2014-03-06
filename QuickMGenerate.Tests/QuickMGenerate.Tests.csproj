@@ -51,6 +51,7 @@
     <Compile Include="Objects\ManyObjects.cs" />
     <Compile Include="Objects\GeneratingObjectsAttribute.cs" />
     <Compile Include="Objects\SimpleObject.cs" />
+    <Compile Include="OtherUsefullGenerators\Unique.cs" />
     <Compile Include="Primitives\BoolGeneration.cs" />
     <Compile Include="Primitives\CharGeneration.cs" />
     <Compile Include="IgnoringProperties.cs" />

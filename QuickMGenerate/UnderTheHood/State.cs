@@ -10,6 +10,9 @@ namespace QuickMGenerate.UnderTheHood
 
 		public readonly List<PropertyInfo> StuffToIgnore = new List<PropertyInfo>();
 
+		public readonly Dictionary<object, object> GeneratorMemory =
+			new Dictionary<object, object>();
+
 		public readonly Dictionary<Type, Generator<State, object>> PrimitiveGenerators
 			= new Dictionary<Type, Generator<State, object>>
 			  	{

@@ -42,6 +42,8 @@
     <Compile Include="Append.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Choosing.cs" />
+    <Compile Include="HeyITriedFiftyTimesButCouldNotGetADifferentValue.cs" />
+    <Compile Include="Unique.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="LongGen.cs" />
     <Compile Include="DateTimeGen.cs" />

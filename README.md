@@ -65,4 +65,18 @@ Can be made to return `bool?` using the `.Nullable()` extension.
  - `bool?` is automatically detected and generated for object properties.
 
 
+###Decimals
+Use `MGen.Decimal()`.
+
+The overload `MGen.Decimal(int min, int max)` generates an int higher or equal than min and lower than max.
+
+The default generator is (min = 1, max = 100).
+
+Can be made to return `decimal?` using the `.Nullable()` extension.
+
+ - `decimal` is automatically detected and generated for object properties.
+
+ - `decimal?` is automatically detected and generated for object properties.
+
+
 

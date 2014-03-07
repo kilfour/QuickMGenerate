@@ -31,7 +31,7 @@ namespace QuickMGenerate.Tests.Primitives
 			var generator = MGen.Guid().Nullable();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 50; i++)
 			{
 				var value = generator.Generate();
 				if (value.HasValue)
@@ -68,7 +68,7 @@ namespace QuickMGenerate.Tests.Primitives
 			var generator = MGen.One<SomeThingToGenerate>();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 50; i++)
 			{
 				var value = generator.Generate().ANullableProperty;
 				if (value.HasValue)

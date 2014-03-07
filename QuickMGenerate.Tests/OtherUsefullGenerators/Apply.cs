@@ -85,14 +85,14 @@ There is no `MGen.For<T>().Apply(Func<T, T> func)` as For can only be used for o
 		[Fact]
 		[Apply(
 			Content =
-@"Lastly the convention based Apply has an overload which takes another generator.
+@"Lastly the convention based `Apply` has an overload which takes another generator.
 This generator then provides a value which can be used in the action parameter.
 
 E.g. : 
 ```
 var parents = ...
 MGen.For<SomeChild>().Apply(MGen.ChooseFrom(parents), (child, parent) => parent.Add(child))
-```.
+```
 ",
 			Order = 5)]
 		public void AsConvention()

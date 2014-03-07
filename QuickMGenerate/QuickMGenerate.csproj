@@ -53,6 +53,7 @@
     <Compile Include="Data\LastNames.cs" />
     <Compile Include="Data\MaleFirstNames.cs" />
     <Compile Include="HeyITriedFiftyTimesButCouldNotGetADifferentValue.cs" />
+    <Compile Include="ToArray.cs" />
     <Compile Include="UnderTheHood\MoreRandom.cs" />
     <Compile Include="Unique.cs" />
     <Compile Include="Enum.cs" />

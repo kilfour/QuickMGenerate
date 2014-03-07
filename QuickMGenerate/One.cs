@@ -18,6 +18,17 @@ namespace QuickMGenerate
 					};
 		}
 
+		public static Generator<T> One<T>(Func<T> constructor)
+		{
+			return
+				s =>
+				{
+					var instance = constructor();
+					BuildInstance(instance, s);
+					return new Result<T>(instance, s);
+				};
+		}
+
 		private static Generator<object> One(Type type)
 		{
 			return

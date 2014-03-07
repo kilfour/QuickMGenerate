@@ -68,6 +68,8 @@ Use `MGen.One<T>()`, where T is the type of object you want to generate.
 
 - Can generate any object that has a parameterless constructor, be it public, protected, or private.
 
+- The overload `MGen.One<T>(Func<T> constructor)` allows for specific constructor selection.
+
 
 ###Ignoring properties.
 Use the `MGen.For<T>().Ignore<TProperty>(Expression<Func<T, TProperty>> func)` method chain.
@@ -137,6 +139,54 @@ When executing above generator result1 will have all integers set to 42 and resu
 
 ___
 ##Generating Hierarchies
+###Relations.
+In the same way one can `Customize` primitives, this can also be done for references.
+
+E.g. :
+
+```
+var generator =
+	from product in MGen.One<ProductItem>()
+	from setProduct in MGen.For<OrderLine>().Customize(order => order.Product, product)
+	from order in MGen.One<OrderLine>()
+	select order;
+```
+
+
+In case of a one-to-many relation where the collection is inaccessible, but a method is provided for adding the many to the one,
+we can use the `Apply` method, which is explained in detail in the chapter 'Other Usefull Generators'.
+E.g. :
+
+```
+var generator =
+	from order in MGen.One<Order>()
+	from addLine in MGen.For<OrderLine>().Apply(order.AddOrderLine)
+	from lines in MGen.One<OrderLine>().Many(20).ToArray()
+	select order;
+```
+Note the `ToArray` call on the orderlines. 
+This forces enumeration and is necessary because the lines are not enumerated over just by selecting the order.
+
+
+If we were to select the lines instead of the order, `ToArray` would not be necessary.
+Although sometimes confusing, this is by design.
+Because when calling `ToArray` the left hand lines variable is fixed.
+I.e., if we were to use it again somewhere further down the generation chain it would be the same 20 orderlines.
+Sometimes this is what you want, sometimes not, hence the choice is left open. 
+
+
+Relations defined by constructor injection can be generated using the `One<T>(Func<T> constructor)` overload.
+E.g. :
+
+```
+var generator =
+	from category in MGen.One<Category>()
+	from subCategory in MGen.One(() => new SubCategory(category)).Many(20)
+	select category;
+```
+
+
+
 ###A 'Component'.
 Use the `MGen.For<T>().Component()`, method chain.
 
@@ -204,14 +254,14 @@ In this case nothing is generated but instead the function will be applied to al
 There is no `MGen.For<T>().Apply(Func<T, T> func)` as For can only be used for objects, so there is no need for it really.
 
 
-Lastly the convention based Apply has an overload which takes another generator.
+Lastly the convention based `Apply` has an overload which takes another generator.
 This generator then provides a value which can be used in the action parameter.
 
 E.g. : 
 ```
 var parents = ...
 MGen.For<SomeChild>().Apply(MGen.ChooseFrom(parents), (child, parent) => parent.Add(child))
-```.
+```
 
 
 

@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using QuickMGenerate.UnderTheHood;
+using Xunit;
 
 namespace QuickMGenerate.Tests.Objects
 {
@@ -69,12 +70,32 @@ namespace QuickMGenerate.Tests.Objects
 			MGen.One<SomeThingPrivateToGenerate>().Generate();
 		}
 
+		[Fact]
+		[OneObject(
+			Content =
+@"- The overload `MGen.One<T>(Func<T> constructor)` allows for specific constructor selection.",
+			Order = 5)]
+		public void CustomConstructor()
+		{
+			var generator =
+				from ignore in MGen.For<SomeThingWithAnAnswer>().Ignore(e => e.Answer)
+				from result in MGen.One(() => new SomeThingWithAnAnswer(42))
+				select result;
+			Assert.Equal(42, generator.Generate().Answer);
+		}
+
 		public class SomeThingToGenerate
 		{
 			public int AProperty { get; set; }
 			public int APropertyWithPrivateSetters { get; private set; }
 			public MyEnumeration AnEnumeration { get; set; }
 			public MyEnumeration AnEnumerationWithPrivateSetter { get; private set; }
+		}
+
+		public enum MyEnumeration
+		{
+			MyOne,
+			Mytwo
 		}
 
 		public class SomeThingProtectedToGenerate
@@ -86,10 +107,15 @@ namespace QuickMGenerate.Tests.Objects
 		{
 			protected SomeThingPrivateToGenerate() { }
 		}
-		public enum MyEnumeration
+
+		public class SomeThingWithAnAnswer
 		{
-			MyOne,
-			Mytwo
+			public int Answer { get; set; }
+
+			public SomeThingWithAnAnswer(int answer)
+			{
+				Answer = answer;
+			}
 		}
 
 		public class OneObjectAttribute : GeneratingObjectsAttribute

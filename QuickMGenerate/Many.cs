@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
@@ -7,7 +8,7 @@ namespace QuickMGenerate
 	{
 		public static Generator<IEnumerable<T>> Many<T>(this Generator<T> generator, int number)
 		{
-			return s => new Result<IEnumerable<T>>(GetEnumerable(number, generator, s), s);
+			return s => new Result<IEnumerable<T>>(GetEnumerable(number, generator, s).ToArray(), s);
 		}
 
 		private static IEnumerable<T> GetEnumerable<T>(int number, Generator<T> generator, State s)

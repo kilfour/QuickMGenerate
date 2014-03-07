@@ -94,7 +94,7 @@ namespace QuickMGenerate.Tests.Primitives
 			var generator = MGen.One<SomeThingToGenerate>();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (long i = 0; i < 20; i++)
+			for (long i = 0; i < 50; i++)
 			{
 				var value = generator.Generate().ANullableProperty;
 				if (value.HasValue)

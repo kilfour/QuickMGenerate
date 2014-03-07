@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using QuickMGenerate.UnderTheHood;
 using Xunit;
 
 namespace QuickMGenerate.Tests.Primitives
@@ -18,10 +17,9 @@ namespace QuickMGenerate.Tests.Primitives
 		{
 			var valid = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
 			var generator = MGen.String();
-			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				var val = generator.Generate(state);
+				var val = generator.Generate();
 				Assert.True(val.All(s => valid.Any(c => c == s)), val);
 			}
 		}
@@ -33,10 +31,9 @@ namespace QuickMGenerate.Tests.Primitives
 		public void Zero()
 		{
 			var generator = MGen.String(5, 7);
-			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				var val = generator.Generate(state);
+				var val = generator.Generate();
 				Assert.True(val.Length >= 5, string.Format("Length : {0}", val.Length));
 				Assert.True(val.Length < 7, string.Format("Length : {0}", val.Length));
 			}
@@ -49,10 +46,9 @@ namespace QuickMGenerate.Tests.Primitives
 		public void DefaultGeneratorStringIsBetweenOneAndTen()
 		{
 			var generator = MGen.String();
-			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				var val = generator.Generate(state);
+				var val = generator.Generate();
 				Assert.True(val.Length > 0);
 				Assert.True(val.Length < 10);
 			}
@@ -65,10 +61,9 @@ namespace QuickMGenerate.Tests.Primitives
 		public void Property()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
-			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				var value = generator.Generate(state).AProperty;
+				var value = generator.Generate().AProperty;
 				Assert.NotNull(value);
 				Assert.NotEqual("", value);
 			}

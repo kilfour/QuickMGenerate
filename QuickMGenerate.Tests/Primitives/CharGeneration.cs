@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using QuickMGenerate.UnderTheHood;
 using Xunit;
 
 namespace QuickMGenerate.Tests.Primitives
@@ -19,10 +18,9 @@ namespace QuickMGenerate.Tests.Primitives
 		public void DefaultGeneratorAlwaysBetweenLowerCaseAAndLowerCaseZ()
 		{
 			var generator = MGen.Char();
-			var state = new State();
 			for (int i = 0; i < 100; i++)
 			{
-				var val = generator.Generate(state);
+				var val = generator.Generate();
 				Assert.True(valid.Any(c => c == val), val.ToString());
 			}
 		}
@@ -31,12 +29,11 @@ namespace QuickMGenerate.Tests.Primitives
 		public void IsRandom()
 		{
 			var generator = MGen.Char();
-			var state = new State();
-			var val = generator.Generate(state);
+			var val = generator.Generate();
 			var differs = false;
 			for (int i = 0; i < 10; i++)
 			{
-				if (val != generator.Generate(state))
+				if (val != generator.Generate())
 					differs = true;
 			}
 			Assert.True(differs);
@@ -49,12 +46,11 @@ namespace QuickMGenerate.Tests.Primitives
 		public void Nullable()
 		{
 			var generator = MGen.Char().Nullable();
-			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
 			for (int i = 0; i < 20; i++)
 			{
-				var value = generator.Generate(state);
+				var value = generator.Generate();
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;
@@ -74,10 +70,9 @@ namespace QuickMGenerate.Tests.Primitives
 		public void Property()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
-			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				var value = generator.Generate(state).AProperty;
+				var value = generator.Generate().AProperty;
 				Assert.True(valid.Any(c => c == value), value.ToString());
 			}
 		}
@@ -89,12 +84,11 @@ namespace QuickMGenerate.Tests.Primitives
 		public void NullableProperty()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
-			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 30; i++)
 			{
-				var value = generator.Generate(state).ANullableProperty;
+				var value = generator.Generate().ANullableProperty;
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;

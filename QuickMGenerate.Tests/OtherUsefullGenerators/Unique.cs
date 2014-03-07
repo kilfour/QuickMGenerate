@@ -1,4 +1,4 @@
-﻿using QuickMGenerate.UnderTheHood;
+﻿using System.Linq;
 using Xunit;
 
 namespace QuickMGenerate.Tests.OtherUsefullGenerators
@@ -15,15 +15,11 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 			Order = 1)]
 		public void IsUnique()
 		{
-			var generator = MGen.ChooseFromThese(1, 2).Unique("TheKey");
+			var generator = MGen.ChooseFromThese(1, 2).Unique("TheKey").Many(2);
 			for (int i = 0; i < 100; i++)
 			{
-				var state = new State();
-				var value = generator.Generate(state);
-				if (value == 1)
-					Assert.Equal(2, generator.Generate(state));
-				else
-					Assert.Equal(1, generator.Generate(state));
+				var value = generator.Generate().ToArray();
+				Assert.Equal(value[0] == 1 ? 2 : 1, value[1]);
 			}
 		}
 
@@ -34,10 +30,8 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 			Order = 2)]
 		public void Throws()
 		{
-			var generator = MGen.Constant(1).Unique("TheKey");
-			var state = new State();
-			generator.Generate(state);
-			Assert.Throws<HeyITriedFiftyTimesButCouldNotGetADifferentValue>(() => generator.Generate(state));
+			var generator = MGen.Constant(1).Unique("TheKey").Many(2);
+			Assert.Throws<HeyITriedFiftyTimesButCouldNotGetADifferentValue>(() => generator.Generate().ToArray());
 		}
 
 		[Fact]
@@ -49,22 +43,15 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 		{
 			for (int i = 0; i < 100; i++)
 			{
-				var state = new State();
 				var generator =
 					from one in MGen.ChooseFromThese(1, 2).Unique(1)
 					from two in MGen.ChooseFromThese(1, 2).Unique(2)
 					select new[] {one, two};
-				
-				var valueOne = generator.Generate(state);
-				var valueTwo = generator.Generate(state);
-				if (valueOne[0] == 1)
-					Assert.Equal(2, valueTwo[0]);
-				else
-					Assert.Equal(1, valueTwo[0]);
-				if (valueOne[1] == 1)
-					Assert.Equal(2, valueTwo[1]);
-				else
-					Assert.Equal(1, valueTwo[1]);	
+				var value = generator.Many(2).Generate().ToArray();
+				var valueOne = value[0];
+				var valueTwo = value[1];
+				Assert.Equal(valueOne[0] == 1 ? 2 : 1, valueTwo[0]);
+				Assert.Equal(valueOne[1] == 1 ? 2 : 1, valueTwo[1]);
 			}
 			
 		}
@@ -78,17 +65,13 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 		{
 			for (int i = 0; i < 100; i++)
 			{
-				var state = new State();
 				var generator =
 					from one in MGen.ChooseFromThese(1, 2).Unique(1)
 					from two in MGen.ChooseFromThese(1, 2).Unique(1)
 					select new[] {one, two};
 
-				var valueOne = generator.Generate(state);
-				if (valueOne[0] == 1)
-					Assert.Equal(2, valueOne[1]);
-				else
-					Assert.Equal(1, valueOne[1]);
+				var valueOne = generator.Generate();
+				Assert.Equal(valueOne[0] == 1 ? 2 : 1, valueOne[1]);
 			}
 		}
 

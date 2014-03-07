@@ -16,7 +16,7 @@ namespace QuickMGenerate
 			return
 				s =>
 				{
-					var index = Int(0, values.Count()).Generate(s);
+					var index = Int(0, values.Count())(s).Value;
 					return new Result<T>(values.ElementAt(index), s);
 				};
 		}

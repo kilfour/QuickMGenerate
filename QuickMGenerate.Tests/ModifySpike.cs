@@ -9,10 +9,9 @@ namespace QuickMGenerate.Tests
 		public void FirstShot()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
-			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				var result = generator.Modify(new SomeThingToGenerate { AnInt = 42 }).Generate(state);
+				var result = generator.Modify(new SomeThingToGenerate { AnInt = 42 }).Generate();
 				Assert.NotEqual(42, result.AnInt);
 				Assert.True(result.ABool);
 			}

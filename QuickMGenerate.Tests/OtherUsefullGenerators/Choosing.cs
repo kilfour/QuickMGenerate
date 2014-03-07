@@ -1,5 +1,4 @@
-﻿using QuickMGenerate.UnderTheHood;
-using Xunit;
+﻿using Xunit;
 
 namespace QuickMGenerate.Tests.OtherUsefullGenerators
 {
@@ -18,12 +17,11 @@ F.i. `MGen.ChooseFrom(new []{ 1, 2 })` will return either 1 or 2.",
 		public void Enumerable()
 		{
 			var generator = MGen.ChooseFrom(new []{ 1, 2 });
-			var state = new State();
 			var one = false;
 			var two = false;
 			for (int i = 0; i < 20; i++)
 			{
-				var value = generator.Generate(state);
+				var value = generator.Generate();
 				one = one || value == 1;
 				two = two || value == 2;
 			}
@@ -39,12 +37,11 @@ F.i. `MGen.ChooseFrom(new []{ 1, 2 })` will return either 1 or 2.",
 		public void Params()
 		{
 			var generator = MGen.ChooseFromThese(1, 2);
-			var state = new State();
 			var one = false;
 			var two = false;
 			for (int i = 0; i < 20; i++)
 			{
-				var value = generator.Generate(state);
+				var value = generator.Generate();
 				one = one || value == 1;
 				two = two || value == 2;
 			}

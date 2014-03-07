@@ -1,5 +1,4 @@
 ﻿using System;
-using QuickMGenerate.UnderTheHood;
 using Xunit;
 
 namespace QuickMGenerate.Tests.Primitives
@@ -17,12 +16,11 @@ namespace QuickMGenerate.Tests.Primitives
 		public void DefaultGenerator()
 		{
 			var generator = MGen.Enum<MyEnumeration>();
-			var state = new State();
 			var one = false;
 			var two = false;
 			for (int i = 0; i < 10; i++)
 			{
-				var value = generator.Generate(state);
+				var value = generator.Generate();
 				one = one || value == MyEnumeration.MyOne;
 				two = two || value == MyEnumeration.Mytwo;
 			}
@@ -37,12 +35,11 @@ namespace QuickMGenerate.Tests.Primitives
 		public void Property()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
-			var state = new State();
 			var one = false;
 			var two = false;
 			for (int i = 0; i < 10; i++)
 			{
-				var value = generator.Generate(state).AnEnumeration;
+				var value = generator.Generate().AnEnumeration;
 				one = one || value == MyEnumeration.MyOne;
 				two = two || value == MyEnumeration.Mytwo;
 			}
@@ -57,12 +54,11 @@ namespace QuickMGenerate.Tests.Primitives
 		public void NullableProperty()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
-			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
 			for (int i = 0; i < 30; i++)
 			{
-				var value = generator.Generate(state).ANullableProperty;
+				var value = generator.Generate().ANullableProperty;
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;

@@ -43,12 +43,11 @@ When executing above generator it will return a SomeThingToGenerate object where
 				from result in MGen.One<SomeThingToGenerate>()
 				select result;
 
-			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
 			for (int i = 0; i < 30; i++)
 			{
-				var value = generator.Generate(state).ANullableProperty;
+				var value = generator.Generate().ANullableProperty;
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;

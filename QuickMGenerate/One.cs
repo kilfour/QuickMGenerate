@@ -152,7 +152,7 @@ namespace QuickMGenerate
 
 		private static void SetComponent(object target, PropertyInfo propertyInfo, State state)
 		{
-			SetPropertyValue(propertyInfo, target, One(propertyInfo.PropertyType).Generate(state));
+			SetPropertyValue(propertyInfo, target, One(propertyInfo.PropertyType)(state).Value);
 		}
 
 		private static void SetEnum(State state, PropertyInfo propertyInfo, object instance)

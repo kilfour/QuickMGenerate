@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using QuickMGenerate.UnderTheHood;
 using Xunit;
 
@@ -52,6 +53,7 @@ E.g. `MGen.One<SomeThingToGenerate>().Apply(session.Save)`.",
 		public void ActionIsApplied()
 		{
 			var generator = MGen.One<SomeThingToGenerate>().Apply(thing => thing.MyProperty = 42);
+
 			Assert.Equal(42, generator.Generate().MyProperty);
 		}
 
@@ -67,7 +69,7 @@ In this case nothing is generated but instead the function will be applied to al
 There is no `MGen.For<T>().Apply(Func<T, T> func)` as For can only be used for objects, so there is no need for it really.
 ",
 			Order = 4)]
-		public void AsConvention()
+		public void AsConventionWithGenerator()
 		{
 			var generator = MGen.For<SomeThingToGenerate>().Apply(thing => thing.MyProperty = 42);
 			Assert.Equal(Unit.Instance, generator.Generate());
@@ -78,6 +80,37 @@ There is no `MGen.For<T>().Apply(Func<T, T> func)` as For can only be used for o
 				select result;
 
 			Assert.Equal(42, newGenerator.Generate().MyProperty);
+		}
+
+		[Fact]
+		[Apply(
+			Content =
+@"Lastly the convention based Apply has an overload which takes another generator.
+This generator then provides a value which can be used in the action parameter.
+
+E.g. : 
+```
+var parents = ...
+MGen.For<SomeChild>().Apply(MGen.ChooseFrom(parents), (child, parent) => parent.Add(child))
+```.
+",
+			Order = 5)]
+		public void AsConvention()
+		{
+			var generator = 
+				from convention in 
+					MGen.For<SomeThingToGenerate>()
+						.Apply(MGen.ChooseFromThese(1, 2).Unique("Key"), (thing, i) => thing.MyProperty = i)
+				from result in MGen.One<SomeThingToGenerate>()
+				select result;
+
+			var value = generator.Many(2).Generate().ToArray();
+			var valueOne = value[0].MyProperty;
+			var valueTwo = value[1].MyProperty;
+			if (valueOne == 1)
+				Assert.Equal(2, valueTwo);
+			else
+				Assert.Equal(1, valueTwo);
 		}
 
 

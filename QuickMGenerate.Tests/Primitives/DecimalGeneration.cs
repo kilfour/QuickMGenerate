@@ -1,6 +1,4 @@
-﻿using System;
-using QuickMGenerate.UnderTheHood;
-using Xunit;
+﻿using Xunit;
 
 namespace QuickMGenerate.Tests.Primitives
 {
@@ -16,10 +14,9 @@ namespace QuickMGenerate.Tests.Primitives
 		public void Zero()
 		{
 			var generator = MGen.Decimal(0, 0);
-			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				Assert.Equal(0, generator.Generate(state));
+				Assert.Equal(0, generator.Generate());
 			}
 		}
 
@@ -30,10 +27,9 @@ namespace QuickMGenerate.Tests.Primitives
 		public void DefaultGeneratorBetweenOneAndHundred()
 		{
 			var generator = MGen.Decimal();
-			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				var val = generator.Generate(state);
+				var val = generator.Generate();
 				Assert.True(val >= 1);
 				Assert.True(val < 100);
 			}
@@ -46,12 +42,11 @@ namespace QuickMGenerate.Tests.Primitives
 		public void Nullable()
 		{
 			var generator = MGen.Decimal().Nullable();
-			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
 			for (int i = 0; i < 20; i++)
 			{
-				var value = generator.Generate(state);
+				var value = generator.Generate();
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;
@@ -71,10 +66,9 @@ namespace QuickMGenerate.Tests.Primitives
 		public void Property()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
-			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				Assert.NotEqual(0, generator.Generate(state).AProperty);
+				Assert.NotEqual(0, generator.Generate().AProperty);
 			}
 		}
 
@@ -85,12 +79,11 @@ namespace QuickMGenerate.Tests.Primitives
 		public void NullableProperty()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
-			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
 			for (int i = 0; i < 20; i++)
 			{
-				var value = generator.Generate(state).ANullableProperty;
+				var value = generator.Generate().ANullableProperty;
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;

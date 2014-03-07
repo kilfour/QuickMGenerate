@@ -22,7 +22,7 @@ namespace QuickMGenerate
 		private static object GetEnumValue(Type type, State s)
 		{
 			var values = GetEnumValues(type);
-			var index = Int(0, values.Count()).Generate(s);
+			var index = Int(0, values.Count())(s).Value;
 			return values.ElementAt(index);
 		}
 

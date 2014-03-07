@@ -1,5 +1,4 @@
-﻿using QuickMGenerate.UnderTheHood;
-using Xunit;
+﻿using Xunit;
 
 namespace QuickMGenerate.Tests.Objects
 {
@@ -26,12 +25,11 @@ namespace QuickMGenerate.Tests.Objects
 		public void FillsEnumerations()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
-			var state = new State();
 			var one = false;
 			var two = false;
 			for (int i = 0; i < 20; i++)
 			{
-				var value = generator.Generate(state).AnEnumeration;
+				var value = generator.Generate().AnEnumeration;
 				one = one || value == MyEnumeration.MyOne;
 				two = two || value == MyEnumeration.Mytwo;
 			}
@@ -48,12 +46,11 @@ namespace QuickMGenerate.Tests.Objects
 		{
 			Assert.NotEqual(0, MGen.One<SomeThingToGenerate>().Generate().APropertyWithPrivateSetters);
 			var generator = MGen.One<SomeThingToGenerate>();
-			var state = new State();
 			var one = false;
 			var two = false;
 			for (int i = 0; i < 20; i++)
 			{
-				var value = generator.Generate(state).AnEnumerationWithPrivateSetter;
+				var value = generator.Generate().AnEnumerationWithPrivateSetter;
 				one = one || value == MyEnumeration.MyOne;
 				two = two || value == MyEnumeration.Mytwo;
 			}

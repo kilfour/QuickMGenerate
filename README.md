@@ -157,8 +157,8 @@ E.g. :
 var generator =
 	from product in MGen.One<ProductItem>()
 	from setProduct in MGen.For<OrderLine>().Customize(order => order.Product, product)
-	from order in MGen.One<OrderLine>()
-	select order;
+	from orderline in MGen.One<OrderLine>()
+	select orderline;
 ```
 
 

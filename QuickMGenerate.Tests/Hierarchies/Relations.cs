@@ -18,8 +18,8 @@ namespace QuickMGenerate.Tests.Hierarchies
 var generator =
 	from product in MGen.One<ProductItem>()
 	from setProduct in MGen.For<OrderLine>().Customize(order => order.Product, product)
-	from order in MGen.One<OrderLine>()
-	select order;
+	from orderline in MGen.One<OrderLine>()
+	select orderline;
 ```
 ",
 			Order = 1)]
@@ -28,8 +28,8 @@ var generator =
 			var generator =
 				from product in MGen.One<ProductItem>()
 				from setProduct in MGen.For<OrderLine>().Customize(order => order.Product, product)
-				from order in MGen.One<OrderLine>()
-				select order;
+				from orderline in MGen.One<OrderLine>()
+				select orderline;
 			
 			var value = generator.Generate();
 			Assert.NotNull(value.Product);

@@ -250,7 +250,9 @@ Picks a random value from a list of options.
 
 F.i. `MGen.ChooseFrom(new []{ 1, 2 })` will return either 1 or 2.
 
-A helper method exists for ease of use when you want to pass in constant values as in the example above. I.e. : `MGen.ChooseFromThese(1, 2)`
+A helper method exists for ease of use when you want to pass in constant values as in the example above. 
+
+I.e. : `MGen.ChooseFromThese(1, 2)`
 
 
 ###Generating unique values.

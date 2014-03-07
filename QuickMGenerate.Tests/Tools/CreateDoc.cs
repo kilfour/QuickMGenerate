@@ -59,11 +59,11 @@ namespace QuickMGenerate.Tests.Tools
 An evolution from the QuickGenerate library.
 
 Aiming for : 
- - A terser (Linq) syntax.
- - A better way of dealing with state.
- - Better composability of generators.
- - Better documentation.
- - Fun.
+- A terser (Linq) syntax.
+- A better way of dealing with state.
+- Better composability of generators.
+- Better documentation.
+- Fun.
 
 
  ---

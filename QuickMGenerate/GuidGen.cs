@@ -5,9 +5,9 @@ namespace QuickMGenerate
 {
 	public static partial class MGen
 	{
-		public static Generator<State, Guid> Guid()
+		public static Generator<Guid> Guid()
 		{
-			return s => new Result<State, Guid>(System.Guid.NewGuid(), s);
+			return s => new Result<Guid>(System.Guid.NewGuid(), s);
 		}
 	}
 }

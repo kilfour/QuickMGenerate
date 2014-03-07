@@ -7,25 +7,25 @@ namespace QuickMGenerate
 {
 	public static partial class MGen
 	{
-		public static Generator<State, T> One<T>()
+		public static Generator<T> One<T>()
 		{
 			return
 				s =>
 					{
 						var instance = (T)CreateInstance(typeof(T));
 						BuildInstance(instance, s);
-						return new Result<State, T>(instance, s);
+						return new Result<T>(instance, s);
 					};
 		}
 
-		private static Generator<State, object> One(Type type)
+		private static Generator<object> One(Type type)
 		{
 			return
 				s =>
 				{
 					var instance = CreateInstance(type);
 					BuildInstance(instance, s);
-					return new Result<State, object>(instance, s);
+					return new Result<object>(instance, s);
 				};
 		}
 

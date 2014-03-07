@@ -4,9 +4,9 @@ namespace QuickMGenerate
 {
 	public static partial class MGen
 	{
-		public static Generator<State, bool> Bool()
+		public static Generator<bool> Bool()
 		{
-			return s => new Result<State, bool>(s.Random.Next(0, 2) > 0, s);
+			return s => new Result<bool>(s.Random.Next(0, 2) > 0, s);
 		}
 	}
 }

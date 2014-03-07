@@ -17,7 +17,7 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.CrudTests
 		//            .ForEach<SuperHero>(e => NHibernateSession.Save(e));
 		//}
 
-    	protected override Generator<State, SuperPower> GenerateIt()
+    	protected override Generator<SuperPower> GenerateIt()
     	{
     		throw new NotImplementedException();
     	}

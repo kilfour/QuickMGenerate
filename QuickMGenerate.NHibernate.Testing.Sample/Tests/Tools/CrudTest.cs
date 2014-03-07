@@ -12,7 +12,7 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.Tools
     public abstract class CrudTest<TEntity> : DatabaseTest
         where TEntity : class, IHaveAnId
     {
-    	protected abstract Generator<State, TEntity> GenerateIt();
+    	protected abstract Generator<TEntity> GenerateIt();
 
         protected void IsRequired<T>(Expression<Func<TEntity, T>> expression)
         {

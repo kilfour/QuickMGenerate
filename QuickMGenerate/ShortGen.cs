@@ -4,14 +4,14 @@ namespace QuickMGenerate
 {
 	public static partial class MGen
 	{
-		public static Generator<State, short> Short()
+		public static Generator<short> Short()
 		{
 			return Short(1, 100);
 		}
 
-		public static Generator<State, short> Short(short min, short max)
+		public static Generator<short> Short(short min, short max)
 		{
-			return s => new Result<State, short>((short)((s.Random.NextDouble() * (max - min)) + min), s);
+			return s => new Result<short>((short)((s.Random.NextDouble() * (max - min)) + min), s);
 		}
 	}
 }

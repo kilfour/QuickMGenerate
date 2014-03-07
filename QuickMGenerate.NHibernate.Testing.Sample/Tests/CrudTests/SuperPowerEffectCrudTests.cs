@@ -1,7 +1,6 @@
 using System;
 using QuickMGenerate.NHibernate.Testing.Sample.Domain;
 using QuickMGenerate.NHibernate.Testing.Sample.Tests.Tools;
-using QuickMGenerate.NHibernate.Testing.Sample.Tests.Tools;
 using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.CrudTests
@@ -17,7 +16,7 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.CrudTests
 		//            .ForEach<SuperHero>(e => NHibernateSession.Save(e));
 		//}
 
-    	protected override Generator<State, SuperPowerEffect> GenerateIt()
+    	protected override Generator<SuperPowerEffect> GenerateIt()
     	{
     		throw new NotImplementedException();
     	}

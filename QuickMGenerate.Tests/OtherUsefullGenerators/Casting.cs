@@ -12,7 +12,7 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 		[Casting(
 			Content =
 @" - `.AsString()` : Invokes `.ToString()` on the generated value and 
-casts the generator from `Generator<State, T>` to `Generator<State, string>`. 
+casts the generator from `Generator<T>` to `Generator<string>`. 
 Usefull f.i. to generate numeric strings.",
 			Order = 1)]
 		public void AsString()
@@ -23,11 +23,11 @@ Usefull f.i. to generate numeric strings.",
 		[Fact]
 		[Casting(
 			Content =
-@" - `.AsObject()` : Simply casts the generator itself from `Generator<State, T>` to `Generator<State, object>`. Mostly used internally.",
+@" - `.AsObject()` : Simply casts the generator itself from `Generator<T>` to `Generator<object>`. Mostly used internally.",
 			Order = 1)]
 		public void AsObject()
 		{
-			Assert.IsType(typeof(Generator<State, object>), MGen.Int().AsObject());
+			Assert.IsType(typeof(Generator<object>), MGen.Int().AsObject());
 		}
 
 		public class CastingAttribute : OtherUsefullGeneratorsAttribute

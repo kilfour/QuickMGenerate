@@ -6,7 +6,7 @@ namespace QuickMGenerate
 {
 	public static partial class MGen
 	{
-		public static Generator<State, T> Unique<T>(this Generator<State, T> generator, object key)
+		public static Generator<T> Unique<T>(this Generator<T> generator, object key)
 		{
 			return
 				s =>

@@ -5,8 +5,8 @@ namespace QuickMGenerate
 {
 	public static class GeneratorToLinq
 	{
-		public static Generator<TState, TValueTwo> Select<TState, TValueOne, TValueTwo>(
-			this Generator<TState, TValueOne> generator,
+		public static Generator<TValueTwo> Select<TValueOne, TValueTwo>(
+			this Generator<TValueOne> generator,
 			Func<TValueOne, TValueTwo> selector)
 		{
 			if (generator == null)
@@ -14,12 +14,12 @@ namespace QuickMGenerate
 			if (selector == null)
 				throw new ArgumentNullException("selector");
 
-			return s => new Result<TState, TValueTwo>(selector(generator(s).Value), s);
+			return s => new Result<TValueTwo>(selector(generator(s).Value), s);
 		}
 
-		public static Generator<TState, TValueTwo> SelectMany<TState, TValueOne, TValueTwo>(
-			this Generator<TState, TValueOne> generator,
-			Func<TValueOne, Generator<TState, TValueTwo>> selector)
+		public static Generator<TValueTwo> SelectMany<TValueOne, TValueTwo>(
+			this Generator<TValueOne> generator,
+			Func<TValueOne, Generator<TValueTwo>> selector)
 		{
 			if (generator == null)
 				throw new ArgumentNullException("generator");
@@ -29,9 +29,9 @@ namespace QuickMGenerate
 			return s => selector(generator(s).Value)(s);
 		}
 
-		public static Generator<TState, TValueThree> SelectMany<TState, TValueOne, TValueTwo, TValueThree>(
-			this Generator<TState, TValueOne> generator,
-			Func<TValueOne, Generator<TState, TValueTwo>> selector,
+		public static Generator<TValueThree> SelectMany<TValueOne, TValueTwo, TValueThree>(
+			this Generator<TValueOne> generator,
+			Func<TValueOne, Generator<TValueTwo>> selector,
 			Func<TValueOne, TValueTwo, TValueThree> projector)
 		{
 			if (generator == null)

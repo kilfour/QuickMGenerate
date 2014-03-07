@@ -4,14 +4,14 @@ namespace QuickMGenerate
 {
 	public static partial class MGen
 	{
-		public static Generator<State, object> AsObject<T>(this Generator<State, T> generator)
+		public static Generator<object> AsObject<T>(this Generator<T> generator)
 		{
-			return s => new Result<State, object>(generator(s).Value, s);
+			return s => new Result<object>(generator(s).Value, s);
 		}
 
-		public static Generator<State, string> AsString<T>(this Generator<State, T> generator)
+		public static Generator<string> AsString<T>(this Generator<T> generator)
 		{
-			return s => new Result<State, string>(generator(s).Value.ToString(), s);
+			return s => new Result<string>(generator(s).Value.ToString(), s);
 		}
 	}
 }

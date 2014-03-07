@@ -1,14 +1,14 @@
 ﻿namespace QuickMGenerate.UnderTheHood
 {
-	public interface IResult<TState, out TValue>
+	public interface IResult<out TValue>
 	{
 		TValue Value { get; }
 	}
 
-	public class Result<TState, TValue> : IResult<TState, TValue>
+	public class Result<TValue> : IResult<TValue>
 	{
 		public TValue Value { get; private set; }
-		public readonly TState State;
-		public Result(TValue value, TState state) { Value = value; State = state; }
+		public readonly State State;
+		public Result(TValue value, State state) { Value = value; State = state; }
 	}
 }

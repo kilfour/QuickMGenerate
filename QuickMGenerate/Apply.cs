@@ -5,7 +5,7 @@ namespace QuickMGenerate
 {
 	public static partial class MGen
 	{
-		public static Generator<State, T> Apply<T>(this Generator<State, T> generator, Action<T> action)
+		public static Generator<T> Apply<T>(this Generator<T> generator, Action<T> action)
 		{
 			return
 				s =>
@@ -16,13 +16,13 @@ namespace QuickMGenerate
 					};
 		}
 
-		public static Generator<State, T> Apply<T>(this Generator<State, T> generator, Func<T, T> func)
+		public static Generator<T> Apply<T>(this Generator<T> generator, Func<T, T> func)
 		{
 			return
 				s =>
 				{
 					var result = generator(s);
-					return new Result<State, T>(func(result.Value), s);
+					return new Result<T>(func(result.Value), s);
 				};
 		}
 	}

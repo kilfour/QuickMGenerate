@@ -5,7 +5,7 @@ namespace QuickMGenerate
 {
 	public static partial class MGen
 	{
-		public static Generator<State, T> Modify<T>(this Generator<State, T> generator, T instance)
+		public static Generator<T> Modify<T>(this Generator<T> generator, T instance)
 		{
 			return
 				s =>
@@ -24,7 +24,7 @@ namespace QuickMGenerate
 								value = primitiveGenerator(s).Value;
 							SetPropertyValue(propertyInfo, instance, value);
 						}
-						return new Result<State, T>(instance, s);
+						return new Result<T>(instance, s);
 					};
 		}
 

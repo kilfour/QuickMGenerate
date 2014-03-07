@@ -15,8 +15,8 @@ namespace QuickMGenerate.UnderTheHood
 
 		public readonly List<Type> Components = new List<Type>();
 
-		public readonly Dictionary<PropertyInfo, Generator<State, object>> Customizations
-			= new Dictionary<PropertyInfo, Generator<State, object>>();
+		public readonly Dictionary<PropertyInfo, Generator<object>> Customizations
+			= new Dictionary<PropertyInfo, Generator<object>>();
 
 		public readonly Dictionary<Type, List<Action<object>>> ActionsToApply =
 			new Dictionary<Type, List<Action<object>>>();
@@ -29,8 +29,8 @@ namespace QuickMGenerate.UnderTheHood
 			actions.Add(action);
 		}
 
-		public readonly Dictionary<Type, Generator<State, object>> PrimitiveGenerators
-			= new Dictionary<Type, Generator<State, object>>
+		public readonly Dictionary<Type, Generator<object>> PrimitiveGenerators
+			= new Dictionary<Type, Generator<object>>
 			  	{
 					{ typeof(string), MGen.String().AsObject() },
 			  		{ typeof(int), MGen.Int().AsObject() },

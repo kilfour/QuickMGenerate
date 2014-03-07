@@ -209,10 +209,10 @@ There is no `MGen.For<T>().Apply(Func<T, T> func)` as For can only be used for o
 Various extension methods allow for casting the generated value.
 
  - `.AsString()` : Invokes `.ToString()` on the generated value and 
-casts the generator from `Generator<State, T>` to `Generator<State, string>`. 
+casts the generator from `Generator<T>` to `Generator<string>`. 
 Usefull f.i. to generate numeric strings.
 
- - `.AsObject()` : Simply casts the generator itself from `Generator<State, T>` to `Generator<State, object>`. Mostly used internally.
+ - `.AsObject()` : Simply casts the generator itself from `Generator<T>` to `Generator<object>`. Mostly used internally.
 
 
 
@@ -406,11 +406,11 @@ The default generator just picks a random value from all enemeration values.
 ___
 ##Creating Custom Generators
 ###How To
-Any function that returns a value of type `Generator<State, T>` can be used as an MGen generator.
+Any function that returns a value of type `Generator<T>` can be used as an MGen generator.
 
 Generator is defined as a delegate like so :
 ```
-public delegate IResult<TState, TValue> Generator<TState, out TValue>(TState input)
+public delegate IResult<TValue> Generator<out TValue>(TState input)
 ```
 
 

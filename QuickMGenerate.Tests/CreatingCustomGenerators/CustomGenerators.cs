@@ -5,11 +5,11 @@ namespace QuickMGenerate.Tests.CreatingCustomGenerators
 {
 	[CustomGeneratorsExamples(
 		Content =
-@"Any function that returns a value of type `Generator<State, T>` can be used as an MGen generator.
+@"Any function that returns a value of type `Generator<T>` can be used as an MGen generator.
 
 Generator is defined as a delegate like so :
 ```
-public delegate IResult<TState, TValue> Generator<TState, out TValue>(TState input)
+public delegate IResult<TValue> Generator<out TValue>(TState input)
 ```
 ",
 		Order = 0)]
@@ -28,9 +28,9 @@ return s => new Result<State, int>(42, s);
 			Assert.Equal(42, Generate42().Generate());
 		}
 
-		public Generator<State, int> Generate42()
+		public Generator<int> Generate42()
 		{
-			return s => new Result<State, int>(42, s);
+			return s => new Result<int>(42, s);
 		}
 
 		[Fact]
@@ -48,9 +48,9 @@ return s => new Result<State, int>(s.Random.Next(42, 42), s);
 			Assert.Equal(42, Generate42OtherWay().Generate());
 		}
 
-		public Generator<State, int> Generate42OtherWay()
+		public Generator<int> Generate42OtherWay()
 		{
-			return s => new Result<State, int>(s.Random.Next(42, 42), s);
+			return s => new Result<int>(s.Random.Next(42, 42), s);
 		}
 
 		public class CustomGeneratorsExamplesAttribute : CustomGeneratorsAttribute

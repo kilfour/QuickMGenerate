@@ -7,7 +7,7 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.CrudTests
 {
     public class SuperHeroCrudTests : CrudTest<SuperHero>
     {
-		protected override Generator<State, SuperHero> GenerateIt()
+		protected override Generator<SuperHero> GenerateIt()
 		{
 			return
 				from _ in MGen.For<IHaveAnId>().Ignore(e => e.Id)

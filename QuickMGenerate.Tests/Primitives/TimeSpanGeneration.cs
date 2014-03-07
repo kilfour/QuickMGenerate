@@ -4,46 +4,50 @@ using Xunit;
 
 namespace QuickMGenerate.Tests.Primitives
 {
-	[Ints(
-		Content = "Use `MGen.Int()`.",
+	[TimeSpans(
+		Content = "Use `MGen.TimeSpan()`.",
 		Order = 0)]
-	public class IntGeneration
+	public class TimeSpanGeneration
 	{
 		[Fact]
-		[Ints(
-			Content = "The overload `MGen.Int(int min, int max)` generates an int higher or equal than min and lower than max.",
+		[TimeSpans(
+			Content = "The overload `MGen.TimeSpan(int max)` generates a TimeSpan with Ticks higher or equal than 1 and lower than max.",
 			Order = 1)]
 		public void Zero()
 		{
-			var generator = MGen.Int(0, 0);
+			var generator = MGen.TimeSpan(5);
 			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				Assert.Equal(0, generator.Generate(state));
+				var val = generator.Generate(state);
+				Assert.True(val.Ticks >= 1);
+				Assert.True(val.Ticks < 5);
 			}
 		}
 
 		[Fact]
-		[Ints(
-			Content = "The default generator is (min = 1, max = 100).",
+		[TimeSpans(
+			Content = "The default generator is (max = 1000).",
 			Order = 2)]
 		public void DefaultGeneratorNeverGeneratesZero()
 		{
-			var generator = MGen.Int();
+			var generator = MGen.TimeSpan();
 			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				Assert.NotEqual(0, generator.Generate(state));
+				var val = generator.Generate(state);
+				Assert.True(val.Ticks >= 1);
+				Assert.True(val.Ticks < 1000);
 			}
 		}
 
 		[Fact]
-		[Ints(
-			Content = "Can be made to return `int?` using the `.Nullable()` extension.",
+		[TimeSpans(
+			Content = "Can be made to return `TimeSpan?` using the `.Nullable()` extension.",
 			Order = 3)]
 		public void Nullable()
 		{
-			var generator = MGen.Int().Nullable();
+			var generator = MGen.TimeSpan().Nullable();
 			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
@@ -53,7 +57,7 @@ namespace QuickMGenerate.Tests.Primitives
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;
-					Assert.NotEqual(0, value.Value);
+					Assert.NotEqual(0, value.Value.Ticks);
 				}
 				else
 					isSomeTimesNull = true;
@@ -63,8 +67,8 @@ namespace QuickMGenerate.Tests.Primitives
 		}
 
 		[Fact]
-		[Ints(
-			Content = " - `int` is automatically detected and generated for object properties.",
+		[TimeSpans(
+			Content = " - `TimeSpan` is automatically detected and generated for object properties.",
 			Order = 4)]
 		public void Property()
 		{
@@ -72,28 +76,14 @@ namespace QuickMGenerate.Tests.Primitives
 			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				Assert.NotEqual(0, generator.Generate(state).AProperty);
+				Assert.NotEqual(0, generator.Generate(state).AProperty.Ticks);
 			}
 		}
 
 		[Fact]
-		[Ints(
-			Content = " - `Int32` is automatically detected and generated for object properties.",
+		[TimeSpans(
+			Content = " - `TimeSpan?` is automatically detected and generated for object properties.",
 			Order = 5)]
-		public void Int32Property()
-		{
-			var generator = MGen.One<SomeThingToGenerate>();
-			var state = new State();
-			for (int i = 0; i < 10; i++)
-			{
-				Assert.NotEqual(0, generator.Generate(state).AnInt32Property);
-			}
-		}
-
-		[Fact]
-		[Ints(
-			Content = " - `int?` is automatically detected and generated for object properties.",
-			Order = 6)]
 		public void NullableProperty()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
@@ -106,7 +96,7 @@ namespace QuickMGenerate.Tests.Primitives
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;
-					Assert.NotEqual(0, value.Value);
+					Assert.NotEqual(0, value.Value.Ticks);
 				}
 				else
 					isSomeTimesNull = true;
@@ -117,17 +107,16 @@ namespace QuickMGenerate.Tests.Primitives
 
 		public class SomeThingToGenerate
 		{
-			public int AProperty { get; set; }
-			public Int32 AnInt32Property { get; set; }
-			public int? ANullableProperty { get; set; }
+			public TimeSpan AProperty { get; set; }
+			public TimeSpan? ANullableProperty { get; set; }
 		}
 
-		public class IntsAttribute : ThePrimitiveGeneratorsAttribute
+		public class TimeSpansAttribute : ThePrimitiveGeneratorsAttribute
 		{
-			public IntsAttribute()
+			public TimeSpansAttribute()
 			{
-				Caption = "Integers.";
-				CaptionOrder = 0;
+				Caption = "TimeSpans.";
+				CaptionOrder = 12;
 			}
 		}
 	}

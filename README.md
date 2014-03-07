@@ -231,7 +231,7 @@ Can be made to return `bool?` using the `.Nullable()` extension.
 ###Decimals.
 Use `MGen.Decimal()`.
 
-The overload `MGen.Decimal(int min, int max)` generates an int higher or equal than min and lower than max.
+The overload `MGen.Decimal(decimal min, decimal max)` generates a decimal higher or equal than min and lower than max.
 
 The default generator is (min = 1, max = 100).
 
@@ -272,6 +272,34 @@ Can be made to return `long?` using the `.Nullable()` extension.
  - `long?` is automatically detected and generated for object properties.
 
 
+###Doubles.
+Use `MGen.Double()`.
+
+The overload `MGen.Double(double min, double max)` generates a double higher or equal than min and lower than max.
+
+The default generator is (min = 1, max = 100).
+
+Can be made to return `double?` using the `.Nullable()` extension.
+
+ - `double` is automatically detected and generated for object properties.
+
+ - `double?` is automatically detected and generated for object properties.
+
+
+###Floats.
+Use `MGen.Float()`.
+
+The overload `MGen.Float(float min, float max)` generates a float higher or equal than min and lower than max.
+
+The default generator is (min = 1, max = 100).
+
+Can be made to return `float?` using the `.Nullable()` extension.
+
+ - `float` is automatically detected and generated for object properties.
+
+ - `float?` is automatically detected and generated for object properties.
+
+
 ###Enumerations.
 Use `MGen.Enum<T>()`, where T is the type of Enum you want to generate. 
 
@@ -284,6 +312,48 @@ The default generator just picks a random value from all enemeration values.
  - A nullable Enumeration is automatically detected and generated for object properties.
 
  - Passing in a non Enum type for T throws an ArgumentException.
+
+
+###Guids.
+Use `MGen.Guid()`.
+
+There is no overload.
+
+The default generator never generates Guid.Empty.
+
+Can be made to return `Guid?` using the `.Nullable()` extension.
+
+ - `Guid` is automatically detected and generated for object properties.
+
+ - `Guid?` is automatically detected and generated for object properties.
+
+
+###Shorts.
+Use `MGen.Short()`.
+
+The overload `MGen.Short(short min, short max)` generates a short higher or equal than min and lower than max.
+
+The default generator is (min = 1, max = 100).
+
+Can be made to return `short?` using the `.Nullable()` extension.
+
+ - `short` is automatically detected and generated for object properties.
+
+ - `short?` is automatically detected and generated for object properties.
+
+
+###TimeSpans.
+Use `MGen.TimeSpan()`.
+
+The overload `MGen.TimeSpan(int max)` generates a TimeSpan with Ticks higher or equal than 1 and lower than max.
+
+The default generator is (max = 1000).
+
+Can be made to return `TimeSpan?` using the `.Nullable()` extension.
+
+ - `TimeSpan` is automatically detected and generated for object properties.
+
+ - `TimeSpan?` is automatically detected and generated for object properties.
 
 
 

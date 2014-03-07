@@ -28,7 +28,17 @@ namespace QuickMGenerate.UnderTheHood
 					{ typeof(DateTime), MGen.DateTime().AsObject() },
 					{ typeof(DateTime?), MGen.DateTime().Nullable().AsObject() },
 					{ typeof(long), MGen.Long().AsObject() },
-					{ typeof(long?), MGen.Long().Nullable().AsObject() }
+					{ typeof(long?), MGen.Long().Nullable().AsObject() },
+					{ typeof(double), MGen.Double().AsObject() },
+					{ typeof(double?), MGen.Double().Nullable().AsObject() },
+					{ typeof(float), MGen.Float().AsObject() },
+					{ typeof(float?), MGen.Float().Nullable().AsObject() },
+					{ typeof(Guid), MGen.Guid().AsObject() },
+					{ typeof(Guid?), MGen.Guid().Nullable().AsObject() },
+					{ typeof(short), MGen.Short().AsObject() },
+					{ typeof(short?), MGen.Short().Nullable().AsObject() },
+					{ typeof(TimeSpan), MGen.TimeSpan().AsObject() },
+					{ typeof(TimeSpan?), MGen.TimeSpan().Nullable().AsObject() }
 				};
 	}
 }

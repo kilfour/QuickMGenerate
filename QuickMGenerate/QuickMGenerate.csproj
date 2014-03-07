@@ -42,6 +42,11 @@
     <Compile Include="Append.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Choosing.cs" />
+    <Compile Include="TimeSpanGen.cs" />
+    <Compile Include="ShortGen.cs" />
+    <Compile Include="GuidGen.cs" />
+    <Compile Include="FloatGen.cs" />
+    <Compile Include="DoubleGen.cs" />
     <Compile Include="Data\FemaleFirstNames.cs" />
     <Compile Include="Data\Firstnames.cs" />
     <Compile Include="Data\LastNames.cs" />

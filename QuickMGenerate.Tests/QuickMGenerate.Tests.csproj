@@ -55,6 +55,11 @@
     <Compile Include="OtherUsefullGenerators\Unique.cs" />
     <Compile Include="Primitives\BoolGeneration.cs" />
     <Compile Include="Primitives\CharGeneration.cs" />
+    <Compile Include="Primitives\TimeSpanGeneration.cs" />
+    <Compile Include="Primitives\ShortGeneration.cs" />
+    <Compile Include="Primitives\GuidGeneration.cs" />
+    <Compile Include="Primitives\FloatGeneration.cs" />
+    <Compile Include="Primitives\DoubleGeneration.cs" />
     <Compile Include="Primitives\EnumGeneration.cs" />
     <Compile Include="Primitives\GeneratingPrimitivesAttribute.cs" />
     <Compile Include="Primitives\LongGeneration.cs" />

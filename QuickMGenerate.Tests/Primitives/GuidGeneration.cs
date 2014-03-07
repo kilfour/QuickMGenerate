@@ -4,48 +4,33 @@ using Xunit;
 
 namespace QuickMGenerate.Tests.Primitives
 {
-	[Decimals(
-		Content = "Use `MGen.Decimal()`.",
+	[Guids(
+		Content = "Use `MGen.Guid()`.\n\nThere is no overload.",
 		Order = 0)]
-	public class DecimalGeneration
+	public class GuidGeneration
 	{
 		[Fact]
-		[Decimals(
-			Content = "The overload `MGen.Decimal(decimal min, decimal max)` generates a decimal higher or equal than min and lower than max.",
-			Order = 1)]
-		public void Zero()
-		{
-			var generator = MGen.Decimal(0, 0);
-			var state = new State();
-			for (int i = 0; i < 10; i++)
-			{
-				Assert.Equal(0, generator.Generate(state));
-			}
-		}
-
-		[Fact]
-		[Decimals(
-			Content = "The default generator is (min = 1, max = 100).",
+		[Guids(
+			Content = "The default generator never generates Guid.Empty.",
 			Order = 2)]
-		public void DefaultGeneratorBetweenOneAndHundred()
+		public void NeverGuidEmpty()
 		{
-			var generator = MGen.Decimal();
+			var generator = MGen.Guid();
 			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
 				var val = generator.Generate(state);
-				Assert.True(val >= 1);
-				Assert.True(val < 100);
+				Assert.NotEqual(Guid.Empty, val);
 			}
 		}
 
 		[Fact]
-		[Decimals(
-			Content = "Can be made to return `decimal?` using the `.Nullable()` extension.",
+		[Guids(
+			Content = "Can be made to return `Guid?` using the `.Nullable()` extension.",
 			Order = 3)]
 		public void Nullable()
 		{
-			var generator = MGen.Decimal().Nullable();
+			var generator = MGen.Guid().Nullable();
 			var state = new State();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
@@ -55,7 +40,7 @@ namespace QuickMGenerate.Tests.Primitives
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;
-					Assert.NotEqual(0, value.Value);
+					Assert.NotEqual(Guid.Empty, value.Value);
 				}
 				else
 					isSomeTimesNull = true;
@@ -65,8 +50,8 @@ namespace QuickMGenerate.Tests.Primitives
 		}
 
 		[Fact]
-		[Decimals(
-			Content = " - `decimal` is automatically detected and generated for object properties.",
+		[Guids(
+			Content = " - `Guid` is automatically detected and generated for object properties.",
 			Order = 4)]
 		public void Property()
 		{
@@ -74,13 +59,13 @@ namespace QuickMGenerate.Tests.Primitives
 			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				Assert.NotEqual(0, generator.Generate(state).AProperty);
+				Assert.NotEqual(Guid.Empty, generator.Generate(state).AProperty);
 			}
 		}
 
 		[Fact]
-		[Decimals(
-			Content = " - `decimal?` is automatically detected and generated for object properties.",
+		[Guids(
+			Content = " - `Guid?` is automatically detected and generated for object properties.",
 			Order = 5)]
 		public void NullableProperty()
 		{
@@ -94,7 +79,7 @@ namespace QuickMGenerate.Tests.Primitives
 				if (value.HasValue)
 				{
 					isSomeTimesNotNull = true;
-					Assert.NotEqual(0, value.Value);
+					Assert.NotEqual(Guid.Empty, value.Value);
 				}
 				else
 					isSomeTimesNull = true;
@@ -105,16 +90,16 @@ namespace QuickMGenerate.Tests.Primitives
 
 		public class SomeThingToGenerate
 		{
-			public decimal AProperty { get; set; }
-			public decimal? ANullableProperty { get; set; }
+			public Guid AProperty { get; set; }
+			public Guid? ANullableProperty { get; set; }
 		}
 
-		public class DecimalsAttribute : ThePrimitiveGeneratorsAttribute
+		public class GuidsAttribute : ThePrimitiveGeneratorsAttribute
 		{
-			public DecimalsAttribute()
+			public GuidsAttribute()
 			{
-				Caption = "Decimals.";
-				CaptionOrder = 5;
+				Caption = "Guids.";
+				CaptionOrder = 10;
 			}
 		}
 	}

@@ -5,7 +5,7 @@ using Xunit;
 namespace QuickMGenerate.Tests.OtherUsefullGenerators
 {
 	[Apply(
-		Content = "Use the `.Apply<T>(Func<T, T> action)` extension method.",
+		Content = "Use the `.Apply<T>(Func<T, T> func)` extension method.",
 		Order = 0)]
 	public class Apply
 	{
@@ -54,6 +54,32 @@ E.g. `MGen.One<SomeThingToGenerate>().Apply(session.Save)`.",
 			var generator = MGen.One<SomeThingToGenerate>().Apply(thing => thing.MyProperty = 42);
 			Assert.Equal(42, generator.Generate().MyProperty);
 		}
+
+		[Fact]
+		[Apply(
+			Content =
+@"This function also exists as a convention instead of a generator.
+
+E.g. `MGen.For<SomeThingToGenerate>().Apply(session.Save)`.
+
+In this case nothing is generated but instead the function will be applied to all objects of type T during generation.
+
+There is no `MGen.For<T>().Apply(Func<T, T> func)` as For can only be used for objects, so there is no need for it really.
+",
+			Order = 4)]
+		public void AsConvention()
+		{
+			var generator = MGen.For<SomeThingToGenerate>().Apply(thing => thing.MyProperty = 42);
+			Assert.Equal(Unit.Instance, generator.Generate());
+
+			var newGenerator =
+				from g in generator
+				from result in MGen.One<SomeThingToGenerate>()
+				select result;
+
+			Assert.Equal(42, newGenerator.Generate().MyProperty);
+		}
+
 
 		public class SomeThingToGenerate
 		{

@@ -15,7 +15,7 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 			Order = 1)]
 		public void IsUnique()
 		{
-			var generator = MGen.ChooseFrom(1, 2).Unique("TheKey");
+			var generator = MGen.ChooseFromThese(1, 2).Unique("TheKey");
 			for (int i = 0; i < 100; i++)
 			{
 				var state = new State();
@@ -51,8 +51,8 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 			{
 				var state = new State();
 				var generator =
-					from one in MGen.ChooseFrom(1, 2).Unique(1)
-					from two in MGen.ChooseFrom(1, 2).Unique(2)
+					from one in MGen.ChooseFromThese(1, 2).Unique(1)
+					from two in MGen.ChooseFromThese(1, 2).Unique(2)
 					select new[] {one, two};
 				
 				var valueOne = generator.Generate(state);
@@ -80,8 +80,8 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 			{
 				var state = new State();
 				var generator =
-					from one in MGen.ChooseFrom(1, 2).Unique(1)
-					from two in MGen.ChooseFrom(1, 2).Unique(1)
+					from one in MGen.ChooseFromThese(1, 2).Unique(1)
+					from two in MGen.ChooseFromThese(1, 2).Unique(1)
 					select new[] {one, two};
 
 				var valueOne = generator.Generate(state);

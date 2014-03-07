@@ -4,7 +4,7 @@ using Xunit;
 namespace QuickMGenerate.Tests.Hierarchies
 {
 	[Component(
-		Content = "Use the `.Component()`, extension method.",
+		Content = "Use the `MGen.For<T>().Component()`, method chain.",
 		Order = 0)]
 	public class Component
 	{
@@ -17,7 +17,7 @@ similarly to how primitives are handled.",
 		public void IsGenerated()
 		{
 			var generator =
-				from component in MGen.One<SomeComponent>().Component()
+				from component in MGen.For<SomeComponent>().Component()
 				from child in MGen.One<SomeChildToGenerate>()
 				from thing in MGen.One<SomeThingToGenerate>().Apply(t => t.MyChild = child)
 				select thing;
@@ -35,7 +35,7 @@ similarly to how primitives are handled.",
 			Order = 4)]
 		public void ReturnsUnit()
 		{
-			var generator = MGen.One<SomeComponent>().Component();
+			var generator = MGen.For<SomeComponent>().Component();
 			Assert.Equal(Unit.Instance, generator.Generate());
 		}
 

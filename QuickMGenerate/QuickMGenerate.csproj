@@ -42,7 +42,6 @@
     <Compile Include="Append.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Choosing.cs" />
-    <Compile Include="Component.cs" />
     <Compile Include="For.cs" />
     <Compile Include="TimeSpanGen.cs" />
     <Compile Include="ShortGen.cs" />

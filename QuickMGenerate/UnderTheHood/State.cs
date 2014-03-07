@@ -13,11 +13,21 @@ namespace QuickMGenerate.UnderTheHood
 		public readonly Dictionary<object, object> GeneratorMemory =
 			new Dictionary<object, object>();
 
-		public readonly Dictionary<Type, Generator<State, object>> Components
-			= new Dictionary<Type, Generator<State, object>>();
+		public readonly List<Type> Components = new List<Type>();
 
 		public readonly Dictionary<PropertyInfo, Generator<State, object>> Customizations
 			= new Dictionary<PropertyInfo, Generator<State, object>>();
+
+		public readonly Dictionary<Type, List<Action<object>>> ActionsToApply =
+			new Dictionary<Type, List<Action<object>>>();
+
+		public void AddActionToApplyFor(Type type, Action<object> action)
+		{
+			if(!ActionsToApply.ContainsKey(type))
+				ActionsToApply[type] = new List<Action<object>>();
+			var actions = ActionsToApply[type];
+			actions.Add(action);
+		}
 
 		public readonly Dictionary<Type, Generator<State, object>> PrimitiveGenerators
 			= new Dictionary<Type, Generator<State, object>>

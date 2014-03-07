@@ -12,62 +12,93 @@ namespace QuickMGenerate
 			return
 				s =>
 					{
-						var instance = Activator.CreateInstance<T>();
-						foreach (var propertyInfo in instance.GetType().GetProperties(MyBinding.Flags))
-						{
-							if(NeedsToBeIgnored(s, propertyInfo))
-								continue;
-
-							if (NeedsToBeCustomized(s, propertyInfo))
-							{
-								CustomizeProperty(instance, propertyInfo, s);
-								continue;
-							}
-
-							if (IsAKnownPrimitive(s, propertyInfo))
-							{
-								SetPrimitive(instance, propertyInfo, s);
-								continue;
-							}
-
-							if (IsAComponent(s, propertyInfo))
-							{
-								SetComponent(instance, propertyInfo, s);
-								continue;
-							}
-
-							if (propertyInfo.PropertyType.IsEnum)
-							{
-								var value = GetEnumValue(propertyInfo.PropertyType, s);
-								SetPropertyValue(propertyInfo, instance, value);
-								continue;
-							}
-							if (propertyInfo.PropertyType.IsGenericType)
-							{
-								var genericType = propertyInfo.PropertyType.GetGenericTypeDefinition();
-								if(genericType != typeof(Nullable<>))
-									continue;
-								var genericArgument = propertyInfo.PropertyType.GetGenericArguments()[0];
-								if(!genericArgument.IsEnum)
-									continue;
-								if (s.Random.Next(0, 5) == 0)
-								{
-									SetPropertyValue(propertyInfo, instance, null);	
-								}
-								else
-								{
-									var value = GetEnumValue(genericArgument, s);
-									SetPropertyValue(propertyInfo, instance, System.Enum.ToObject(genericArgument, value));	
-								}
-								
-								continue;
-							}
-						}
+						var instance = (T)CreateInstance(typeof(T));
+						BuildInstance(instance, s);
 						return new Result<State, T>(instance, s);
 					};
 		}
 
-		
+		private static Generator<State, object> One(Type type)
+		{
+			return
+				s =>
+				{
+					var instance = CreateInstance(type);
+					BuildInstance(instance, s);
+					return new Result<State, object>(instance, s);
+				};
+		}
+
+		private static object CreateInstance(Type type)
+		{
+			var constructor =
+				type
+					.GetConstructors(MyBinding.Flags)
+					.First(c => c.GetParameters().Count() == 0);
+
+			return constructor.Invoke(new object[0]);
+		}
+
+		private static void BuildInstance(object instance, State state)
+		{
+			FillProperties(instance, state);
+			ApplyRegisteredActions(instance, state);
+		}
+
+		private static void FillProperties(object instance, State state)
+		{
+			foreach (var propertyInfo in instance.GetType().GetProperties(MyBinding.Flags))
+			{
+				HandleProperty(instance, state, propertyInfo);
+			}
+		}
+
+		private static void ApplyRegisteredActions(object instance, State state)
+		{
+			foreach (var key in state.ActionsToApply.Keys.Where(t => t.IsAssignableFrom(instance.GetType())))
+			{
+				foreach (var action in state.ActionsToApply[key])
+				{
+					action(instance);
+				}
+			}
+		}
+
+		private static void HandleProperty(object instance, State state, PropertyInfo propertyInfo)
+		{
+			if (NeedsToBeIgnored(state, propertyInfo))
+				return;
+
+			if (NeedsToBeCustomized(state, propertyInfo))
+			{
+				CustomizeProperty(instance, propertyInfo, state);
+				return;
+			}
+
+			if (IsAKnownPrimitive(state, propertyInfo))
+			{
+				SetPrimitive(instance, propertyInfo, state);
+				return;
+			}
+
+			if (IsAComponent(state, propertyInfo))
+			{
+				SetComponent(instance, propertyInfo, state);
+				return;
+			}
+
+			if (propertyInfo.PropertyType.IsEnum)
+			{
+				SetEnum(state, propertyInfo, instance);
+				return;
+			}
+
+			if (IsANullableEnum(propertyInfo))
+			{
+				SetNullableEnum(state, propertyInfo, instance);
+				return;
+			}
+		}
 
 		private static bool NeedsToBeIgnored(State state, PropertyInfo propertyInfo)
 		{
@@ -116,13 +147,43 @@ namespace QuickMGenerate
 
 		private static bool IsAComponent(State state, PropertyInfo propertyInfo)
 		{
-			return state.Components.ContainsKey(propertyInfo.PropertyType);
+			return state.Components.Contains(propertyInfo.PropertyType);
 		}
 
 		private static void SetComponent(object target, PropertyInfo propertyInfo, State state)
 		{
-			var generator = state.Components[propertyInfo.PropertyType];
-			SetPropertyValue(propertyInfo, target, generator(state).Value);
+			SetPropertyValue(propertyInfo, target, One(propertyInfo.PropertyType).Generate(state));
+		}
+
+		private static void SetEnum(State state, PropertyInfo propertyInfo, object instance)
+		{
+			var value = GetEnumValue(propertyInfo.PropertyType, state);
+			SetPropertyValue(propertyInfo, instance, value);
+		}
+
+		private static bool IsANullableEnum(PropertyInfo propertyInfo)
+		{
+			if (!propertyInfo.PropertyType.IsGenericType)
+				return false;
+			var genericType = propertyInfo.PropertyType.GetGenericTypeDefinition();
+			if (genericType != typeof(Nullable<>))
+				return false;
+			var genericArgument = propertyInfo.PropertyType.GetGenericArguments()[0];
+			return genericArgument.IsEnum;
+		}
+
+		private static void SetNullableEnum(State state, PropertyInfo propertyInfo, object instance)
+		{
+			if (state.Random.Next(0, 5) == 0)
+			{
+				SetPropertyValue(propertyInfo, instance, null);
+			}
+			else
+			{
+				var genericArgument = propertyInfo.PropertyType.GetGenericArguments()[0];
+				var value = GetEnumValue(genericArgument, state);
+				SetPropertyValue(propertyInfo, instance, System.Enum.ToObject(genericArgument, value));
+			}
 		}
 
 		private static void SetPropertyValue(PropertyInfo propertyInfo, object target, object value)

@@ -3,13 +3,13 @@ using Xunit;
 
 namespace QuickMGenerate.Tests.Objects
 {
-	[SimpleObject(
+	[OneObject(
 		Content = "Use `MGen.One<T>()`, where T is the type of object you want to generate.",
 		Order = 0)]
-	public class SimpleObject
+	public class OneObject
 	{
 		[Fact]
-		[SimpleObject(
+		[OneObject(
 			Content = 
 @"- The primitive properties of the object will be automatically filled in using the default (or replaced) generators.",
 			Order = 1)]
@@ -19,7 +19,7 @@ namespace QuickMGenerate.Tests.Objects
 		}
 
 		[Fact]
-		[SimpleObject(
+		[OneObject(
 			Content =
 @"- The enumeration properties of the object will be automatically filled in using the default (or replaced) MGen.Enum<T> generator.",
 			Order = 2)]
@@ -40,7 +40,7 @@ namespace QuickMGenerate.Tests.Objects
 		}
 
 		[Fact]
-		[SimpleObject(
+		[OneObject(
 			Content =
 @"- Also works for properties with private setters.",
 			Order = 3)]
@@ -61,6 +61,17 @@ namespace QuickMGenerate.Tests.Objects
 			Assert.True(two);
 		}
 
+		[Fact]
+		[OneObject(
+			Content =
+@"- Can generate any object that has a parameterless constructor, be it public, protected, or private.",
+			Order = 4)]
+		public void CanGenerateObjectsProtectedAndPrivate()
+		{
+			MGen.One<SomeThingProtectedToGenerate>().Generate();
+			MGen.One<SomeThingPrivateToGenerate>().Generate();
+		}
+
 		public class SomeThingToGenerate
 		{
 			public int AProperty { get; set; }
@@ -69,15 +80,24 @@ namespace QuickMGenerate.Tests.Objects
 			public MyEnumeration AnEnumerationWithPrivateSetter { get; private set; }
 		}
 
+		public class SomeThingProtectedToGenerate
+		{
+			protected SomeThingProtectedToGenerate(){ }
+		}
+
+		public class SomeThingPrivateToGenerate
+		{
+			protected SomeThingPrivateToGenerate() { }
+		}
 		public enum MyEnumeration
 		{
 			MyOne,
 			Mytwo
 		}
 
-		public class SimpleObjectAttribute : GeneratingObjectsAttribute
+		public class OneObjectAttribute : GeneratingObjectsAttribute
 		{
-			public SimpleObjectAttribute()
+			public OneObjectAttribute()
 			{
 				Caption = "A simple object.";
 				CaptionOrder = 0;

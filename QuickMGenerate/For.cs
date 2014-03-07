@@ -6,7 +6,7 @@ namespace QuickMGenerate
 {
 	public partial class MGen
 	{
-		public static GeneratorOptions<T> For<T>()
+		public static GeneratorOptions<T> For<T>() where T : class
 		{
 			return new GeneratorOptions<T>();
 		}
@@ -40,6 +40,24 @@ namespace QuickMGenerate
 				return s =>
 				{
 					s.Customizations[func.AsPropertyInfo()] = Constant(value).AsObject();
+					return new Result<State, Unit>(Unit.Instance, s);
+				};
+			}
+
+			public Generator<State, Unit> Component()
+			{
+				return s =>
+				{
+					s.Components.Add(typeof(T));
+					return new Result<State, Unit>(Unit.Instance, s);
+				};
+			}
+
+			public Generator<State, Unit> Apply(Action<T> action)
+			{
+				return s =>
+				{
+					s.AddActionToApplyFor(typeof(T), o => action((T)o));
 					return new Result<State, Unit>(Unit.Instance, s);
 				};
 			}

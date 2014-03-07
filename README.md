@@ -66,6 +66,8 @@ Use `MGen.One<T>()`, where T is the type of object you want to generate.
 
 - Also works for properties with private setters.
 
+- Can generate any object that has a parameterless constructor, be it public, protected, or private.
+
 
 ###Ignoring properties.
 Use the `MGen.For<T>().Ignore<TProperty>(Expression<Func<T, TProperty>> func)` method chain.
@@ -136,7 +138,7 @@ When executing above generator result1 will have all integers set to 42 and resu
 ___
 ##Generating Hierarchies
 ###A 'Component'.
-Use the `.Component()`, extension method.
+Use the `MGen.For<T>().Component()`, method chain.
 
 Once a component is defined, from then on it is automatically generated for any object that has a property of the components type,
 similarly to how primitives are handled.
@@ -154,11 +156,13 @@ This generator is most usefull in combination with others and is used to inject 
 
 
 ###Picking an element out of a range.
-Use `MGen.ChooseFrom<T>(params T[] values)`.
+Use `MGen.ChooseFrom<T>(IEnumerable<T> values)`.
 
 Picks a random value from a list of options.
 
-F.i. `MGen.ChooseFrom(1, 2)` will return either 1 or 2.
+F.i. `MGen.ChooseFrom(new []{ 1, 2 })` will return either 1 or 2.
+
+A helper method exists for ease of use when you want to pass in constant values as in the example above. I.e. : `MGen.ChooseFromThese(1, 2)`
 
 
 ###Generating unique values.
@@ -174,7 +178,7 @@ When using the same key for multiple unique generators all values across these g
 
 
 ###Apply.
-Use the `.Apply<T>(Func<T, T> action)` extension method.
+Use the `.Apply<T>(Func<T, T> func)` extension method.
 
 Applies the specified Function to the generated value, returning the result.
 F.i. `MGen.Constant(41).Apply(i =>  i + 1)` will return 42.
@@ -190,6 +194,15 @@ var generator =
 An overload exists with signature `Apply<T>(Action<T> action)`.
 This is usefull when dealing with objects and you just don't want to return said object.
 E.g. `MGen.One<SomeThingToGenerate>().Apply(session.Save)`.
+
+This function also exists as a convention instead of a generator.
+
+E.g. `MGen.For<SomeThingToGenerate>().Apply(session.Save)`.
+
+In this case nothing is generated but instead the function will be applied to all objects of type T during generation.
+
+There is no `MGen.For<T>().Apply(Func<T, T> func)` as For can only be used for objects, so there is no need for it really.
+
 
 
 ###Casting Generators.

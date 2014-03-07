@@ -10,7 +10,7 @@ using Xunit;
 namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.Tools
 {
     public abstract class CrudTest<TEntity> : DatabaseTest
-        where TEntity : IHaveAnId
+        where TEntity : class, IHaveAnId
     {
     	protected abstract Generator<State, TEntity> GenerateIt();
 

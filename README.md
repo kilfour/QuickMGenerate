@@ -494,7 +494,7 @@ If you want any kind of random, it is advised to use that one, like so :
 return s => new Result<State, int>(s.Random.Next(42, 42), s);
 ```
 
-See also : [Creating a counter example](./QuickMGenerate.Tests/CreatingCustomGenerators/CreatingACounterGeneratorExample.cs).
+See also : [Creating a counter generator](./QuickMGenerate.Tests/CreatingCustomGenerators/CreatingACounterGeneratorExample.cs).
 
 
 

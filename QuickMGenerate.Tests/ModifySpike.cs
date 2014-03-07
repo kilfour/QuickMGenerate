@@ -1,5 +1,4 @@
-﻿using QuickMGenerate.UnderTheHood;
-using Xunit;
+﻿using Xunit;
 
 namespace QuickMGenerate.Tests
 {

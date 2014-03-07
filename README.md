@@ -4,11 +4,12 @@
 An evolution from the QuickGenerate library.
 
 Aiming for : 
- - a terser (Linq) syntax 
- - a better way of dealing with state
- - better composability of generators
- - better documentation
- - fun
+ - A terser (Linq) syntax.
+ - A better way of dealing with state.
+ - Better composability of generators.
+ - Better documentation.
+ - Fun.
+
 
  ---
 
@@ -496,30 +497,48 @@ See also : [Creating a counter example](./QuickMGenerate.Tests/CreatingCustomGen
 
 
 ___
-##On a side note
+##After Thoughts
 
-The old QuickGenerate has a lot of mostly unused and undocumented features.
+Well ... 
+Goals achieved I reckon.
+ * **A terser (Linq) syntax** :
+For some who are not used it, it might get tricky to get into. 
+I must say I myself only started using it when I started using [Sprache](https://github.com/sprache/Sprache). 
+A beautifull Parsec inspired parsing library.
+Stole some ideas from there, I must admit.
 
-These will be left out, but an easy means of implementing them yourselves, when needed, will be provided.
-
-In contrary to my usual disdain for Extension Methods, QuickMGenerate makes heavy use of them.
-
-Par example, ... casting generators :
+ * **A better way of dealing with state, better composability of generators** :
+Here's an example of something simple that was quite hard to do in the old QuickGenerate :
 
 ```
-public static Generator<State, string> AsString<T>(this Generator<State, T> generator)
+var generator =
+	from firstname in MGen.ChooseFromThese(DataLists.FirstNames)
+	from lastname in MGen.ChooseFromThese(DataLists.LastNames)
+	from provider in MGen.ChooseFromThese("yahoo", "gmail", "mycompany")
+	from domain in MGen.ChooseFromThese("com", "net", "biz")
+	let email = string.Format("{0}.{1}@{2}.{3}", firstname, lastname, provider, domain)
+	select
+		new Person
+			{
+				FirstName = firstname,
+				LastName = lastname,
+				Email = email
+			};
+var people = generator.Many(2).Generate();
+foreach (var person in people)
 {
-	return s => new Result<State, string>(generator(s).Value.ToString(), s);
+	Console.Write(person);
 }
 ```
+Which outputs something like :
+```
+  Name : Claudia Coffey, Email : Claudia.Coffey@gmail.net.
+  Name : Dale Weber, Email : Dale.Weber@mycompany.biz.
+```
+ * **Better documentation** : You're looking at it.
+ * **Fun** : Well, yes it was.
 
-Once you figure out the Generator Delegate, I reckon a lot of extensability is available to you through custom extension methods and it doesn't flood your intellisense because of the specific types.
+Even though QuickMGenerate uses a lot of patterns (there's static all over the place) that I usually frown upon,
+It's a lot less code, it's a lot more composable, it's, ... well, ... what QuickGenerate should have been.
 
-F.i. the Nullable extension only shows up on generators for structs.
-
-In future the TState generic type of the Generator will be introduced in the MGen class methods.
-
-This will allow for an extension of the State object that is threaded around through the generators.
-
-Something that 'll be really usefull for QuickDotNetCheck for one.
 

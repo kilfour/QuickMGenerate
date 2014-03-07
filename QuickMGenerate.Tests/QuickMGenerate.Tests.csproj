@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Combining\CombiningGeneratorsAttribute.cs" />
     <Compile Include="Combining\LinqSyntax.cs" />
+    <Compile Include="GeneratingNamesSpike.cs" />
     <Compile Include="CreatingCustomGenerators\CustomGenerators.cs" />
     <Compile Include="CreatingCustomGenerators\CustomGeneratorsAttribute.cs" />
     <Compile Include="Hierarchies\Relations.cs" />

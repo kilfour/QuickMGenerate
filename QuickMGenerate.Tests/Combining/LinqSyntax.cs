@@ -57,6 +57,7 @@ All strings in the generated object will have the pattern defined by 'stringGene
 
 			Assert.Equal("42Hello666", generator.Generate());
 		}
+
 		public class LinqSyntaxAttribute : CombiningGeneratorsAttribute
 		{
 			public LinqSyntaxAttribute()

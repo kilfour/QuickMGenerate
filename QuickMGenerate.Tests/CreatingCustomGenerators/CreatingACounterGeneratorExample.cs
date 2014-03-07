@@ -7,7 +7,7 @@ namespace QuickMGenerate.Tests.CreatingCustomGenerators
 	public class CreatingACounterGeneratorExample
 	{
 		[Fact]
-		public void Works()
+		public void LikeSo()
 		{
 			var generator =
 				from s in MGen.Constant("SomeString")

@@ -75,7 +75,7 @@ Well ...
 Goals achieved I reckon.
  * **A terser (Linq) syntax** :
 For some who are not used it, it might get tricky to get into. 
-I must say I myself only started using it when I started using [Sprache](https://github.com/sprache/Sprache). 
+I must say, I myself, only started using it when I started using [Sprache](https://github.com/sprache/Sprache). 
 A beautifull Parsec inspired parsing library.
 Stole some ideas from there, I must admit.
 

@@ -1,6 +1,4 @@
-﻿using QuickMGenerate.Tests.Objects;
-using QuickMGenerate.UnderTheHood;
-using Xunit;
+﻿using Xunit;
 
 namespace QuickMGenerate.Tests.Hierarchies
 {
@@ -11,8 +9,9 @@ namespace QuickMGenerate.Tests.Hierarchies
 	{
 		[Fact]
 		[Component(
-			Content = 
-@"Once a component is defined, from then on it is automatically generated for any object that has a property of the components type.
+			Content =
+@"Once a component is defined, from then on it is automatically generated for any object that has a property of the components type,
+similarly to how primitives are handled.
 
 *Note :* The Component 'generator' does not actually generate anything, it only influences further generation.",
 			Order = 1)]
@@ -49,7 +48,7 @@ namespace QuickMGenerate.Tests.Hierarchies
 			public int TheAnswer { get; set; }
 		}
 
-		public class ComponentAttribute : GeneratingObjectsAttribute
+		public class ComponentAttribute : GeneratingHierarchiesAttribute
 		{
 			public ComponentAttribute()
 			{

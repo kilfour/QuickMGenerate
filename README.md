@@ -83,14 +83,6 @@ Use The `.Many(int number)` generator extension.
 The generator will generate an IEnumerable<T> of `int number` elements where T is the result type of the extended generator.
 
 
-###A 'Component'.
-Use the `.Component()`, extension method.
-
-Once a component is defined, from then on it is automatically generated for any object that has a property of the components type.
-
-*Note :* The Component 'generator' does not actually generate anything, it only influences further generation.
-
-
 ###Replacing Primitive Generators
 Use the `.Replace()` extension method.
 
@@ -117,6 +109,18 @@ var generator =
 	select new[] { result1, result2 };
 ```
 When executing above generator result1 will have all integers set to 42 and result2 to 666.
+
+
+
+___
+##Generating Hierarchies
+###A 'Component'.
+Use the `.Component()`, extension method.
+
+Once a component is defined, from then on it is automatically generated for any object that has a property of the components type,
+similarly to how primitives are handled.
+
+*Note :* The Component 'generator' does not actually generate anything, it only influences further generation.
 
 
 

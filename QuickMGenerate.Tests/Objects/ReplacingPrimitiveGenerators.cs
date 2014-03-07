@@ -1,4 +1,5 @@
-﻿using QuickMGenerate.UnderTheHood;
+﻿using System.Linq;
+using QuickMGenerate.UnderTheHood;
 using Xunit;
 
 namespace QuickMGenerate.Tests.Objects
@@ -97,6 +98,19 @@ When executing above generator result1 will have all integers set to 42 and resu
 		{
 			var generator = MGen.Int(42,42).Replace();
 			Assert.Equal(Unit.Instance, generator.Generate());
+		}
+
+		[Fact]
+		public void JustChecking()
+		{
+			var generator =
+				from i in MGen.ChooseFromThese(42, 43).Unique("key")
+				from result in MGen.One<SomeThingToGenerate>().Apply(s => s.AnInt = i)
+				select result;
+
+			var values = generator.Many(2).Generate().ToArray();
+
+			Assert.NotEqual(values[0].AnInt, values[1].AnInt);
 		}
 
 		public class SomeThingToGenerate

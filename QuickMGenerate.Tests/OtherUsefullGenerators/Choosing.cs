@@ -54,7 +54,7 @@ F.i. `MGen.ChooseFrom(new []{ 1, 2 })` will return either 1 or 2.",
 			public ChoosingAttribute()
 			{
 				Caption = "Picking an element out of a range.";
-				CaptionOrder = 1;
+				CaptionOrder = 2;
 			}
 		}
 	}

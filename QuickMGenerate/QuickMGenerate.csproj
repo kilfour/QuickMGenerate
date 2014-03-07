@@ -39,7 +39,6 @@
     <Compile Include="CharGen.cs" />
     <Compile Include="As.cs" />
     <Compile Include="BoolGen.cs" />
-    <Compile Include="Append.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Choosing.cs" />
     <Compile Include="For.cs" />

@@ -124,7 +124,7 @@ MGen.For<SomeChild>().Apply(MGen.ChooseFrom(parents), (child, parent) => parent.
 			public ApplyAttribute()
 			{
 				Caption = "Apply.";
-				CaptionOrder = 3;
+				CaptionOrder = 0;
 			}
 		}
 	}

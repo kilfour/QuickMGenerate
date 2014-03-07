@@ -22,7 +22,7 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 			public ConstantAttribute()
 			{
 				Caption = "'Generating' constants.";
-				CaptionOrder = 0;
+				CaptionOrder = 20;
 			}
 		}
 	}

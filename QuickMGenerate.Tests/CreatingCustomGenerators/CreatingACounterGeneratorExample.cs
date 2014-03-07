@@ -10,9 +10,11 @@ namespace QuickMGenerate.Tests.CreatingCustomGenerators
 		public void Works()
 		{
 			var generator =
-				from _ in MGen.Constant("SomeString").Append(Counter().AsString()).Replace()
-				from s in MGen.One<SomethingToGenerate>()
-				select s;
+				from s in MGen.Constant("SomeString")
+				from c in Counter()
+				from defaultString in MGen.Constant(s + c).Replace()
+				from thing in MGen.One<SomethingToGenerate>()
+				select thing;
 
 			var values = generator.Many(6).Generate().ToArray();
 

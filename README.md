@@ -204,34 +204,6 @@ The only exception to the component rule is when it would lead to an infinite lo
 
 ___
 ##Other Usefull Generators
-###'Generating' constants.
-Use `MGen.Constant<T>(T value)`.
-
-This generator is most usefull in combination with others and is used to inject constants into combined generators.
-
-
-###Picking an element out of a range.
-Use `MGen.ChooseFrom<T>(IEnumerable<T> values)`.
-
-Picks a random value from a list of options.
-
-F.i. `MGen.ChooseFrom(new []{ 1, 2 })` will return either 1 or 2.
-
-A helper method exists for ease of use when you want to pass in constant values as in the example above. I.e. : `MGen.ChooseFromThese(1, 2)`
-
-
-###Generating unique values.
-Use the `.Unique(object key)` extension method.
-
-Makes sure that every generated value is unique.
-
-When asking for more unique values than the generator can supply, an exception is thrown.
-
-Multiple unique generators can be defined in one 'composed' generator, without interfering with eachother by using a different key.
-
-When using the same key for multiple unique generators all values across these generators are unique.
-
-
 ###Apply.
 Use the `.Apply<T>(Func<T, T> func)` extension method.
 
@@ -270,6 +242,28 @@ MGen.For<SomeChild>().Apply(MGen.ChooseFrom(parents), (child, parent) => parent.
 
 
 
+###Picking an element out of a range.
+Use `MGen.ChooseFrom<T>(IEnumerable<T> values)`.
+
+Picks a random value from a list of options.
+
+F.i. `MGen.ChooseFrom(new []{ 1, 2 })` will return either 1 or 2.
+
+A helper method exists for ease of use when you want to pass in constant values as in the example above. I.e. : `MGen.ChooseFromThese(1, 2)`
+
+
+###Generating unique values.
+Use the `.Unique(object key)` extension method.
+
+Makes sure that every generated value is unique.
+
+When asking for more unique values than the generator can supply, an exception is thrown.
+
+Multiple unique generators can be defined in one 'composed' generator, without interfering with eachother by using a different key.
+
+When using the same key for multiple unique generators all values across these generators are unique.
+
+
 ###Casting Generators.
 Various extension methods allow for casting the generated value.
 
@@ -278,6 +272,12 @@ casts the generator from `Generator<T>` to `Generator<string>`.
 Usefull f.i. to generate numeric strings.
 
  - `.AsObject()` : Simply casts the generator itself from `Generator<T>` to `Generator<object>`. Mostly used internally.
+
+
+###'Generating' constants.
+Use `MGen.Constant<T>(T value)`.
+
+This generator is most usefull in combination with others and is used to inject constants into combined generators.
 
 
 

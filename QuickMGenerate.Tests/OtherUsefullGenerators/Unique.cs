@@ -80,7 +80,7 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 			public UniqueAttribute()
 			{
 				Caption = "Generating unique values.";
-				CaptionOrder = 2;
+				CaptionOrder = 4;
 			}
 		}
 	}

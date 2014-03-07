@@ -44,6 +44,7 @@
     <Compile Include="CreatingCustomGenerators\CustomGeneratorsAttribute.cs" />
     <Compile Include="Hierarchies\GeneratingHierarchiesAttribute.cs" />
     <Compile Include="Hierarchies\Component.cs" />
+    <Compile Include="Objects\CustomizingProperties.cs" />
     <Compile Include="Objects\IgnoringProperties.cs" />
     <Compile Include="OtherUsefullGenerators\Casting.cs" />
     <Compile Include="OtherUsefullGenerators\Choosing.cs" />

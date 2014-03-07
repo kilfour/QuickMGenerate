@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using QuickMGenerate.UnderTheHood;
+using Xunit;
 
 namespace QuickMGenerate.Tests.Objects
 {
@@ -16,9 +17,6 @@ var generator =
 	select result;
 ```
 When executing above generator it will return a SomeThingToGenerate object where all integers have the value 42.
-
-Keep in mind that the .Replace() call returns a 'Unit' generator. 
-I.e. it does not really generate anything on it's own.
 ", 
 			Order = 1)]
 		public void UsesReplacement()
@@ -34,16 +32,33 @@ I.e. it does not really generate anything on it's own.
 		}
 
 		[Fact]
+		[ReplacingPrimitiveGenerators(
+			Content =
+@"Replacing a primitive generator automatically impacts it's nullable counterpart.",
+			Order = 2)]
 		public void NullableUsesReplacement()
 		{
 			var generator =
-				from _ in MGen.Int(42, 42).Nullable().NeverReturnNull().Replace()
+				from _ in MGen.Int(42, 42).Replace()
 				from result in MGen.One<SomeThingToGenerate>()
 				select result;
 
-			var value = generator.Generate();
-
-			Assert.Equal(42, value.ANullableProperty);
+			var state = new State();
+			var isSomeTimesNull = false;
+			var isSomeTimesNotNull = false;
+			for (int i = 0; i < 30; i++)
+			{
+				var value = generator.Generate(state).ANullableProperty;
+				if (value.HasValue)
+				{
+					isSomeTimesNotNull = true;
+					Assert.Equal(42, value.Value);
+				}
+				else
+					isSomeTimesNull = true;
+			}
+			Assert.True(isSomeTimesNull);
+			Assert.True(isSomeTimesNotNull);
 		}
 
 		[Fact]
@@ -73,6 +88,16 @@ When executing above generator result1 will have all integers set to 42 and resu
 
 			Assert.Equal(42, array[0].AnInt);
 			Assert.Equal(666, array[1].AnInt);
+		}
+
+		[Fact]
+		[ReplacingPrimitiveGeneratorsAttribute(
+			Content = "*Note :* The Replace 'generator' does not actually generate anything, it only influences further generation.",
+			Order = 4)]
+		public void ReturnsUnit()
+		{
+			var generator = MGen.Int(42,42).Replace();
+			Assert.Equal(Unit.Instance, generator.Generate());
 		}
 
 		public class SomeThingToGenerate

@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using QuickMGenerate.UnderTheHood;
+using Xunit;
 
 namespace QuickMGenerate.Tests.Hierarchies
 {
@@ -11,9 +12,7 @@ namespace QuickMGenerate.Tests.Hierarchies
 		[Component(
 			Content =
 @"Once a component is defined, from then on it is automatically generated for any object that has a property of the components type,
-similarly to how primitives are handled.
-
-*Note :* The Component 'generator' does not actually generate anything, it only influences further generation.",
+similarly to how primitives are handled.",
 			Order = 1)]
 		public void IsGenerated()
 		{
@@ -28,6 +27,16 @@ similarly to how primitives are handled.
 			Assert.NotNull(value.MyComponent);
 			Assert.NotNull(value.MyChild);
 			Assert.NotNull(value.MyChild.MyComponent);
+		}
+
+		[Fact]
+		[Component(
+			Content = "*Note :* The Component 'generator' does not actually generate anything, it only influences further generation.",
+			Order = 4)]
+		public void ReturnsUnit()
+		{
+			var generator = MGen.One<SomeComponent>().Component();
+			Assert.Equal(Unit.Instance, generator.Generate());
 		}
 
 		public class SomeThingToGenerate

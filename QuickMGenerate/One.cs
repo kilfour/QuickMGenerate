@@ -18,6 +18,12 @@ namespace QuickMGenerate
 							if(NeedsToBeIgnored(s, propertyInfo))
 								continue;
 
+							if (NeedsToBeCustomized(s, propertyInfo))
+							{
+								CustomizeProperty(instance, propertyInfo, s);
+								continue;
+							}
+
 							if (IsAKnownPrimitive(s, propertyInfo))
 							{
 								SetPrimitive(instance, propertyInfo, s);
@@ -61,13 +67,40 @@ namespace QuickMGenerate
 					};
 		}
 
-		private static bool NeedsToBeIgnored(State s, PropertyInfo propertyInfo)
+		
+
+		private static bool NeedsToBeIgnored(State state, PropertyInfo propertyInfo)
 		{
 			return
-				s.StuffToIgnore
+				state
+					.StuffToIgnore
 					.Any(
 						info => info.ReflectedType.IsAssignableFrom(propertyInfo.ReflectedType)
 						        && info.Name == propertyInfo.Name);
+		}
+
+		private static bool NeedsToBeCustomized(State state, PropertyInfo propertyInfo)
+		{
+			return
+				state
+					.Customizations
+					.Keys
+					.Any(
+						info => info.ReflectedType.IsAssignableFrom(propertyInfo.ReflectedType)
+						        && info.Name == propertyInfo.Name);
+		}
+
+		private static void CustomizeProperty(object target, PropertyInfo propertyInfo, State state)
+		{
+			var key =
+				state
+					.Customizations
+					.Keys
+					.First(
+						info => info.ReflectedType.IsAssignableFrom(propertyInfo.ReflectedType)
+								&& info.Name == propertyInfo.Name);
+			var generator = state.Customizations[key];
+			SetPropertyValue(propertyInfo, target, generator(state).Value);
 		}
 
 		private static bool IsAKnownPrimitive(State state, PropertyInfo propertyInfo)

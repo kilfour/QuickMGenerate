@@ -10,7 +10,7 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.CrudTests
 		protected override Generator<State, SuperHero> GenerateIt()
 		{
 			return
-				from _ in MGen.One<IHaveAnId>().Ignore(e => e.Id)
+				from _ in MGen.For<IHaveAnId>().Ignore(e => e.Id)
 				from powers in MGen.One<SuperPower>().Many(5)
 				from hero in MGen.One<SuperHero>()
 					.Apply(e => SaveToSession(e))

@@ -16,6 +16,9 @@ namespace QuickMGenerate.UnderTheHood
 		public readonly Dictionary<Type, Generator<State, object>> Components
 			= new Dictionary<Type, Generator<State, object>>();
 
+		public readonly Dictionary<PropertyInfo, Generator<State, object>> Customizations
+			= new Dictionary<PropertyInfo, Generator<State, object>>();
+
 		public readonly Dictionary<Type, Generator<State, object>> PrimitiveGenerators
 			= new Dictionary<Type, Generator<State, object>>
 			  	{

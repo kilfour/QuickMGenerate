@@ -19,7 +19,7 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.Tools
             Assert.Throws<GenericADOException>(
                 () =>
                 	{
-                		(from _ in MGen.One<TEntity>().Ignore(expression)
+                		(from _ in MGen.For<TEntity>().Ignore(expression)
                 		 from entity in GenerateIt()
                 		 select entity)
                 			.Generate();
@@ -114,7 +114,7 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.Tools
         private TEntity BuildEntity()
         {
             var generator =
-				from _ in MGen.One<IHaveAnId>().Ignore(e => e.Id)
+				from _ in MGen.For<IHaveAnId>().Ignore(e => e.Id)
 				from entity in GenerateIt()
 				select entity;
             return generator.Generate();
@@ -123,7 +123,7 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.Tools
         private void ModifyEntity(TEntity entity)
         {
 			var generator =
-				from _ in MGen.One<IHaveAnId>().Ignore(e => e.Id)
+				from _ in MGen.For<IHaveAnId>().Ignore(e => e.Id)
 				from e in GenerateIt()
 				select e;
         	generator.Modify(entity).Generate();

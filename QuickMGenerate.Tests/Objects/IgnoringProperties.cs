@@ -4,7 +4,13 @@ using Xunit;
 namespace QuickMGenerate.Tests.Objects
 {
 	[IgnoringProperties(
-		Content = "Use the `.Ignore<T, TProperty>(Expression<Func<T, TProperty>> func)` extension method.",
+		Content =
+@"Use the `MGen.For<T>().Ignore<TProperty>(Expression<Func<T, TProperty>> func)` method chain.
+
+F.i. :
+```
+MGen.For<SomeThingToGenerate>().Ignore(s => s.Id)
+```",
 		Order = 0)]
 	public class IgnoringProperties
 	{
@@ -15,7 +21,7 @@ namespace QuickMGenerate.Tests.Objects
 		public void StaysDefaultValue()
 		{
 			var generator =
-				from _ in MGen.One<SomeThingToGenerate>().Ignore(s => s.AnInt)
+				from _ in MGen.For<SomeThingToGenerate>().Ignore(s => s.AnInt)
 				from result in MGen.One<SomeThingToGenerate>()
 				select result;
 			Assert.Equal(0, generator.Generate().AnInt);
@@ -28,7 +34,7 @@ namespace QuickMGenerate.Tests.Objects
 		public void WorksForDerived()
 		{
 			var generator = 
-				from _ in MGen.One<SomeThingToGenerate>().Ignore(s => s.AnInt)
+				from _ in MGen.For<SomeThingToGenerate>().Ignore(s => s.AnInt)
 				from result in MGen.One<SomeThingDerivedToGenerate>()
 				select result;
 			Assert.Equal(0, generator.Generate().AnInt);
@@ -40,7 +46,7 @@ namespace QuickMGenerate.Tests.Objects
 			Order = 3)]
 		public void ReturnsUnit()
 		{
-			var generator = MGen.One<SomeThingToGenerate>().Ignore(s => s.AnInt);
+			var generator = MGen.For<SomeThingToGenerate>().Ignore(s => s.AnInt);
 			Assert.Equal(Unit.Instance, generator.Generate());
 		}
 

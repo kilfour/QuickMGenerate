@@ -68,13 +68,33 @@ Use `MGen.One<T>()`, where T is the type of object you want to generate.
 
 
 ###Ignoring properties.
-Use the `.Ignore<T, TProperty>(Expression<Func<T, TProperty>> func)` extension method.
+Use the `MGen.For<T>().Ignore<TProperty>(Expression<Func<T, TProperty>> func)` method chain.
+
+F.i. :
+```
+MGen.For<SomeThingToGenerate>().Ignore(s => s.Id)
+```
 
 The property specified will be ignored during generation.
 
 Derived classes generated also ignore the base property.
 
 *Note :* The Ignore 'generator' does not actually generate anything, it only influences further generation.
+
+
+###Customizing properties.
+Use the `MGen.For<T>().Customize<TProperty>(Expression<Func<T, TProperty>> func, Generator<State, T>)` method chain.
+
+F.i. :
+```
+MGen.For<SomeThingToGenerate>().Customize(s => s.MyProperty, MGen.Constant(42))
+```
+
+The property specified will be generated using the passed in generator.
+
+An overload exists which allows for passing a value instead of a generator.
+
+*Note :* The Customize 'generator' does not actually generate anything, it only influences further generation.
 
 
 ###Many objects.
@@ -95,9 +115,8 @@ var generator =
 ```
 When executing above generator it will return a SomeThingToGenerate object where all integers have the value 42.
 
-Keep in mind that the .Replace() call returns a 'Unit' generator. 
-I.e. it does not really generate anything on it's own.
 
+Replacing a primitive generator automatically impacts it's nullable counterpart.
 
 Replacements can occur multiple times during one generation :
 ```
@@ -109,6 +128,8 @@ var generator =
 	select new[] { result1, result2 };
 ```
 When executing above generator result1 will have all integers set to 42 and result2 to 666.
+
+*Note :* The Replace 'generator' does not actually generate anything, it only influences further generation.
 
 
 

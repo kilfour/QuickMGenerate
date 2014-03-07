@@ -17,7 +17,7 @@ namespace QuickMGenerate.Tests
 		{
 			int count = 0;
 			var generator =
-				from _ in MGen.Replace(MGen.Int(count++, count).AsString())
+				//from _ in MGen.Replace(MGen.Int(count++, count).AsString())
 				from s in MGen.One<SomethingToGenerate>()
 				select s;
 

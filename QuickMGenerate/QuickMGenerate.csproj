@@ -43,6 +43,7 @@
     <Compile Include="Constant.cs" />
     <Compile Include="Choosing.cs" />
     <Compile Include="Component.cs" />
+    <Compile Include="For.cs" />
     <Compile Include="TimeSpanGen.cs" />
     <Compile Include="ShortGen.cs" />
     <Compile Include="GuidGen.cs" />
@@ -76,7 +77,6 @@
     <Compile Include="UnderTheHood\State.cs" />
     <Compile Include="StringGen.cs" />
     <Compile Include="UnderTheHood\Unit.cs" />
-    <Compile Include="Ignore.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

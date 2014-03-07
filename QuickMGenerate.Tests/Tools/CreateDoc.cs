@@ -65,9 +65,6 @@ Aiming for :
  - better documentation
  - fun
 
-**Warning** :  This Lib is still in Alpha ;-).
-Interface subject to change.
-
  ---
 ";
 		private const string Sidenotes =

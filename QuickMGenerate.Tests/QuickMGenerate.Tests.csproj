@@ -45,6 +45,7 @@
     <Compile Include="Hierarchies\Relations.cs" />
     <Compile Include="Hierarchies\GeneratingHierarchiesAttribute.cs" />
     <Compile Include="Hierarchies\Component.cs" />
+    <Compile Include="Objects\ToArray.cs" />
     <Compile Include="Objects\CustomizingProperties.cs" />
     <Compile Include="Objects\IgnoringProperties.cs" />
     <Compile Include="OtherUsefullGenerators\Casting.cs" />

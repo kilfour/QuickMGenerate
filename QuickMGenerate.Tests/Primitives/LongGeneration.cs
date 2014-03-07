@@ -44,7 +44,7 @@ namespace QuickMGenerate.Tests.Primitives
 			var generator = MGen.Long().Nullable();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (long i = 0; i < 20; i++)
+			for (long i = 0; i < 50; i++)
 			{
 				var value = generator.Generate();
 				if (value.HasValue)

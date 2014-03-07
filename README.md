@@ -10,9 +10,6 @@ Aiming for :
  - better documentation
  - fun
 
-**Warning** :  This Lib is still in Alpha ;-).
-Interface subject to change.
-
  ---
 
 ##Generating Primitives
@@ -107,6 +104,17 @@ Use The `.Many(int number)` generator extension.
 The generator will generate an IEnumerable<T> of `int number` elements where T is the result type of the extended generator.
 
 
+###ToArray.
+Use The `.ToArray()` generator extension.
+
+The `Many` generator above returns an IEnumerable.
+This means it's value would be regenerated if we were to iterate over it more than once.
+Use `ToArray` to *fix* the IEnumerable in place, so that it will return the same result with each iteration.
+It can also be used to force evaluation in case the IEnumerable is not enumerated over because there's nothing in your select clause
+referencing it. 
+
+
+
 ###Replacing Primitive Generators
 Use the `.Replace()` extension method.
 
@@ -169,11 +177,6 @@ This forces enumeration and is necessary because the lines are not enumerated ov
 
 
 If we were to select the lines instead of the order, `ToArray` would not be necessary.
-Although sometimes confusing, this is by design.
-Because when calling `ToArray` the left hand lines variable is fixed.
-I.e., if we were to use it again somewhere further down the generation chain it would be the same 20 orderlines.
-Sometimes this is what you want, sometimes not, hence the choice is left open. 
-
 
 Relations defined by constructor injection can be generated using the `One<T>(Func<T> constructor)` overload.
 E.g. :

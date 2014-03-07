@@ -45,7 +45,7 @@ When executing above generator it will return a SomeThingToGenerate object where
 
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 30; i++)
+			for (int i = 0; i < 50; i++)
 			{
 				var value = generator.Generate().ANullableProperty;
 				if (value.HasValue)

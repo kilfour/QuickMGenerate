@@ -68,12 +68,7 @@ This forces enumeration and is necessary because the lines are not enumerated ov
 
 		[Relations(
 			Content =
-@"If we were to select the lines instead of the order, `ToArray` would not be necessary.
-Although sometimes confusing, this is by design.
-Because when calling `ToArray` the left hand lines variable is fixed.
-I.e., if we were to use it again somewhere further down the generation chain it would be the same 20 orderlines.
-Sometimes this is what you want, sometimes not, hence the choice is left open. 
-",
+@"If we were to select the lines instead of the order, `ToArray` would not be necessary.",
 			Order = 2)]
 		public void OneToManyVerifying()
 		{

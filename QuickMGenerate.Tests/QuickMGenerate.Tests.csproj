@@ -53,7 +53,7 @@
     <Compile Include="OtherUsefullGenerators\Apply.cs" />
     <Compile Include="OtherUsefullGenerators\OtherUsefullGeneratorsAttribute.cs" />
     <Compile Include="OtherUsefullGenerators\Constant.cs" />
-    <Compile Include="CustomizeTypePluggableFunctionsSpike.cs" />
+    <Compile Include="CreatingCustomGenerators\CreatingACounterGeneratorExample.cs" />
     <Compile Include="Objects\ManyObjects.cs" />
     <Compile Include="Objects\GeneratingObjectsAttribute.cs" />
     <Compile Include="Objects\OneObject.cs" />

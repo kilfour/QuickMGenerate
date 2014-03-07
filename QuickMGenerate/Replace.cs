@@ -14,5 +14,14 @@ namespace QuickMGenerate
 				return new Result<Unit>(Unit.Instance, s);
 			};
 		}
+
+		public static Generator<Unit> Replace(this Generator<string> generator)
+		{
+			return s =>
+			{
+				s.PrimitiveGenerators[typeof(string)] = generator.AsObject();
+				return new Result<Unit>(Unit.Instance, s);
+			};
+		}
 	}
 }

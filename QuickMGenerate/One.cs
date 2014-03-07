@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using QuickMGenerate.UnderTheHood;
@@ -13,7 +14,7 @@ namespace QuickMGenerate
 				s =>
 					{
 						var instance = (T)CreateInstance(typeof(T));
-						BuildInstance(instance, s);
+						BuildInstance(instance, s, new List<PropertyInfo>());
 						return new Result<T>(instance, s);
 					};
 		}
@@ -24,18 +25,18 @@ namespace QuickMGenerate
 				s =>
 				{
 					var instance = constructor();
-					BuildInstance(instance, s);
+					BuildInstance(instance, s, new List<PropertyInfo>());
 					return new Result<T>(instance, s);
 				};
 		}
 
-		private static Generator<object> One(Type type)
+		private static Generator<object> One(Type type, List<PropertyInfo> generatedComponents)
 		{
 			return
 				s =>
 				{
 					var instance = CreateInstance(type);
-					BuildInstance(instance, s);
+					BuildInstance(instance, s, generatedComponents);
 					return new Result<object>(instance, s);
 				};
 		}
@@ -50,17 +51,17 @@ namespace QuickMGenerate
 			return constructor.Invoke(new object[0]);
 		}
 
-		private static void BuildInstance(object instance, State state)
+		private static void BuildInstance(object instance, State state, List<PropertyInfo> generatedComponents)
 		{
-			FillProperties(instance, state);
+			FillProperties(instance, state, generatedComponents);
 			ApplyRegisteredActions(instance, state);
 		}
 
-		private static void FillProperties(object instance, State state)
+		private static void FillProperties(object instance, State state, List<PropertyInfo> generatedComponents)
 		{
 			foreach (var propertyInfo in instance.GetType().GetProperties(MyBinding.Flags))
 			{
-				HandleProperty(instance, state, propertyInfo);
+				HandleProperty(instance, state, propertyInfo, generatedComponents);
 			}
 		}
 
@@ -75,7 +76,7 @@ namespace QuickMGenerate
 			}
 		}
 
-		private static void HandleProperty(object instance, State state, PropertyInfo propertyInfo)
+		private static void HandleProperty(object instance, State state, PropertyInfo propertyInfo, List<PropertyInfo> generatedComponents)
 		{
 			if (NeedsToBeIgnored(state, propertyInfo))
 				return;
@@ -94,7 +95,7 @@ namespace QuickMGenerate
 
 			if (IsAComponent(state, propertyInfo))
 			{
-				SetComponent(instance, propertyInfo, state);
+				SetComponent(instance, propertyInfo, state, generatedComponents);
 				return;
 			}
 
@@ -161,9 +162,12 @@ namespace QuickMGenerate
 			return state.Components.Contains(propertyInfo.PropertyType);
 		}
 
-		private static void SetComponent(object target, PropertyInfo propertyInfo, State state)
+		private static void SetComponent(object target, PropertyInfo propertyInfo, State state, List<PropertyInfo> generatedComponents)
 		{
-			SetPropertyValue(propertyInfo, target, One(propertyInfo.PropertyType)(state).Value);
+			if (generatedComponents.Contains(propertyInfo))
+				return;
+			generatedComponents.Add(propertyInfo);
+			SetPropertyValue(propertyInfo, target, One(propertyInfo.PropertyType, generatedComponents)(state).Value);
 		}
 
 		private static void SetEnum(State state, PropertyInfo propertyInfo, object instance)

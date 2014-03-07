@@ -11,8 +11,20 @@ namespace QuickMGenerate.UnderTheHood
 		
 		public readonly List<PropertyInfo> StuffToIgnore = new List<PropertyInfo>();
 
-		public readonly Dictionary<object, object> GeneratorMemory =
+		private readonly Dictionary<object, object> generatorMemory =
 			new Dictionary<object, object>();
+
+		public T Get<T>(object key, T newValue)
+		{
+			if (!generatorMemory.ContainsKey(key))
+				generatorMemory[key] = newValue;
+			return (T)generatorMemory[key];
+		}
+
+		public void Set<T>(object key, T value)
+		{
+			generatorMemory[key] = value;
+		}
 
 		public readonly List<Type> Components = new List<Type>();
 

@@ -31,8 +31,26 @@ similarly to how primitives are handled.",
 
 		[Fact]
 		[Component(
+			Content =
+@"The only exception to the component rule is when it would lead to an infinite loop.",
+			Order = 2)]
+		public void AvoidsRecursion()
+		{
+			var generator =
+				from component in MGen.For<SomeThingRecursive>().Component()
+				from thing in MGen.One<SomeThingRecursive>()
+				select thing;
+
+			var value = generator.Generate();
+
+			Assert.NotNull(value.Curse);
+			Assert.Null(value.Curse.Curse);
+		}
+
+		[Fact]
+		[Component(
 			Content = "*Note :* The Component 'generator' does not actually generate anything, it only influences further generation.",
-			Order = 4)]
+			Order = 3)]
 		public void ReturnsUnit()
 		{
 			var generator = MGen.For<SomeComponent>().Component();
@@ -55,6 +73,11 @@ similarly to how primitives are handled.",
 		public class SomeComponent
 		{
 			public int TheAnswer { get; set; }
+		}
+
+		public class SomeThingRecursive
+		{
+			public SomeThingRecursive Curse { get; set; }
 		}
 
 		public class ComponentAttribute : GeneratingHierarchiesAttribute

@@ -5,11 +5,11 @@ namespace QuickMGenerate.Tests.CreatingCustomGenerators
 {
 	[CustomGeneratorsExamples(
 		Content =
-@"Any function that returns a value of type `Generator<T>` can be used as an MGen generator.
+@"Any function that returns a value of type `Generator<T>` can be used as a generator.
 
 Generator is defined as a delegate like so :
 ```
-public delegate IResult<TValue> Generator<out TValue>(TState input)
+public delegate IResult<TValue> Generator<out TValue>(State input)
 ```
 ",
 		Order = 0)]
@@ -41,7 +41,9 @@ This is where the random seed lives.
 If you want any kind of random, it is advised to use that one, like so :
 ```
 return s => new Result<State, int>(s.Random.Next(42, 42), s);
-```",
+```
+
+See also : [Creating a counter example](./QuickMGenerate.Tests/CreatingCustomGenerators/CreatingACounterGeneratorExample.cs).",
 			Order = 2)]
 		public void CustomGeneratorExampleWithRandom()
 		{

@@ -196,6 +196,8 @@ Use the `MGen.For<T>().Component()`, method chain.
 Once a component is defined, from then on it is automatically generated for any object that has a property of the components type,
 similarly to how primitives are handled.
 
+The only exception to the component rule is when it would lead to an infinite loop.
+
 *Note :* The Component 'generator' does not actually generate anything, it only influences further generation.
 
 
@@ -469,11 +471,11 @@ The default generator just picks a random value from all enemeration values.
 ___
 ##Creating Custom Generators
 ###How To
-Any function that returns a value of type `Generator<T>` can be used as an MGen generator.
+Any function that returns a value of type `Generator<T>` can be used as a generator.
 
 Generator is defined as a delegate like so :
 ```
-public delegate IResult<TValue> Generator<out TValue>(TState input)
+public delegate IResult<TValue> Generator<out TValue>(State input)
 ```
 
 
@@ -488,6 +490,8 @@ If you want any kind of random, it is advised to use that one, like so :
 ```
 return s => new Result<State, int>(s.Random.Next(42, 42), s);
 ```
+
+See also : [Creating a counter example](./QuickMGenerate.Tests/CreatingCustomGenerators/CreatingACounterGeneratorExample.cs).
 
 
 

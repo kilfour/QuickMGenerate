@@ -42,6 +42,7 @@
     <Compile Include="Append.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Choosing.cs" />
+    <Compile Include="Component.cs" />
     <Compile Include="TimeSpanGen.cs" />
     <Compile Include="ShortGen.cs" />
     <Compile Include="GuidGen.cs" />

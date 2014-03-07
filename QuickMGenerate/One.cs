@@ -17,11 +17,19 @@ namespace QuickMGenerate
 						{
 							if(NeedsToBeIgnored(s, propertyInfo))
 								continue;
+
 							if (IsAKnownPrimitive(s, propertyInfo))
 							{
 								SetPrimitive(instance, propertyInfo, s);
 								continue;
 							}
+
+							if (IsAComponent(s, propertyInfo))
+							{
+								SetComponent(instance, propertyInfo, s);
+								continue;
+							}
+
 							if (propertyInfo.PropertyType.IsEnum)
 							{
 								var value = GetEnumValue(propertyInfo.PropertyType, s);
@@ -69,8 +77,19 @@ namespace QuickMGenerate
 
 		private static void SetPrimitive(object target, PropertyInfo propertyInfo, State state)
 		{
-			var primitiveGenerator = state.PrimitiveGenerators[propertyInfo.PropertyType];
-			SetPropertyValue(propertyInfo, target, primitiveGenerator(state).Value);
+			var generator = state.PrimitiveGenerators[propertyInfo.PropertyType];
+			SetPropertyValue(propertyInfo, target, generator(state).Value);
+		}
+
+		private static bool IsAComponent(State state, PropertyInfo propertyInfo)
+		{
+			return state.Components.ContainsKey(propertyInfo.PropertyType);
+		}
+
+		private static void SetComponent(object target, PropertyInfo propertyInfo, State state)
+		{
+			var generator = state.Components[propertyInfo.PropertyType];
+			SetPropertyValue(propertyInfo, target, generator(state).Value);
 		}
 
 		private static void SetPropertyValue(PropertyInfo propertyInfo, object target, object value)

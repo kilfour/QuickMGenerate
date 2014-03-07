@@ -7,9 +7,14 @@ namespace QuickMGenerate
 	{
 		public static Generator<State, string> String()
 		{
+			return String(1, 10);
+		}
+
+		public static Generator<State, string> String(int min, int max)
+		{
 			return s =>
 			       	{
-			       		int numberOfChars = s.Random.Next(1, 10);
+			       		int numberOfChars = s.Random.Next(min, max);
 			       		var sb = new StringBuilder();
 			       		for (int i = 0; i < numberOfChars; i++)
 			       		{

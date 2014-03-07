@@ -5,14 +5,14 @@ using Xunit;
 namespace QuickMGenerate.Tests.Primitives
 {
 	[Strings(
-		Content = "Use `MGen.String()`. \n\nNo overload Exists.",
+		Content = "Use `MGen.String()`.",
 		Order = 0)]
 	public class StringGeneration
 	{
 		[Fact]
 		[Strings(
 			Content = 
-"The default generator always generates every char element of the string to be between lower case 'a' and lower case 'z'.",
+"The generator always generates every char element of the string to be between lower case 'a' and lower case 'z'.",
 			Order = 1)]
 		public void DefaultGeneratorStringElementsAlwaysBetweenLowerCaseAAndLowerCaseZ()
 		{
@@ -23,6 +23,22 @@ namespace QuickMGenerate.Tests.Primitives
 			{
 				var val = generator.Generate(state);
 				Assert.True(val.All(s => valid.Any(c => c == s)), val);
+			}
+		}
+
+		[Fact]
+		[Strings(
+			Content = "The overload `MGen.String(int min, int max)` generates an string of length higher or equal than min and lower than max.",
+			Order = 1)]
+		public void Zero()
+		{
+			var generator = MGen.String(5, 7);
+			var state = new State();
+			for (int i = 0; i < 10; i++)
+			{
+				var val = generator.Generate(state);
+				Assert.True(val.Length >= 5, string.Format("Length : {0}", val.Length));
+				Assert.True(val.Length < 7, string.Format("Length : {0}", val.Length));
 			}
 		}
 

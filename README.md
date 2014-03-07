@@ -83,6 +83,14 @@ Use The `.Many(int number)` generator extension.
 The generator will generate an IEnumerable<T> of `int number` elements where T is the result type of the extended generator.
 
 
+###A 'Component'.
+Use the `.Component()`, extension method.
+
+Once a component is defined, from then on it is automatically generated for any object that has a property of the components type.
+
+*Note :* The Component 'generator' does not actually generate anything, it only influences further generation.
+
+
 ###Replacing Primitive Generators
 Use the `.Replace()` extension method.
 
@@ -203,11 +211,11 @@ Can be made to return `char?` using the `.Nullable()` extension.
 
 
 ###Strings.
-Use `MGen.String()`. 
+Use `MGen.String()`.
 
-No overload Exists.
+The generator always generates every char element of the string to be between lower case 'a' and lower case 'z'.
 
-The default generator always generates every char element of the string to be between lower case 'a' and lower case 'z'.
+The overload `MGen.String(int min, int max)` generates an string of length higher or equal than min and lower than max.
 
 The Default generator generates a string of length higher than 0 and lower than 10.
 
@@ -300,20 +308,6 @@ Can be made to return `float?` using the `.Nullable()` extension.
  - `float?` is automatically detected and generated for object properties.
 
 
-###Enumerations.
-Use `MGen.Enum<T>()`, where T is the type of Enum you want to generate. 
-
-No overload Exists.
-
-The default generator just picks a random value from all enemeration values.
-
- - An Enumeration is automatically detected and generated for object properties.
-
- - A nullable Enumeration is automatically detected and generated for object properties.
-
- - Passing in a non Enum type for T throws an ArgumentException.
-
-
 ###Guids.
 Use `MGen.Guid()`.
 
@@ -354,6 +348,20 @@ Can be made to return `TimeSpan?` using the `.Nullable()` extension.
  - `TimeSpan` is automatically detected and generated for object properties.
 
  - `TimeSpan?` is automatically detected and generated for object properties.
+
+
+###Enumerations.
+Use `MGen.Enum<T>()`, where T is the type of Enum you want to generate. 
+
+No overload Exists.
+
+The default generator just picks a random value from all enemeration values.
+
+ - An Enumeration is automatically detected and generated for object properties.
+
+ - A nullable Enumeration is automatically detected and generated for object properties.
+
+ - Passing in a non Enum type for T throws an ArgumentException.
 
 
 

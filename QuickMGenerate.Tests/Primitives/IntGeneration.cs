@@ -33,7 +33,9 @@ namespace QuickMGenerate.Tests.Primitives
 			var state = new State();
 			for (int i = 0; i < 10; i++)
 			{
-				Assert.NotEqual(0, generator.Generate(state));
+				var val = generator.Generate(state);
+				Assert.True(val >= 1);
+				Assert.True(val < 100);
 			}
 		}
 

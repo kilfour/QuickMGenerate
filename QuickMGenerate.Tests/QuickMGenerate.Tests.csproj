@@ -42,6 +42,8 @@
     <Compile Include="Combining\LinqSyntax.cs" />
     <Compile Include="CreatingCustomGenerators\CustomGenerators.cs" />
     <Compile Include="CreatingCustomGenerators\CustomGeneratorsAttribute.cs" />
+    <Compile Include="Hierarchies\GeneratingHierarchiesAttribute.cs" />
+    <Compile Include="Hierarchies\Component.cs" />
     <Compile Include="Objects\IgnoringProperties.cs" />
     <Compile Include="OtherUsefullGenerators\Casting.cs" />
     <Compile Include="OtherUsefullGenerators\Choosing.cs" />
@@ -80,7 +82,6 @@
       <Name>QuickMGenerate</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,11 +4,11 @@
 An evolution from the QuickGenerate library.
 
 Aiming for : 
- - A terser (Linq) syntax.
- - A better way of dealing with state.
- - Better composability of generators.
- - Better documentation.
- - Fun.
+- A terser (Linq) syntax.
+- A better way of dealing with state.
+- Better composability of generators.
+- Better documentation.
+- Fun.
 
 
  ---
@@ -130,6 +130,8 @@ When executing above generator it will return a SomeThingToGenerate object where
 
 
 Replacing a primitive generator automatically impacts it's nullable counterpart.
+
+Replacing a nullable primitive generator does not impacts it's non-nullable counterpart.
 
 Replacements can occur multiple times during one generation :
 ```
@@ -276,11 +278,21 @@ Usefull f.i. to generate numeric strings.
 
  - `.AsObject()` : Simply casts the generator itself from `Generator<T>` to `Generator<object>`. Mostly used internally.
 
+ - `.Nullable()` : Casts a `Generator<T>` to `Generator<T?>`. In addition generates null 1 out of 5 times.
+
+ - `.Nullable(int timesBeforeResultIsNullAproximation)` : overload of `Nullable()`, generates null 1 out of `timesBeforeResultIsNullAproximation` times .
+
 
 ###'Generating' constants.
 Use `MGen.Constant<T>(T value)`.
 
 This generator is most usefull in combination with others and is used to inject constants into combined generators.
+
+
+###'Never return null.
+Use the `.NeverReturnNull()` extension method.`.
+
+Only available on generators that provide `Nullable<T>` values, this one makes sure that, you guessed it, the nullable generator never returns null.
 
 
 
@@ -507,7 +519,6 @@ Goals achieved I reckon.
 For some who are not used it, it might get tricky to get into. 
 I must say, I myself, only started using it when I started using [Sprache](https://github.com/sprache/Sprache). 
 A beautifull Parsec inspired parsing library.
-
 Stole some ideas from there, I must admit.
 
  * **A better way of dealing with state, better composability of generators** :

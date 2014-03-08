@@ -64,6 +64,22 @@ When executing above generator it will return a SomeThingToGenerate object where
 		[Fact]
 		[ReplacingPrimitiveGenerators(
 			Content =
+@"Replacing a nullable primitive generator does not impacts it's non-nullable counterpart.",
+			Order = 2)]
+		public void NullableReplace()
+		{
+			var generator =
+				from _ in MGen.Int(666, 666).Nullable().NeverReturnNull().Replace()
+				from result in MGen.One<SomeThingToGenerate>()
+				select result;
+			var value = generator.Generate();
+			Assert.True(value.AnInt < 100, value.AnInt.ToString());
+			Assert.Equal(666, value.ANullableProperty);
+		}
+
+		[Fact]
+		[ReplacingPrimitiveGenerators(
+			Content =
 @"Replacements can occur multiple times during one generation :
 ```
 var generator =
@@ -74,7 +90,7 @@ var generator =
 	select new[] { result1, result2 };
 ```
 When executing above generator result1 will have all integers set to 42 and result2 to 666.",
-			Order = 3)]
+			Order = 4)]
 		public void MultipleReplacements()
 		{
 			var generator =
@@ -93,7 +109,7 @@ When executing above generator result1 will have all integers set to 42 and resu
 		[Fact]
 		[ReplacingPrimitiveGeneratorsAttribute(
 			Content = "*Note :* The Replace 'generator' does not actually generate anything, it only influences further generation.",
-			Order = 4)]
+			Order = 5)]
 		public void ReturnsUnit()
 		{
 			var generator = MGen.Int(42,42).Replace();

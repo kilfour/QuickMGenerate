@@ -7,7 +7,7 @@ namespace QuickMGenerate.Tests
 {
 	public class GeneratingNamesSpike
 	{
-		[Fact]
+		[Fact(Skip = "It's only a model.")]
 		public void Spiky()
 		{
 			var generator =

@@ -17,7 +17,7 @@ namespace QuickMGenerate.Tests.Hierarchies
 ```
 var generator =
 	from product in MGen.One<ProductItem>()
-	from setProduct in MGen.For<OrderLine>().Customize(order => order.Product, product)
+	from setProduct in MGen.For<OrderLine>().Customize(orderline => orderline.Product, product)
 	from orderline in MGen.One<OrderLine>()
 	select orderline;
 ```

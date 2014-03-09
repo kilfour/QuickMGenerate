@@ -139,6 +139,13 @@ referencing it.
 
 
 
+###ToList.
+Use The `.ToList()` generator extension.
+
+Similar to the `ToArray` method. But instead of an Array, this one returns a, you guessed it, List. 
+
+
+
 ###Replacing Primitive Generators
 Use the `.Replace()` extension method.
 
@@ -491,7 +498,7 @@ Can be made to return `TimeSpan?` using the `.Nullable()` extension.
  - `TimeSpan?` is automatically detected and generated for object properties.
 
 
-###Enumerations.
+###Enums.
 Use `MGen.Enum<T>()`, where T is the type of Enum you want to generate. 
 
 No overload Exists.

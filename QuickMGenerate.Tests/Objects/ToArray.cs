@@ -26,7 +26,7 @@ referencing it.
 				from two in MGen.Constant(ints)
 				select new {one, two})
 				.Generate();
-
+			Assert.IsType(typeof(int[]), values.one);
 			Assert.Equal(values.one.ElementAt(0), values.two.ElementAt(0));
 			Assert.Equal(values.one.ElementAt(1), values.two.ElementAt(1));
 		}

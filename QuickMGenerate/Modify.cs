@@ -6,6 +6,7 @@ namespace QuickMGenerate
 	public static partial class MGen
 	{
 		public static Generator<T> Modify<T>(this Generator<T> generator, T instance)
+			where T : class
 		{
 			return
 				s =>
@@ -26,6 +27,22 @@ namespace QuickMGenerate
 						}
 						return new Result<T>(instance, s);
 					};
+		}
+		
+		public static Generator<T> ModifyPrimitive<T>(this Generator<T> generator, T instance)
+			where T : struct
+		{
+			return
+				s =>
+					{
+						var before = instance;
+						var primitiveGenerator = s.PrimitiveGenerators[typeof (T)];
+						var value = primitiveGenerator(s).Value;
+						while (IsEqual(before, value))
+							value = primitiveGenerator(s).Value;
+						return new Result<T>((T)value, s);
+					};
+
 		}
 
 		private static bool IsEqual(object before, object after)

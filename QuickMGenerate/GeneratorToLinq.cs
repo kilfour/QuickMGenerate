@@ -17,9 +17,10 @@ namespace QuickMGenerate
 			return s => new Result<TValueTwo>(selector(generator(s).Value), s);
 		}
 
+		// This is the Bind function
 		public static Generator<TValueTwo> SelectMany<TValueOne, TValueTwo>(
 			this Generator<TValueOne> generator,
-			Func<TValueOne, Generator<TValueTwo>> selector)
+			Func<TValueOne, Generator<TValueTwo>> selector) 
 		{
 			if (generator == null)
 				throw new ArgumentNullException("generator");

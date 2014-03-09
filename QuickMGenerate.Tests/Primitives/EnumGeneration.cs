@@ -95,7 +95,7 @@ namespace QuickMGenerate.Tests.Primitives
 		{
 			public EnumsAttribute()
 			{
-				Caption = "Enumerations.";
+				Caption = "Enums.";
 				CaptionOrder = 20;
 			}
 		}

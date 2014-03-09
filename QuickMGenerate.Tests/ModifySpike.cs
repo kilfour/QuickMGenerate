@@ -16,6 +16,17 @@ namespace QuickMGenerate.Tests
 			}
 		}
 
+		[Fact]
+		public void Ints()
+		{
+			var generator = MGen.Int();
+			for (int i = 0; i < 10; i++)
+			{
+				var result = generator.ModifyPrimitive(42).Generate();
+				Assert.NotEqual(42, result);
+			}
+		}
+
 		public class SomeThingToGenerate
 		{
 			public int AnInt { get; set; }

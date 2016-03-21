@@ -10,8 +10,9 @@ namespace QuickMGenerate
 		{
 			return
 				s =>
-					{
-
+				{
+                        
+				        generator(s);
 						foreach (var propertyInfo in instance.GetType().GetProperties(MyBinding.Flags))
 						{
 							if(s.StuffToIgnore.Contains(propertyInfo))

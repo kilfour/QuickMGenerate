@@ -160,7 +160,7 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.Tools
 
 		public Action<bool, string> RunReport { get; set; }
 
-		public Func<object, object, bool> Apply { get; set; }
+		//public Func<object, object, bool> Apply { get; set; }
 
 		public bool AreMemberWiseEqual()
 		{

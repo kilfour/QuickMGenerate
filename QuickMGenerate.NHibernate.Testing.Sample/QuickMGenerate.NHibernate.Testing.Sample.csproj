@@ -80,7 +80,7 @@
       <HintPath>..\Libs\sqlite\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="xunit, Version=1.5.0.1479, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+    <Reference Include="xunit, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\xunit\xunit.dll</HintPath>
     </Reference>

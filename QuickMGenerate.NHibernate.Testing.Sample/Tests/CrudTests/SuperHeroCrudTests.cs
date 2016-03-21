@@ -11,17 +11,17 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.CrudTests
 		{
 			return
 				from _ in MGen.For<IHaveAnId>().Ignore(e => e.Id)
-				from powers in MGen.One<SuperPower>().Many(5)
+                //from powers in MGen.One<SuperPower>().Many(5)
 				from hero in MGen.One<SuperHero>()
-					.Apply(e => SaveToSession(e))
-					.Apply(h => powers.ForEach(p => h.SuperPowers.Add(p)))
+					//.Apply(e => SaveToSession(e))
+                    //.Apply(h => powers.ForEach(p => h.SuperPowers.Add(p)))
 				select hero;
 		}
 
-        [Fact]
-        public void HasManySuperPowers()
-        {
-            HasMany(e => e.SuperPowers);
-        }
+        //[Fact]
+        //public void HasManySuperPowers()
+        //{
+        //    HasMany(e => e.SuperPowers);
+        //}
     }
 }

@@ -206,7 +206,9 @@ namespace QuickMGenerate
 			var prop = propertyInfo;
 			if (!prop.CanWrite)
 				prop = propertyInfo.DeclaringType.GetProperty(propertyInfo.Name);
-			prop.SetValue(target, value, null);
+            
+            if (prop.CanWrite) // todo check this
+			    prop.SetValue(target, value, null);
 		}
 	}
 }

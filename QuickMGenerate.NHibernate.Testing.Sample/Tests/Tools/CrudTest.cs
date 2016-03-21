@@ -70,6 +70,7 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.Tools
         public void AddEntityEntityWasAdded()
         {
             var entity = BuildEntity();
+            NHibernateSession.Save(entity);
             NHibernateSession.Flush();
             NHibernateSession.Evict(entity);
             var reloadedEntity = NHibernateSession.Get<TEntity>(entity.Id);
@@ -82,6 +83,7 @@ namespace QuickMGenerate.NHibernate.Testing.Sample.Tests.Tools
         public void UpdateEntityEntityWasUpdated()
         {
             var entity = BuildEntity();
+            NHibernateSession.Save(entity);
             NHibernateSession.Flush();
             ModifyEntity(entity);
             UpdateEntity(entity);

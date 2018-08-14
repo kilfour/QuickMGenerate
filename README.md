@@ -1,6 +1,6 @@
-#QuickMGenerate
+# QuickMGenerate
 
-##Introduction
+## Introduction
 An evolution from the QuickGenerate library.
 
 Aiming for : 
@@ -13,8 +13,8 @@ Aiming for :
 
  ---
 
-##Generating Primitives
-###Introduction
+## Generating Primitives
+### Introduction
 The MGen class has many methods which can be used to obtain a corresponding primitive.
 
 F.i. `MGen.Int()`. 
@@ -24,8 +24,8 @@ Full details below in the chapter 'The Primitive Generators'.
 
 
 ___
-##Combining Generators
-###Linq Syntax.
+## Combining Generators
+### Linq Syntax.
 Each MGen Generator can be used as a building block and combined using query expressions.
 
 F.i. the following :
@@ -52,7 +52,7 @@ We reuse the 'stringGenerator' defined above and replace the default string gene
 All strings in the generated object will have the pattern defined by 'stringGenerator'.
 
 
-###Using Extensions.
+### Using Extensions.
 When applying the various extension methods onto a generator, they get *combined* into a new generator.
 
 Jumping slightly ahead of ourselves as below example will use methods that are explained more thoroughly further below.
@@ -77,8 +77,8 @@ In the same vein, I was able to leave a lot of code out, and at the same time, p
 
 
 ___
-##Generating Objects
-###A simple object.
+## Generating Objects
+### A simple object.
 Use `MGen.One<T>()`, where T is the type of object you want to generate.
 
 - The primitive properties of the object will be automatically filled in using the default (or replaced) generators.
@@ -92,7 +92,7 @@ Use `MGen.One<T>()`, where T is the type of object you want to generate.
 - The overload `MGen.One<T>(Func<T> constructor)` allows for specific constructor selection.
 
 
-###Ignoring properties.
+### Ignoring properties.
 Use the `MGen.For<T>().Ignore<TProperty>(Expression<Func<T, TProperty>> func)` method chain.
 
 F.i. :
@@ -107,7 +107,7 @@ Derived classes generated also ignore the base property.
 *Note :* The Ignore 'generator' does not actually generate anything, it only influences further generation.
 
 
-###Customizing properties.
+### Customizing properties.
 Use the `MGen.For<T>().Customize<TProperty>(Expression<Func<T, TProperty>> func, Generator<State, T>)` method chain.
 
 F.i. :
@@ -122,13 +122,7 @@ An overload exists which allows for passing a value instead of a generator.
 *Note :* The Customize 'generator' does not actually generate anything, it only influences further generation.
 
 
-###Many objects.
-Use The `.Many(int number)` generator extension.
-
-The generator will generate an IEnumerable<T> of `int number` elements where T is the result type of the extended generator.
-
-
-###ToArray.
+### ToArray.
 Use The `.ToArray()` generator extension.
 
 The `Many` generator above returns an IEnumerable.
@@ -139,14 +133,20 @@ referencing it.
 
 
 
-###ToList.
+### Many objects.
+Use The `.Many(int number)` generator extension.
+
+The generator will generate an IEnumerable<T> of `int number` elements where T is the result type of the extended generator.
+
+
+### ToList.
 Use The `.ToList()` generator extension.
 
 Similar to the `ToArray` method. But instead of an Array, this one returns a, you guessed it, List. 
 
 
 
-###Replacing Primitive Generators
+### Replacing Primitive Generators
 Use the `.Replace()` extension method.
 
 Example
@@ -179,8 +179,8 @@ When executing above generator result1 will have all integers set to 42 and resu
 
 
 ___
-##Generating Hierarchies
-###Relations.
+## Generating Hierarchies
+### Relations.
 In the same way one can `Customize` primitives, this can also be done for references.
 
 E.g. :
@@ -223,7 +223,7 @@ var generator =
 
 
 
-###A 'Component'.
+### A 'Component'.
 Use the `MGen.For<T>().Component()`, method chain.
 
 Once a component is defined, from then on it is automatically generated for any object that has a property of the components type,
@@ -236,8 +236,8 @@ The only exception to the component rule is when it would lead to an infinite lo
 
 
 ___
-##Other Usefull Generators
-###Apply.
+## Other Usefull Generators
+### Apply.
 Use the `.Apply<T>(Func<T, T> func)` extension method.
 
 Applies the specified Function to the generated value, returning the result.
@@ -275,7 +275,7 @@ MGen.For<SomeChild>().Apply(MGen.ChooseFrom(parents), (child, parent) => parent.
 
 
 
-###Picking an element out of a range.
+### Picking an element out of a range.
 Use `MGen.ChooseFrom<T>(IEnumerable<T> values)`.
 
 Picks a random value from a list of options.
@@ -287,7 +287,7 @@ A helper method exists for ease of use when you want to pass in constant values 
 I.e. : `MGen.ChooseFromThese(1, 2)`
 
 
-###Generating unique values.
+### Generating unique values.
 Use the `.Unique(object key)` extension method.
 
 Makes sure that every generated value is unique.
@@ -299,7 +299,7 @@ Multiple unique generators can be defined in one 'composed' generator, without i
 When using the same key for multiple unique generators all values across these generators are unique.
 
 
-###Casting Generators.
+### Casting Generators.
 Various extension methods allow for casting the generated value.
 
  - `.AsString()` : Invokes `.ToString()` on the generated value and 
@@ -313,22 +313,22 @@ Usefull f.i. to generate numeric strings.
  - `.Nullable(int timesBeforeResultIsNullAproximation)` : overload of `Nullable()`, generates null 1 out of `timesBeforeResultIsNullAproximation` times .
 
 
-###'Generating' constants.
-Use `MGen.Constant<T>(T value)`.
-
-This generator is most usefull in combination with others and is used to inject constants into combined generators.
-
-
-###'Never return null.
+### 'Never return null.
 Use the `.NeverReturnNull()` extension method.`.
 
 Only available on generators that provide `Nullable<T>` values, this one makes sure that, you guessed it, the nullable generator never returns null.
 
 
+### 'Generating' constants.
+Use `MGen.Constant<T>(T value)`.
+
+This generator is most usefull in combination with others and is used to inject constants into combined generators.
+
+
 
 ___
-##The Primitive Generators
-###Integers.
+## The Primitive Generators
+### Integers.
 Use `MGen.Int()`.
 
 The overload `MGen.Int(int min, int max)` generates an int higher or equal than min and lower than max.
@@ -344,7 +344,7 @@ Can be made to return `int?` using the `.Nullable()` extension.
  - `int?` is automatically detected and generated for object properties.
 
 
-###Chars.
+### Chars.
 Use `MGen.Char()`. 
 
 No overload Exists.
@@ -358,7 +358,7 @@ Can be made to return `char?` using the `.Nullable()` extension.
  - `char?` is automatically detected and generated for object properties.
 
 
-###Strings.
+### Strings.
 Use `MGen.String()`.
 
 The generator always generates every char element of the string to be between lower case 'a' and lower case 'z'.
@@ -370,7 +370,7 @@ The Default generator generates a string of length higher than 0 and lower than 
  - `string` is automatically detected and generated for object properties.
 
 
-###Booleans.
+### Booleans.
 Use `MGen.Bool()`. 
 
 No overload Exists.
@@ -384,7 +384,7 @@ Can be made to return `bool?` using the `.Nullable()` extension.
  - `bool?` is automatically detected and generated for object properties.
 
 
-###Decimals.
+### Decimals.
 Use `MGen.Decimal()`.
 
 The overload `MGen.Decimal(decimal min, decimal max)` generates a decimal higher or equal than min and lower than max.
@@ -398,7 +398,7 @@ Can be made to return `decimal?` using the `.Nullable()` extension.
  - `decimal?` is automatically detected and generated for object properties.
 
 
-###DateTimes.
+### DateTimes.
 Use `MGen.DateTime()`.
 
 The overload `MGen.DateTimes(DateTime min, DateTime max)` generates a DateTime higher or equal than min and lower than max.
@@ -412,7 +412,7 @@ Can be made to return `DateTime?` using the `.Nullable()` extension.
  - `DateTime?` is automatically detected and generated for object properties.
 
 
-###Longs.
+### Longs.
 Use `MGen.Long()`.
 
 The overload `MGen.Long(long min, long max)` generates a long higher or equal than min and lower than max.
@@ -428,7 +428,7 @@ Can be made to return `long?` using the `.Nullable()` extension.
  - `long?` is automatically detected and generated for object properties.
 
 
-###Doubles.
+### Doubles.
 Use `MGen.Double()`.
 
 The overload `MGen.Double(double min, double max)` generates a double higher or equal than min and lower than max.
@@ -442,7 +442,7 @@ Can be made to return `double?` using the `.Nullable()` extension.
  - `double?` is automatically detected and generated for object properties.
 
 
-###Floats.
+### Floats.
 Use `MGen.Float()`.
 
 The overload `MGen.Float(float min, float max)` generates a float higher or equal than min and lower than max.
@@ -456,7 +456,7 @@ Can be made to return `float?` using the `.Nullable()` extension.
  - `float?` is automatically detected and generated for object properties.
 
 
-###Guids.
+### Guids.
 Use `MGen.Guid()`.
 
 There is no overload.
@@ -470,7 +470,7 @@ Can be made to return `Guid?` using the `.Nullable()` extension.
  - `Guid?` is automatically detected and generated for object properties.
 
 
-###Shorts.
+### Shorts.
 Use `MGen.Short()`.
 
 The overload `MGen.Short(short min, short max)` generates a short higher or equal than min and lower than max.
@@ -484,7 +484,7 @@ Can be made to return `short?` using the `.Nullable()` extension.
  - `short?` is automatically detected and generated for object properties.
 
 
-###TimeSpans.
+### TimeSpans.
 Use `MGen.TimeSpan()`.
 
 The overload `MGen.TimeSpan(int max)` generates a TimeSpan with Ticks higher or equal than 1 and lower than max.
@@ -498,7 +498,7 @@ Can be made to return `TimeSpan?` using the `.Nullable()` extension.
  - `TimeSpan?` is automatically detected and generated for object properties.
 
 
-###Enums.
+### Enums.
 Use `MGen.Enum<T>()`, where T is the type of Enum you want to generate. 
 
 No overload Exists.
@@ -514,8 +514,8 @@ The default generator just picks a random value from all enemeration values.
 
 
 ___
-##Creating Custom Generators
-###How To
+## Creating Custom Generators
+### How To
 Any function that returns a value of type `Generator<T>` can be used as a generator.
 
 Generator is defined as a delegate like so :
@@ -541,7 +541,7 @@ See also : [Creating a counter generator](./QuickMGenerate.Tests/CreatingCustomG
 
 
 ___
-##After Thoughts
+## After Thoughts
 
 Well ... 
 Goals achieved I reckon.

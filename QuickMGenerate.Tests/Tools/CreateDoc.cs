@@ -29,13 +29,13 @@ namespace QuickMGenerate.Tests.Tools
 			sb.AppendLine(Introduction);
 			foreach (var chapter in chapters)
 			{
-				sb.AppendFormat("##{0}", chapter);
+				sb.AppendFormat("## {0}", chapter);
 				sb.AppendLine();
 				var chapterAttributes = attributes.Where(a => a.Chapter == chapter);
 				var captions = chapterAttributes.OrderBy(a => a.CaptionOrder).Select(a => a.Caption).Distinct();
 				foreach (var caption in captions)
 				{
-					sb.AppendFormat("###{0}", caption);
+					sb.AppendFormat("### {0}", caption);
 					sb.AppendLine();
 					foreach (var attribute in chapterAttributes.Where(a => a.Caption == caption).OrderBy(a => a.Order))
 					{
@@ -53,9 +53,9 @@ namespace QuickMGenerate.Tests.Tools
 		}
 
 		private const string Introduction =
-@"#QuickMGenerate
+@"# QuickMGenerate
 
-##Introduction
+## Introduction
 An evolution from the QuickGenerate library.
 
 Aiming for : 
@@ -69,7 +69,7 @@ Aiming for :
  ---
 ";
 		private const string AfterThoughts =
-@"##After Thoughts
+@"## After Thoughts
 
 Well ... 
 Goals achieved I reckon.

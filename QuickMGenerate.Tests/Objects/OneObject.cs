@@ -59,11 +59,21 @@ namespace QuickMGenerate.Tests.Objects
 			Assert.True(two);
 		}
 
-		[Fact]
+//	    [Fact(Skip="WIP")]
+//	    [OneObject(
+//	        Content =
+//@"- Also works for public fields (Not Yet).",
+//	        Order = 4)]
+//	    public void FillsPublicFields()
+//	    {
+//	        Assert.NotEqual(0, MGen.One<SomeThingToGenerate>().Generate().APublicField);
+//	    }
+
+        [Fact]
 		[OneObject(
 			Content =
 @"- Can generate any object that has a parameterless constructor, be it public, protected, or private.",
-			Order = 4)]
+			Order = 10)]
 		public void CanGenerateObjectsProtectedAndPrivate()
 		{
 			MGen.One<SomeThingProtectedToGenerate>().Generate();
@@ -74,7 +84,7 @@ namespace QuickMGenerate.Tests.Objects
 		[OneObject(
 			Content =
 @"- The overload `MGen.One<T>(Func<T> constructor)` allows for specific constructor selection.",
-			Order = 5)]
+			Order = 11)]
 		public void CustomConstructor()
 		{
 			var generator =
@@ -90,6 +100,8 @@ namespace QuickMGenerate.Tests.Objects
 			public int APropertyWithPrivateSetters { get; private set; }
 			public MyEnumeration AnEnumeration { get; set; }
 			public MyEnumeration AnEnumerationWithPrivateSetter { get; private set; }
+
+		    public int APublicField;
 		}
 
 		public enum MyEnumeration

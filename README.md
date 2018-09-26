@@ -87,6 +87,8 @@ Use `MGen.One<T>()`, where T is the type of object you want to generate.
 
 - Also works for properties with private setters.
 
+- Also works for public fields.
+
 - Can generate any object that has a parameterless constructor, be it public, protected, or private.
 
 - The overload `MGen.One<T>(Func<T> constructor)` allows for specific constructor selection.
@@ -118,6 +120,10 @@ MGen.For<SomeThingToGenerate>().Customize(s => s.MyProperty, MGen.Constant(42))
 The property specified will be generated using the passed in generator.
 
 An overload exists which allows for passing a value instead of a generator.
+
+Derived classes generated also use the custom property.
+
+This does not work for fields yet.
 
 *Note :* The Customize 'generator' does not actually generate anything, it only influences further generation.
 

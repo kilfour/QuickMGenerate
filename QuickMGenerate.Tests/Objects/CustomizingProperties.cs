@@ -31,7 +31,7 @@ MGen.For<SomeThingToGenerate>().Customize(s => s.MyProperty, MGen.Constant(42))
 		[CustomizingProperties(
 			Content = "An overload exists which allows for passing a value instead of a generator.",
 			Order = 2)]
-		public void WorksForDerived()
+		public void UsingValue()
 		{
 			var generator =
 				from c in MGen.For<SomeThingToGenerate>().Customize(s => s.AnInt, 42)
@@ -40,10 +40,36 @@ MGen.For<SomeThingToGenerate>().Customize(s => s.MyProperty, MGen.Constant(42))
 			Assert.Equal(42, generator.Generate().AnInt);
 		}
 
-		[Fact]
+	    [Fact]
+	    [CustomizingProperties(
+	        Content = "Derived classes generated also use the custom property.",
+	        Order = 3)]
+	    public void WorksForDerived()
+	    {
+	        var generator =
+	            from _ in MGen.For<SomeThingToGenerate>().Customize(s => s.AnInt, 42)
+                from result in MGen.One<SomeThingDerivedToGenerate>()
+	            select result;
+	        Assert.Equal(42, generator.Generate().AnInt);
+	    }
+
+	    //[Fact(Skip="WIP")]
+	    //[CustomizingProperties(
+	    //    Content = "This does not work for fields yet.",
+	    //    Order = 4)]
+	    //public void Field()
+	    //{
+	    //    var generator =
+	    //        from _ in MGen.For<SomeThingToGenerate>().Customize(s => s.AnIntField, 42)
+	    //        from result in MGen.One<SomeThingDerivedToGenerate>()
+	    //        select result;
+	    //    Assert.Equal(42, generator.Generate().AnIntField);
+	    //}
+
+        [Fact]
 		[CustomizingProperties(
 			Content = "*Note :* The Customize 'generator' does not actually generate anything, it only influences further generation.",
-			Order = 3)]
+			Order = 99)]
 		public void ReturnsUnit()
 		{
 			var generator = MGen.For<SomeThingToGenerate>().Customize(s => s.AnInt, 42);
@@ -52,6 +78,7 @@ MGen.For<SomeThingToGenerate>().Customize(s => s.MyProperty, MGen.Constant(42))
 		public class SomeThingToGenerate
 		{
 			public int AnInt { get; set; }
+		    public int AnIntField;
 		}
 
 		public class SomeThingDerivedToGenerate : SomeThingToGenerate

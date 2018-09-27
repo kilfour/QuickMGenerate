@@ -21,7 +21,19 @@ namespace QuickMGenerate.Tests.Objects
 			Assert.IsAssignableFrom(typeof(IEnumerable<SomeThingToGenerate>), values);
 		}
 
-		public class SomeThingToGenerate { }
+	    [Fact]
+	    [ManyObjects(
+	        Content =
+@"An overload exists (`.Many(int min, int max`) where the number of elements is in between the specified arguments.",
+	        Order = 1)]
+	    public void CorrectAmountOfElementsMinMax()
+	    {
+	        var values = MGen.One<SomeThingToGenerate>().Many(2, 2).Generate();
+	        Assert.Equal(2, values.Count());
+	        Assert.IsAssignableFrom(typeof(IEnumerable<SomeThingToGenerate>), values);
+	    }
+
+        public class SomeThingToGenerate { }
 
 		public class ManyObjectsAttribute : GeneratingObjectsAttribute
 		{

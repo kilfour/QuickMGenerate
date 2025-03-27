@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace QuickMGenerate.Tests.Primitives
+﻿namespace QuickMGenerate.Tests.Primitives
 {
 	[Decimals(
 		Content = "Use `MGen.Decimal()`.",

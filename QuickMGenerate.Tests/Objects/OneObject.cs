@@ -1,7 +1,4 @@
-﻿using QuickMGenerate.UnderTheHood;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Objects
+﻿namespace QuickMGenerate.Tests.Objects
 {
 	[OneObject(
 		Content = "Use `MGen.One<T>()`, where T is the type of object you want to generate.",
@@ -10,7 +7,7 @@ namespace QuickMGenerate.Tests.Objects
 	{
 		[Fact]
 		[OneObject(
-			Content = 
+			Content =
 @"- The primitive properties of the object will be automatically filled in using the default (or replaced) generators.",
 			Order = 1)]
 		public void FillsPrimitives()
@@ -59,17 +56,17 @@ namespace QuickMGenerate.Tests.Objects
 			Assert.True(two);
 		}
 
-//	    [Fact(Skip="WIP")]
-//	    [OneObject(
-//	        Content =
-//@"- Also works for public fields (Not Yet).",
-//	        Order = 4)]
-//	    public void FillsPublicFields()
-//	    {
-//	        Assert.NotEqual(0, MGen.One<SomeThingToGenerate>().Generate().APublicField);
-//	    }
+		//	    [Fact(Skip="WIP")]
+		//	    [OneObject(
+		//	        Content =
+		//@"- Also works for public fields (Not Yet).",
+		//	        Order = 4)]
+		//	    public void FillsPublicFields()
+		//	    {
+		//	        Assert.NotEqual(0, MGen.One<SomeThingToGenerate>().Generate().APublicField);
+		//	    }
 
-        [Fact]
+		[Fact]
 		[OneObject(
 			Content =
 @"- Can generate any object that has a parameterless constructor, be it public, protected, or private.",
@@ -101,7 +98,7 @@ namespace QuickMGenerate.Tests.Objects
 			public MyEnumeration AnEnumeration { get; set; }
 			public MyEnumeration AnEnumerationWithPrivateSetter { get; private set; }
 
-		    public int APublicField;
+			public int APublicField;
 		}
 
 		public enum MyEnumeration
@@ -112,7 +109,7 @@ namespace QuickMGenerate.Tests.Objects
 
 		public class SomeThingProtectedToGenerate
 		{
-			protected SomeThingProtectedToGenerate(){ }
+			protected SomeThingProtectedToGenerate() { }
 		}
 
 		public class SomeThingPrivateToGenerate

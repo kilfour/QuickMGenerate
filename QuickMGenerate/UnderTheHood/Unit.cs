@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace QuickMGenerate.UnderTheHood
+﻿namespace QuickMGenerate.UnderTheHood
 {
 	public struct Unit
 		: IComparable<Unit>, IEquatable<Unit>

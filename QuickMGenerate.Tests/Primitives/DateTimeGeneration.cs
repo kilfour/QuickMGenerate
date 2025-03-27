@@ -1,7 +1,4 @@
-﻿using System;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Primitives
+﻿namespace QuickMGenerate.Tests.Primitives
 {
 	[DateTimes(
 		Content = "Use `MGen.DateTime()`.",

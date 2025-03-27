@@ -1,8 +1,4 @@
-﻿using System;
-using QuickMGenerate.UnderTheHood;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Primitives
+﻿namespace QuickMGenerate.Tests.Primitives
 {
 	[Longs(
 		Content = "Use `MGen.Long()`.",

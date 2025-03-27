@@ -1,7 +1,5 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using QuickMGenerate.Data;
-using Xunit;
 
 namespace QuickMGenerate.Tests
 {
@@ -18,11 +16,11 @@ namespace QuickMGenerate.Tests
 				let email = string.Format("{0}.{1}@{2}.{3}", firstname, lastname, provider, domain)
 				select
 					new Person
-						{
-							FirstName = firstname,
-							LastName = lastname,
-							Email = email
-						};
+					{
+						FirstName = firstname,
+						LastName = lastname,
+						Email = email
+					};
 			var people = generator.Many(20).Generate();
 			foreach (var person in people)
 			{

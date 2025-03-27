@@ -1,5 +1,4 @@
-﻿using System;
-using QuickMGenerate.UnderTheHood;
+﻿using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
 {
@@ -11,25 +10,25 @@ namespace QuickMGenerate
 			return
 				s =>
 				{
-                        
-				        generator(s);
-						foreach (var propertyInfo in instance.GetType().GetProperties(MyBinding.Flags))
-						{
-							if(s.StuffToIgnore.Contains(propertyInfo))
-								continue;
-							if (!IsAKnownPrimitive(s, propertyInfo))
-								continue;
-							var before = propertyInfo.GetValue(instance, null);
-							var primitiveGenerator = s.PrimitiveGenerators[propertyInfo.PropertyType];
-							var value = primitiveGenerator(s).Value;
-							while(IsEqual(before, value))
-								value = primitiveGenerator(s).Value;
-							SetPropertyValue(propertyInfo, instance, value);
-						}
-						return new Result<T>(instance, s);
-					};
+
+					generator(s);
+					foreach (var propertyInfo in instance.GetType().GetProperties(MyBinding.Flags))
+					{
+						if (s.StuffToIgnore.Contains(propertyInfo))
+							continue;
+						if (!IsAKnownPrimitive(s, propertyInfo))
+							continue;
+						var before = propertyInfo.GetValue(instance, null);
+						var primitiveGenerator = s.PrimitiveGenerators[propertyInfo.PropertyType];
+						var value = primitiveGenerator(s).Value;
+						while (IsEqual(before, value))
+							value = primitiveGenerator(s).Value;
+						SetPropertyValue(propertyInfo, instance, value);
+					}
+					return new Result<T>(instance, s);
+				};
 		}
-		
+
 		public static Generator<T> ModifyPrimitive<T>(this Generator<T> generator, T instance)
 			where T : struct
 		{
@@ -37,7 +36,7 @@ namespace QuickMGenerate
 				s =>
 					{
 						var before = instance;
-						var primitiveGenerator = s.PrimitiveGenerators[typeof (T)];
+						var primitiveGenerator = s.PrimitiveGenerators[typeof(T)];
 						var value = primitiveGenerator(s).Value;
 						while (IsEqual(before, value))
 							value = primitiveGenerator(s).Value;

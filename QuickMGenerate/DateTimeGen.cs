@@ -1,5 +1,4 @@
-﻿using System;
-using QuickMGenerate.UnderTheHood;
+﻿using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
 {
@@ -15,7 +14,7 @@ namespace QuickMGenerate
 			return
 				s =>
 					{
-						var ticks = (long) ((s.Random.NextDouble()*(max.Ticks - min.Ticks)) + min.Ticks);
+						var ticks = (long)((s.Random.NextDouble() * (max.Ticks - min.Ticks)) + min.Ticks);
 						var value = new DateTime(ticks);
 						// why ???
 						value = new DateTime(value.Year, value.Month, value.Day, value.Hour, value.Minute, value.Second);

@@ -1,7 +1,4 @@
-﻿using QuickMGenerate.Tests.Objects;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Combining
+﻿namespace QuickMGenerate.Tests.Combining
 {
 	[LinqSyntax(
 		Content = "Each MGen Generator can be used as a building block and combined using query expressions.",

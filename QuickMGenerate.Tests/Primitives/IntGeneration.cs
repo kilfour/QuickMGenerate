@@ -1,7 +1,4 @@
-﻿using System;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Primitives
+﻿namespace QuickMGenerate.Tests.Primitives
 {
 	[Ints(
 		Content = "Use `MGen.Int()`.",

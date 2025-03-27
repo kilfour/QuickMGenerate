@@ -1,7 +1,4 @@
-﻿using System;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Primitives
+﻿namespace QuickMGenerate.Tests.Primitives
 {
 	[Enums(
 		Content = "Use `MGen.Enum<T>()`, where T is the type of Enum you want to generate. \n\nNo overload Exists.",
@@ -10,7 +7,7 @@ namespace QuickMGenerate.Tests.Primitives
 	{
 		[Fact]
 		[Enums(
-			Content = 
+			Content =
 "The default generator just picks a random value from all enemeration values.",
 			Order = 1)]
 		public void DefaultGenerator()

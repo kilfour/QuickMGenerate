@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
@@ -119,7 +116,7 @@ namespace QuickMGenerate
 					.StuffToIgnore
 					.Any(
 						info => info.ReflectedType.IsAssignableFrom(propertyInfo.ReflectedType)
-						        && info.Name == propertyInfo.Name);
+								&& info.Name == propertyInfo.Name);
 		}
 
 		private static bool NeedsToBeCustomized(State state, PropertyInfo propertyInfo)
@@ -130,7 +127,7 @@ namespace QuickMGenerate
 					.Keys
 					.Any(
 						info => info.ReflectedType.IsAssignableFrom(propertyInfo.ReflectedType)
-						        && info.Name == propertyInfo.Name);
+								&& info.Name == propertyInfo.Name);
 		}
 
 		private static void CustomizeProperty(object target, PropertyInfo propertyInfo, State state)
@@ -206,9 +203,9 @@ namespace QuickMGenerate
 			var prop = propertyInfo;
 			if (!prop.CanWrite)
 				prop = propertyInfo.DeclaringType.GetProperty(propertyInfo.Name);
-            
-            if (prop.CanWrite) // todo check this
-			    prop.SetValue(target, value, null);
+
+			if (prop.CanWrite) // todo check this
+				prop.SetValue(target, value, null);
 		}
 	}
 }

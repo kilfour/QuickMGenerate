@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace QuickMGenerate.Data
+﻿namespace QuickMGenerate.Data
 {
     public static partial class DataLists
     {

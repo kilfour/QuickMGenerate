@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace QuickMGenerate.UnderTheHood
 {
 	public class State
 	{
 		public readonly MoreRandom Random = new MoreRandom();
-		
+
 		public readonly List<PropertyInfo> StuffToIgnore = new List<PropertyInfo>();
 
 		private readonly Dictionary<object, object> generatorMemory =
@@ -36,10 +33,10 @@ namespace QuickMGenerate.UnderTheHood
 
 		public void AddActionToApplyFor(Type type, Action<object> action)
 		{
-			if(!ActionsToApply.ContainsKey(type))
+			if (!ActionsToApply.ContainsKey(type))
 				ActionsToApply[type] = new List<Action<object>>();
 			var actions = ActionsToApply[type];
-			if(actions.All(a => a.GetHashCode() != action.GetHashCode()))
+			if (actions.All(a => a.GetHashCode() != action.GetHashCode()))
 				actions.Add(action);
 		}
 

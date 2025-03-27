@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Xunit;
-
-namespace QuickMGenerate.Tests.OtherUsefullGenerators
+﻿namespace QuickMGenerate.Tests.OtherUsefullGenerators
 {
 	[Unique(
 		Content = "Use the `.Unique(object key)` extension method.",
@@ -46,14 +43,14 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 				var generator =
 					from one in MGen.ChooseFromThese(1, 2).Unique(1)
 					from two in MGen.ChooseFromThese(1, 2).Unique(2)
-					select new[] {one, two};
+					select new[] { one, two };
 				var value = generator.Many(2).Generate().ToArray();
 				var valueOne = value[0];
 				var valueTwo = value[1];
 				Assert.Equal(valueOne[0] == 1 ? 2 : 1, valueTwo[0]);
 				Assert.Equal(valueOne[1] == 1 ? 2 : 1, valueTwo[1]);
 			}
-			
+
 		}
 
 		[Fact]
@@ -68,7 +65,7 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 				var generator =
 					from one in MGen.ChooseFromThese(1, 2).Unique(1)
 					from two in MGen.ChooseFromThese(1, 2).Unique(1)
-					select new[] {one, two};
+					select new[] { one, two };
 
 				var valueOne = generator.Generate();
 				Assert.Equal(valueOne[0] == 1 ? 2 : 1, valueOne[1]);

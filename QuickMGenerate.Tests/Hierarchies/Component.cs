@@ -1,5 +1,4 @@
 ﻿using QuickMGenerate.UnderTheHood;
-using Xunit;
 
 namespace QuickMGenerate.Tests.Hierarchies
 {
@@ -21,7 +20,7 @@ similarly to how primitives are handled.",
 				from child in MGen.One<SomeChildToGenerate>()
 				from thing in MGen.One<SomeThingToGenerate>().Apply(t => t.MyChild = child)
 				select thing;
-			
+
 			var value = generator.Generate();
 
 			Assert.NotNull(value.MyComponent);

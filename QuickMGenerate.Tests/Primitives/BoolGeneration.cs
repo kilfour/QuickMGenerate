@@ -1,15 +1,13 @@
-﻿using Xunit;
-
-namespace QuickMGenerate.Tests.Primitives
+﻿namespace QuickMGenerate.Tests.Primitives
 {
 	[Booleans(
-		Content = "Use `MGen.Bool()`. \n\nNo overload Exists.", 
+		Content = "Use `MGen.Bool()`. \n\nNo overload Exists.",
 		Order = 0)]
 	public class BoolGeneration
 	{
 		[Fact]
 		[Booleans(
-			Content = "The default generator generates True or False.", 
+			Content = "The default generator generates True or False.",
 			Order = 1)]
 		public void DefaultGeneratorSometimesGeneratesTrue()
 		{
@@ -24,7 +22,7 @@ namespace QuickMGenerate.Tests.Primitives
 
 		[Fact]
 		[Booleans(
-			Content = "Can be made to return `bool?` using the `.Nullable()` extension.", 
+			Content = "Can be made to return `bool?` using the `.Nullable()` extension.",
 			Order = 2)]
 		public void Nullable()
 		{

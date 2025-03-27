@@ -1,8 +1,4 @@
-﻿using System.Linq;
-using QuickMGenerate.Tests.Objects;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Combining
+﻿namespace QuickMGenerate.Tests.Combining
 {
 	[UsingExtensions(
 		Content = "When applying the various extension methods onto a generator, they get *combined* into a new generator.",
@@ -39,7 +35,7 @@ In the same vein, I was able to leave a lot of code out, and at the same time, p
 			for (int i = 0; i < 10; i++)
 			{
 				var values = generator.Generate().ToArray();
-				Assert.Equal(values[0] == 1 ? 2 : 1, values[1]);	
+				Assert.Equal(values[0] == 1 ? 2 : 1, values[1]);
 			}
 		}
 

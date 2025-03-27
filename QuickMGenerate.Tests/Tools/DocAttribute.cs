@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace QuickMGenerate.Tests.Tools
+﻿namespace QuickMGenerate.Tests.Tools
 {
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 	public class DocAttribute : Attribute
@@ -31,12 +29,12 @@ namespace QuickMGenerate.Tests.Tools
 			unchecked
 			{
 				int result = base.GetHashCode();
-				result = (result*397) ^ (Chapter != null ? Chapter.GetHashCode() : 0);
-				result = (result*397) ^ ChapterOrder;
-				result = (result*397) ^ (Caption != null ? Caption.GetHashCode() : 0);
-				result = (result*397) ^ CaptionOrder;
-				result = (result*397) ^ (Content != null ? Content.GetHashCode() : 0);
-				result = (result*397) ^ Order;
+				result = (result * 397) ^ (Chapter != null ? Chapter.GetHashCode() : 0);
+				result = (result * 397) ^ ChapterOrder;
+				result = (result * 397) ^ (Caption != null ? Caption.GetHashCode() : 0);
+				result = (result * 397) ^ CaptionOrder;
+				result = (result * 397) ^ (Content != null ? Content.GetHashCode() : 0);
+				result = (result * 397) ^ Order;
 				return result;
 			}
 		}

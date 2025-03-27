@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace QuickMGenerate.Tests.OtherUsefullGenerators
+﻿namespace QuickMGenerate.Tests.OtherUsefullGenerators
 {
 	[Constant(
 		Content = "Use `MGen.Constant<T>(T value)`.",
@@ -9,7 +7,7 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 	{
 		[Fact]
 		[Constant(
-			Content = 
+			Content =
 @"This generator is most usefull in combination with others and is used to inject constants into combined generators.",
 			Order = 1)]
 		public void JustReturnsValue()

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Primitives
+﻿namespace QuickMGenerate.Tests.Primitives
 {
 	[Chars(
 		Content = "Use `MGen.Char()`. \n\nNo overload Exists.",

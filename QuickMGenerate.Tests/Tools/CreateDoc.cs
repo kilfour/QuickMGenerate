@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Linq;
-using System.Text;
-using Xunit;
+﻿using System.Text;
 
 namespace QuickMGenerate.Tests.Tools
 {
@@ -11,15 +8,15 @@ namespace QuickMGenerate.Tests.Tools
 		public void Go()
 		{
 			var typeattributes =
-				typeof (CreateDoc).Assembly
+				typeof(CreateDoc).Assembly
 					.GetTypes()
-					.SelectMany(t => t.GetCustomAttributes(typeof (DocAttribute), false));
+					.SelectMany(t => t.GetCustomAttributes(typeof(DocAttribute), false));
 
 			var methodattributes =
-				typeof (CreateDoc).Assembly
+				typeof(CreateDoc).Assembly
 					.GetTypes()
 					.SelectMany(t => t.GetMethods())
-					.SelectMany(t => t.GetCustomAttributes(typeof (DocAttribute), false));
+					.SelectMany(t => t.GetCustomAttributes(typeof(DocAttribute), false));
 
 			var attributes = typeattributes.Union(methodattributes)
 					.Cast<DocAttribute>();

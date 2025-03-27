@@ -1,5 +1,4 @@
-﻿using System;
-using QuickMGenerate.UnderTheHood;
+﻿using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
 {

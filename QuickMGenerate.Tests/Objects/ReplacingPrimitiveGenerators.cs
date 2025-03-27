@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using QuickMGenerate.UnderTheHood;
-using Xunit;
+﻿using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate.Tests.Objects
 {
@@ -18,7 +16,7 @@ var generator =
 	select result;
 ```
 When executing above generator it will return a SomeThingToGenerate object where all integers have the value 42.
-", 
+",
 			Order = 1)]
 		public void UsesReplacement()
 		{
@@ -112,7 +110,7 @@ When executing above generator result1 will have all integers set to 42 and resu
 			Order = 5)]
 		public void ReturnsUnit()
 		{
-			var generator = MGen.Int(42,42).Replace();
+			var generator = MGen.Int(42, 42).Replace();
 			Assert.Equal(Unit.Instance, generator.Generate());
 		}
 

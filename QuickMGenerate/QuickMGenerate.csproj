@@ -1,90 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DC53A3E3-ECFA-4B88-A808-0ABB5C9FE5CE}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QuickMGenerate</RootNamespace>
-    <AssemblyName>QuickMGenerate</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Apply.cs" />
-    <Compile Include="CharGen.cs" />
-    <Compile Include="As.cs" />
-    <Compile Include="BoolGen.cs" />
-    <Compile Include="Constant.cs" />
-    <Compile Include="Choosing.cs" />
-    <Compile Include="ToList.cs" />
-    <Compile Include="For.cs" />
-    <Compile Include="TimeSpanGen.cs" />
-    <Compile Include="ShortGen.cs" />
-    <Compile Include="GuidGen.cs" />
-    <Compile Include="FloatGen.cs" />
-    <Compile Include="DoubleGen.cs" />
-    <Compile Include="Data\FemaleFirstNames.cs" />
-    <Compile Include="Data\Firstnames.cs" />
-    <Compile Include="Data\LastNames.cs" />
-    <Compile Include="Data\MaleFirstNames.cs" />
-    <Compile Include="HeyITriedFiftyTimesButCouldNotGetADifferentValue.cs" />
-    <Compile Include="ToArray.cs" />
-    <Compile Include="UnderTheHood\MoreRandom.cs" />
-    <Compile Include="Unique.cs" />
-    <Compile Include="Enum.cs" />
-    <Compile Include="LongGen.cs" />
-    <Compile Include="DateTimeGen.cs" />
-    <Compile Include="DecimalGen.cs" />
-    <Compile Include="Primitive.cs" />
-    <Compile Include="Modify.cs" />
-    <Compile Include="Nullable.cs" />
-    <Compile Include="Replace.cs" />
-    <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="Generate.cs" />
-    <Compile Include="One.cs" />
-    <Compile Include="UnderTheHood\ExpressionExtensions.cs" />
-    <Compile Include="UnderTheHood\Generator.cs" />
-    <Compile Include="GeneratorToLinq.cs" />
-    <Compile Include="IntGen.cs" />
-    <Compile Include="Many.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnderTheHood\MyBinding.cs" />
-    <Compile Include="UnderTheHood\Result.cs" />
-    <Compile Include="UnderTheHood\State.cs" />
-    <Compile Include="StringGen.cs" />
-    <Compile Include="UnderTheHood\Unit.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

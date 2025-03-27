@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace QuickMGenerate
+﻿namespace QuickMGenerate
 {
 	public class HeyITriedFiftyTimesButCouldNotGetADifferentValue
 		: Exception

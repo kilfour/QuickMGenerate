@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 
 namespace QuickMGenerate.UnderTheHood
 {
@@ -18,7 +17,7 @@ namespace QuickMGenerate.UnderTheHood
 			double value1 = (Convert.ToDouble(randomNumber[0]) / 255d);
 			double value2 = Math.Round(value1 * (maximumValue - minimumValue - 1));
 
-			return (int) (minimumValue + value2);
+			return (int)(minimumValue + value2);
 		}
 
 		public double NextDouble()

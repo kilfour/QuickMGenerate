@@ -1,0 +1,40 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Build Library",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "dotnet",
+            "args": [
+                "build",
+                "${workspaceFolder}/QuickMGenerate/QuickMGenerate.csproj"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Run Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "dotnet",
+            "args": [
+                "test",
+                "${workspaceFolder}/QuickMGenerate.Tests/QuickMGenerate.Tests.csproj",
+                "--no-build"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "preLaunchTask": "build",
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Build & Test",
+            "configurations": [
+                "Build Library",
+                "Run Tests"
+            ]
+        }
+    ]
+}

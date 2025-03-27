@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Objects
+﻿namespace QuickMGenerate.Tests.Objects
 {
 	[ToArray(
 		Content = "Use The `.ToArray()` generator extension.",
@@ -22,15 +19,15 @@ referencing it.
 		{
 			var values =
 				(from ints in MGen.Int().Many(2).ToArray()
-				from one in MGen.Constant(ints)
-				from two in MGen.Constant(ints)
-				select new {one, two})
+				 from one in MGen.Constant(ints)
+				 from two in MGen.Constant(ints)
+				 select new { one, two })
 				.Generate();
-			Assert.IsType(typeof(int[]), values.one);
+			Assert.IsType<int[]>(values.one);
 			Assert.Equal(values.one.ElementAt(0), values.two.ElementAt(0));
 			Assert.Equal(values.one.ElementAt(1), values.two.ElementAt(1));
 		}
-		
+
 		public class SomeThingToGenerate { }
 
 		public class ToArrayAttribute : GeneratingObjectsAttribute

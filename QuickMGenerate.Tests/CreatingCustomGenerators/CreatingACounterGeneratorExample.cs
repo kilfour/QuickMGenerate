@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using QuickMGenerate.UnderTheHood;
-using Xunit;
+﻿using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate.Tests.CreatingCustomGenerators
 {

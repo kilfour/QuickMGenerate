@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace QuickMGenerate.Tests.OtherUsefullGenerators
+﻿namespace QuickMGenerate.Tests.OtherUsefullGenerators
 {
 	[NeverReturnNull(
 		Content = "Use the `.NeverReturnNull()` extension method.`.",
@@ -9,14 +7,14 @@ namespace QuickMGenerate.Tests.OtherUsefullGenerators
 	{
 		[Fact]
 		[NeverReturnNull(
-			Content = 
+			Content =
 @"Only available on generators that provide `Nullable<T>` values, this one makes sure that, you guessed it, the nullable generator never returns null.",
 			Order = 1)]
 		public void NeverNull()
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				Assert.Equal(42, MGen.Constant(42).Nullable().NeverReturnNull().Generate());	
+				Assert.Equal(42, MGen.Constant(42).Nullable().NeverReturnNull().Generate());
 			}
 		}
 

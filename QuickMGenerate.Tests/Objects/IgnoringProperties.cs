@@ -1,5 +1,4 @@
 ﻿using QuickMGenerate.UnderTheHood;
-using Xunit;
 
 namespace QuickMGenerate.Tests.Objects
 {
@@ -33,7 +32,7 @@ MGen.For<SomeThingToGenerate>().Ignore(s => s.Id)
 			Order = 2)]
 		public void WorksForDerived()
 		{
-			var generator = 
+			var generator =
 				from _ in MGen.For<SomeThingToGenerate>().Ignore(s => s.AnInt)
 				from result in MGen.One<SomeThingDerivedToGenerate>()
 				select result;
@@ -58,7 +57,7 @@ MGen.For<SomeThingToGenerate>().Ignore(s => s.Id)
 		public class SomeThingDerivedToGenerate : SomeThingToGenerate
 		{
 		}
-		
+
 		public class IgnoringPropertiesAttribute : GeneratingObjectsAttribute
 		{
 			public IgnoringPropertiesAttribute()

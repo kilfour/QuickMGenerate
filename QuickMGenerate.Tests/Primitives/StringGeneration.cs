@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Primitives
+﻿namespace QuickMGenerate.Tests.Primitives
 {
 	[Strings(
 		Content = "Use `MGen.String()`.",
@@ -10,7 +7,7 @@ namespace QuickMGenerate.Tests.Primitives
 	{
 		[Fact]
 		[Strings(
-			Content = 
+			Content =
 "The generator always generates every char element of the string to be between lower case 'a' and lower case 'z'.",
 			Order = 1)]
 		public void DefaultGeneratorStringElementsAlwaysBetweenLowerCaseAAndLowerCaseZ()

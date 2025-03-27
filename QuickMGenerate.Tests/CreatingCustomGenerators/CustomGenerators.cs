@@ -1,5 +1,4 @@
 ﻿using QuickMGenerate.UnderTheHood;
-using Xunit;
 
 namespace QuickMGenerate.Tests.CreatingCustomGenerators
 {

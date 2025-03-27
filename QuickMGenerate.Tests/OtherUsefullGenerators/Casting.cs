@@ -1,5 +1,4 @@
 ﻿using QuickMGenerate.UnderTheHood;
-using Xunit;
 
 namespace QuickMGenerate.Tests.OtherUsefullGenerators
 {
@@ -17,7 +16,7 @@ Usefull f.i. to generate numeric strings.",
 			Order = 1)]
 		public void AsString()
 		{
-			Assert.IsType(typeof(string), MGen.Int().AsString().Generate());
+			Assert.IsType<string>(MGen.Int().AsString().Generate());
 		}
 
 		[Fact]
@@ -27,7 +26,7 @@ Usefull f.i. to generate numeric strings.",
 			Order = 1)]
 		public void AsObject()
 		{
-			Assert.IsType(typeof(Generator<object>), MGen.Int().AsObject());
+			Assert.IsType<Generator<object>>(MGen.Int().AsObject());
 		}
 
 		[Fact]

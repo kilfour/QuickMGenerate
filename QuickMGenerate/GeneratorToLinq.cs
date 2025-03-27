@@ -1,5 +1,4 @@
-﻿using System;
-using QuickMGenerate.UnderTheHood;
+﻿using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
 {
@@ -20,7 +19,7 @@ namespace QuickMGenerate
 		// This is the Bind function
 		public static Generator<TValueTwo> SelectMany<TValueOne, TValueTwo>(
 			this Generator<TValueOne> generator,
-			Func<TValueOne, Generator<TValueTwo>> selector) 
+			Func<TValueOne, Generator<TValueTwo>> selector)
 		{
 			if (generator == null)
 				throw new ArgumentNullException("generator");

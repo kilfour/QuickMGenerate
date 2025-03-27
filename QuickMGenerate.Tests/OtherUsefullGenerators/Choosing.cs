@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace QuickMGenerate.Tests.OtherUsefullGenerators
+﻿namespace QuickMGenerate.Tests.OtherUsefullGenerators
 {
 	[Choosing(
 		Content = "Use `MGen.ChooseFrom<T>(IEnumerable<T> values)`.",
@@ -16,7 +14,7 @@ F.i. `MGen.ChooseFrom(new []{ 1, 2 })` will return either 1 or 2.",
 			Order = 1)]
 		public void Enumerable()
 		{
-			var generator = MGen.ChooseFrom(new []{ 1, 2 });
+			var generator = MGen.ChooseFrom(new[] { 1, 2 });
 			var one = false;
 			var two = false;
 			for (int i = 0; i < 20; i++)

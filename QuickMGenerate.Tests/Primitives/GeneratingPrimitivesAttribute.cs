@@ -1,5 +1,4 @@
 ﻿using QuickMGenerate.Tests.Tools;
-using Xunit;
 
 namespace QuickMGenerate.Tests.Primitives
 {
@@ -10,11 +9,11 @@ namespace QuickMGenerate.Tests.Primitives
 	{
 		[Fact]
 		[GeneratingPrimitives(
-			Content = 
+			Content =
 @"F.i. `MGen.Int()`. 
 
 Full details below in the chapter 'The Primitive Generators'.",
-			Order = 1)]	
+			Order = 1)]
 		public void ForAnInt()
 		{
 			Assert.NotEqual(0, MGen.Int().Generate());

@@ -1,7 +1,4 @@
-﻿using QuickMGenerate.UnderTheHood;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Primitives
+﻿namespace QuickMGenerate.Tests.Primitives
 {
 	[Floats(
 		Content = "Use `MGen.Float()`.",

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using QuickMGenerate.UnderTheHood;
+﻿using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
 {
@@ -15,13 +13,13 @@ namespace QuickMGenerate
 						for (int i = 0; i < 50; i++)
 						{
 							var result = generator(s);
-							if(!allreadyGenerated.Contains(result.Value))
+							if (!allreadyGenerated.Contains(result.Value))
 							{
 								allreadyGenerated.Add(result.Value);
 								return result;
 							}
 						}
-						throw new HeyITriedFiftyTimesButCouldNotGetADifferentValue(); 
+						throw new HeyITriedFiftyTimesButCouldNotGetADifferentValue();
 					};
 		}
 	}

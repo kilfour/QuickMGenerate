@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-
-namespace QuickMGenerate.Tests.Hierarchies
+﻿namespace QuickMGenerate.Tests.Hierarchies
 {
 	[Relations(
 		Content = "In the same way one can `Customize` primitives, this can also be done for references.",
@@ -30,7 +26,7 @@ var generator =
 				from setProduct in MGen.For<OrderLine>().Customize(order => order.Product, product)
 				from orderline in MGen.One<OrderLine>()
 				select orderline;
-			
+
 			var value = generator.Generate();
 			Assert.NotNull(value.Product);
 		}
@@ -107,7 +103,7 @@ var generator =
 			var value = generator.Generate();
 			Assert.Equal(2, value.SubCategories.Count());
 		}
-		
+
 		public class Order
 		{
 			public Order()

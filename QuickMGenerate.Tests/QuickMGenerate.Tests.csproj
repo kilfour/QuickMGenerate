@@ -1,101 +1,25 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{209EDE28-7C66-499E-91B5-ADA1839E5254}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QuickMGenerate.Tests</RootNamespace>
-    <AssemblyName>QuickMGenerate.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="xunit, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\xunit\xunit.dll</HintPath>
-    </Reference>
+    <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Combining\CombiningGeneratorsAttribute.cs" />
-    <Compile Include="Combining\UsingExtensions.cs" />
-    <Compile Include="Combining\LinqSyntax.cs" />
-    <Compile Include="GeneratingNamesSpike.cs" />
-    <Compile Include="CreatingCustomGenerators\CustomGenerators.cs" />
-    <Compile Include="CreatingCustomGenerators\CustomGeneratorsAttribute.cs" />
-    <Compile Include="Hierarchies\Relations.cs" />
-    <Compile Include="Hierarchies\GeneratingHierarchiesAttribute.cs" />
-    <Compile Include="Hierarchies\Component.cs" />
-    <Compile Include="Objects\ToList.cs" />
-    <Compile Include="Objects\ToArray.cs" />
-    <Compile Include="Objects\CustomizingProperties.cs" />
-    <Compile Include="Objects\IgnoringProperties.cs" />
-    <Compile Include="OtherUsefullGenerators\Casting.cs" />
-    <Compile Include="OtherUsefullGenerators\Choosing.cs" />
-    <Compile Include="OtherUsefullGenerators\Apply.cs" />
-    <Compile Include="OtherUsefullGenerators\NeverReturnNull.cs" />
-    <Compile Include="OtherUsefullGenerators\OtherUsefullGeneratorsAttribute.cs" />
-    <Compile Include="OtherUsefullGenerators\Constant.cs" />
-    <Compile Include="CreatingCustomGenerators\CreatingACounterGeneratorExample.cs" />
-    <Compile Include="Objects\ManyObjects.cs" />
-    <Compile Include="Objects\GeneratingObjectsAttribute.cs" />
-    <Compile Include="Objects\OneObject.cs" />
-    <Compile Include="OtherUsefullGenerators\Unique.cs" />
-    <Compile Include="Primitives\BoolGeneration.cs" />
-    <Compile Include="Primitives\CharGeneration.cs" />
-    <Compile Include="Primitives\TimeSpanGeneration.cs" />
-    <Compile Include="Primitives\ShortGeneration.cs" />
-    <Compile Include="Primitives\GuidGeneration.cs" />
-    <Compile Include="Primitives\FloatGeneration.cs" />
-    <Compile Include="Primitives\DoubleGeneration.cs" />
-    <Compile Include="Primitives\EnumGeneration.cs" />
-    <Compile Include="Primitives\GeneratingPrimitivesAttribute.cs" />
-    <Compile Include="Primitives\LongGeneration.cs" />
-    <Compile Include="Primitives\DateTimeGeneration.cs" />
-    <Compile Include="Primitives\DecimalGeneration.cs" />
-    <Compile Include="Primitives\IntGeneration.cs" />
-    <Compile Include="ModifySpike.cs" />
-    <Compile Include="Objects\ReplacingPrimitiveGenerators.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Primitives\StringGeneration.cs" />
-    <Compile Include="Tools\CreateDoc.cs" />
-    <Compile Include="Tools\DocAttribute.cs" />
-    <Compile Include="Primitives\ThePrimitiveGeneratorsAttribute.cs" />
+    <Using Include="Xunit" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\QuickMGenerate\QuickMGenerate.csproj">
-      <Project>{DC53A3E3-ECFA-4B88-A808-0ABB5C9FE5CE}</Project>
-      <Name>QuickMGenerate</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\QuickMGenerate\QuickMGenerate.csproj" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace QuickMGenerate.Tests.Primitives
+﻿namespace QuickMGenerate.Tests.Primitives
 {
 	[Doubles(
 		Content = "Use `MGen.Double()`.",

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
@@ -52,7 +51,7 @@ namespace QuickMGenerate
 				return
 					s =>
 						{
-							s.Components.Add(typeof (T));
+							s.Components.Add(typeof(T));
 							return new Result<Unit>(Unit.Instance, s);
 						};
 			}
@@ -62,20 +61,20 @@ namespace QuickMGenerate
 				return
 					s =>
 						{
-							s.AddActionToApplyFor(typeof (T), o => action((T) o));
+							s.AddActionToApplyFor(typeof(T), o => action((T)o));
 							return new Result<Unit>(Unit.Instance, s);
 						};
 			}
 
 			public Generator<Unit> Apply<TGen>(Generator<TGen> generator, Action<T, TGen> action)
 			{
-				return 
+				return
 					s =>
-				       	{
-							Action<object> objectAction = o => action((T)o, generator(s).Value);
-				       		s.AddActionToApplyFor(typeof (T), objectAction);
-				       		return new Result<Unit>(Unit.Instance, s);
-				       	};
+						   {
+							   Action<object> objectAction = o => action((T)o, generator(s).Value);
+							   s.AddActionToApplyFor(typeof(T), objectAction);
+							   return new Result<Unit>(Unit.Instance, s);
+						   };
 			}
 		}
 	}

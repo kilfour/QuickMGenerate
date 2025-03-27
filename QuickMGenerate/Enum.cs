@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
 {
 	public static partial class MGen
 	{
-		public static Generator<T> Enum<T>() 
+		public static Generator<T> Enum<T>()
 			where T : struct, IConvertible
 		{
 			if (!typeof(T).IsEnum)
@@ -16,7 +13,7 @@ namespace QuickMGenerate
 				throw new ArgumentException("T must be an enumerated type");
 			}
 
-			return s => new Result<T>((T) GetEnumValue(typeof (T), s), s);
+			return s => new Result<T>((T)GetEnumValue(typeof(T), s), s);
 		}
 
 		private static object GetEnumValue(Type type, State s)

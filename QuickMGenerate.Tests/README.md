@@ -303,6 +303,12 @@ Multiple unique generators can be defined in one 'composed' generator, without i
 When using the same key for multiple unique generators all values across these generators are unique.
 
 
+### Filtering generated values.
+Use the `.Where(Func<T, bool>)` extension method.
+
+Makes sure that every generated value passes the supplied predicate.
+
+
 ### Casting Generators.
 Various extension methods allow for casting the generated value.
 

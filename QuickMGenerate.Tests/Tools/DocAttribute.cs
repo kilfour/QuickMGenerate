@@ -1,42 +1,28 @@
-﻿namespace QuickMGenerate.Tests.Tools
+﻿namespace QuickMGenerate.Tests.Tools;
+
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+public class DocAttribute : Attribute, IEquatable<DocAttribute>
 {
-	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-	public class DocAttribute : Attribute
-	{
-		public string Chapter { get; set; }
-		public int ChapterOrder { get; set; }
-		public string Caption { get; set; }
-		public int CaptionOrder { get; set; }
-		public string Content { get; set; }
-		public int Order { get; set; }
+	public string Chapter { get; set; } = string.Empty;
+	public int ChapterOrder { get; set; }
+	public string Caption { get; set; } = string.Empty;
+	public int CaptionOrder { get; set; }
+	public string Content { get; set; } = string.Empty;
+	public int Order { get; set; }
 
-		public override bool Equals(object obj)
-		{
-			if (ReferenceEquals(null, obj)) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return Equals(obj as DocAttribute);
-		}
+	public bool Equals(DocAttribute? other) =>
+		other is not null &&
+		Chapter == other.Chapter &&
+		ChapterOrder == other.ChapterOrder &&
+		Caption == other.Caption &&
+		CaptionOrder == other.CaptionOrder &&
+		Content == other.Content &&
+		Order == other.Order;
 
-		public bool Equals(DocAttribute other)
-		{
-			if (ReferenceEquals(null, other)) return false;
-			if (ReferenceEquals(this, other)) return true;
-			return base.Equals(other) && Equals(other.Chapter, Chapter) && other.ChapterOrder == ChapterOrder && Equals(other.Caption, Caption) && other.CaptionOrder == CaptionOrder && Equals(other.Content, Content) && other.Order == Order;
-		}
+	public override bool Equals(object? obj) =>
+		obj is DocAttribute other && Equals(other);
 
-		public override int GetHashCode()
-		{
-			unchecked
-			{
-				int result = base.GetHashCode();
-				result = (result * 397) ^ (Chapter != null ? Chapter.GetHashCode() : 0);
-				result = (result * 397) ^ ChapterOrder;
-				result = (result * 397) ^ (Caption != null ? Caption.GetHashCode() : 0);
-				result = (result * 397) ^ CaptionOrder;
-				result = (result * 397) ^ (Content != null ? Content.GetHashCode() : 0);
-				result = (result * 397) ^ Order;
-				return result;
-			}
-		}
-	}
+	public override int GetHashCode() =>
+		HashCode.Combine(Chapter, ChapterOrder, Caption, CaptionOrder, Content, Order);
 }

@@ -18,5 +18,13 @@ namespace QuickMGenerate
 					return new Result<T>(values.ElementAt(index), s);
 				};
 		}
+
+		public static Generator<T> ChooseFromWithDefaultWhenEmpty<T>(IEnumerable<T> items)
+		{
+			var list = items.ToList();
+			if (list.Count == 0)
+				return Constant(default(T)!);
+			return ChooseFrom(list);
+		}
 	}
 }

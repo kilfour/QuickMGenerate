@@ -26,5 +26,15 @@ namespace QuickMGenerate
 				return Constant(default(T)!);
 			return ChooseFrom(list);
 		}
+
+		public static Generator<T> ChooseGenerator<T>(params Generator<T>[] values)
+		{
+			return
+				s =>
+				{
+					var index = Int(0, values.Count())(s).Value;
+					return new Result<T>(values.ElementAt(index).Generate(), s);
+				};
+		}
 	}
 }

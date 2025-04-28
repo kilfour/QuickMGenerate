@@ -49,6 +49,40 @@ I.e. : `MGen.ChooseFromThese(1, 2)`",
 			Assert.True(two);
 		}
 
+		[Fact]
+		[Choosing(
+			Content =
+@"Another method provides a _semi-safe_ way to pick from what might be an empty list. 
+
+I.e. : `MGen.ChooseFromWithDefaultWhenEmpty(new List<int>())`, which returns the default, in this case zero.",
+			Order = 2)]
+		public void ParamsEmpty_int_list_returns_zero()
+		{
+			var generator = MGen.ChooseFromWithDefaultWhenEmpty(new List<int>());
+			Assert.Equal(0, generator.Generate());
+		}
+
+		[Fact]
+		[Choosing(
+			Content =
+@"You can also pick from a set of Generators. 
+
+I.e. : `MGen.ChooseGenerator(MGen.Constant(1), MGen.Constant(2))`",
+			Order = 2)]
+		public void Gens()
+		{
+			var generator = MGen.ChooseGenerator(MGen.Constant(1), MGen.Constant(2));
+			var one = false;
+			var two = false;
+			for (int i = 0; i < 20; i++)
+			{
+				var value = generator.Generate();
+				one = one || value == 1;
+				two = two || value == 2;
+			}
+			Assert.True(one);
+			Assert.True(two);
+		}
 		public class ChoosingAttribute : OtherUsefullGeneratorsAttribute
 		{
 			public ChoosingAttribute()

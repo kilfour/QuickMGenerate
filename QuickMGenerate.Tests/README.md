@@ -290,6 +290,14 @@ A helper method exists for ease of use when you want to pass in constant values 
 
 I.e. : `MGen.ChooseFromThese(1, 2)`
 
+Another method provides a _semi-safe_ way to pick from what might be an empty list. 
+
+I.e. : `MGen.ChooseFromWithDefaultWhenEmpty(new List<int>())`, which returns the default, in this case zero.
+
+You can also pick from a set of Generators. 
+
+I.e. : `MGen.ChooseGenerator(MGen.Constant(1), MGen.Constant(2))`
+
 
 ### Generating unique values.
 Use the `.Unique(object key)` extension method.

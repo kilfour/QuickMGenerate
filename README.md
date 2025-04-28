@@ -87,8 +87,6 @@ Use `MGen.One<T>()`, where T is the type of object you want to generate.
 
 - Also works for properties with private setters.
 
-- Also works for public fields.
-
 - Can generate any object that has a parameterless constructor, be it public, protected, or private.
 
 - The overload `MGen.One<T>(Func<T> constructor)` allows for specific constructor selection.
@@ -123,9 +121,15 @@ An overload exists which allows for passing a value instead of a generator.
 
 Derived classes generated also use the custom property.
 
-This does not work for fields yet.
-
 *Note :* The Customize 'generator' does not actually generate anything, it only influences further generation.
+
+
+### Many objects.
+Use The `.Many(int number)` generator extension.
+
+The generator will generate an IEnumerable<T> of `int number` elements where T is the result type of the extended generator.
+
+An overload exists (`.Many(int min, int max`) where the number of elements is in between the specified arguments.
 
 
 ### ToArray.
@@ -137,12 +141,6 @@ Use `ToArray` to *fix* the IEnumerable in place, so that it will return the same
 It can also be used to force evaluation in case the IEnumerable is not enumerated over because there's nothing in your select clause
 referencing it. 
 
-
-
-### Many objects.
-Use The `.Many(int number)` generator extension.
-
-The generator will generate an IEnumerable<T> of `int number` elements where T is the result type of the extended generator.
 
 
 ### ToList.
@@ -292,6 +290,14 @@ A helper method exists for ease of use when you want to pass in constant values 
 
 I.e. : `MGen.ChooseFromThese(1, 2)`
 
+Another method provides a _semi-safe_ way to pick from what might be an empty list. 
+
+I.e. : `MGen.ChooseFromWithDefaultWhenEmpty(new List<int>())`, which returns the default, in this case zero.
+
+You can also pick from a set of Generators. 
+
+I.e. : `MGen.ChooseGenerator(MGen.Constant(1), MGen.Constant(2))`
+
 
 ### Generating unique values.
 Use the `.Unique(object key)` extension method.
@@ -303,6 +309,12 @@ When asking for more unique values than the generator can supply, an exception i
 Multiple unique generators can be defined in one 'composed' generator, without interfering with eachother by using a different key.
 
 When using the same key for multiple unique generators all values across these generators are unique.
+
+
+### Filtering generated values.
+Use the `.Where(Func<T, bool>)` extension method.
+
+Makes sure that every generated value passes the supplied predicate.
 
 
 ### Casting Generators.
@@ -319,16 +331,16 @@ Usefull f.i. to generate numeric strings.
  - `.Nullable(int timesBeforeResultIsNullAproximation)` : overload of `Nullable()`, generates null 1 out of `timesBeforeResultIsNullAproximation` times .
 
 
-### 'Never return null.
-Use the `.NeverReturnNull()` extension method.`.
-
-Only available on generators that provide `Nullable<T>` values, this one makes sure that, you guessed it, the nullable generator never returns null.
-
-
 ### 'Generating' constants.
 Use `MGen.Constant<T>(T value)`.
 
 This generator is most usefull in combination with others and is used to inject constants into combined generators.
+
+
+### 'Never return null.
+Use the `.NeverReturnNull()` extension method.`.
+
+Only available on generators that provide `Nullable<T>` values, this one makes sure that, you guessed it, the nullable generator never returns null.
 
 
 

@@ -1,4 +1,4 @@
-﻿namespace QuickMGenerate.Tests.Combining
+namespace QuickMGenerate.Tests.Combining
 {
 	[LinqSyntax(
 		Content = "Each MGen Generator can be used as a building block and combined using query expressions.",
@@ -29,6 +29,7 @@ Will output something like `28ziicuiq56`.",
 
 			Assert.Equal("42Hello666", generator.Generate());
 		}
+
 		[Fact]
 		[LinqSyntax(
 			Content =
@@ -53,6 +54,30 @@ All strings in the generated object will have the pattern defined by 'stringGene
 				select a + b + c;
 
 			Assert.Equal("42Hello666", generator.Generate());
+		}
+
+		[Fact]
+		[LinqSyntax(
+			Content =
+@"This approach removes the problem of combinatoral explosion. No need for a Transform<T, U>(...) combinator for example
+as this can be easily achieved using Linq. 
+
+```
+var generator =
+	from chars in MGen.Constant('-').Many(5)
+	let composed = chars.Aggregate("", (a, b) => a + b.ToString())
+	select composed;
+```
+Generates: ""-----"".",
+			Order = 2)]
+		public void AvoidingTransform()
+		{
+			var generator =
+				from chars in MGen.Constant('-').Many(5)
+				let composed = chars.Aggregate("", (a, b) => a + b.ToString())
+				select composed;
+			var result = generator.Generate();
+			Assert.Equal("-----", result);
 		}
 
 		public class LinqSyntaxAttribute : CombiningGeneratorsAttribute

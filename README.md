@@ -51,6 +51,17 @@ var generator =
 We reuse the 'stringGenerator' defined above and replace the default string generator with our custom one. 
 All strings in the generated object will have the pattern defined by 'stringGenerator'.
 
+This approach removes the problem of combinatoral explosion. No need for a Transform<T, U>(...) combinator for example
+as this can be easily achieved using Linq. 
+
+```
+var generator =
+	from chars in MGen.Constant('-').Many(5)
+	let composed = chars.Aggregate(", (a, b) => a + b.ToString())
+	select composed;
+```
+Generates: "-----".
+
 
 ### Using Extensions.
 When applying the various extension methods onto a generator, they get *combined* into a new generator.

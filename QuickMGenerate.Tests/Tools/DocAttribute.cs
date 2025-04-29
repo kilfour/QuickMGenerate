@@ -9,7 +9,7 @@ public class DocAttribute : Attribute, IEquatable<DocAttribute>
 	public string Caption { get; set; } = string.Empty;
 	public int CaptionOrder { get; set; }
 	public string Content { get; set; } = string.Empty;
-	public int Order { get; set; }
+	public double Order { get; set; }
 
 	public bool Equals(DocAttribute? other) =>
 		other is not null &&

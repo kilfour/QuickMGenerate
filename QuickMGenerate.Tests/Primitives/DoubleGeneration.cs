@@ -20,6 +20,15 @@
 
 		[Fact]
 		[Doubles(
+			Content = "Throws an ArgumentException if min > max.",
+			Order = 1.1)]
+		public void Throws()
+		{
+			Assert.Throws<ArgumentException>(() => MGen.Double(1, 0).Generate());
+		}
+
+		[Fact]
+		[Doubles(
 			Content = "The default generator is (min = 1, max = 100).",
 			Order = 2)]
 		public void DefaultGeneratorBetweenOneAndHundred()

@@ -11,6 +11,9 @@ namespace QuickMGenerate
 
 		public static Generator<double> Double(double min, double max)
 		{
+			if (min > max)
+				throw new ArgumentException($"Invalid range: min ({min}) > max ({max})");
+
 			return s => new Result<double>((s.Random.NextDouble() * (max - min)) + min, s);
 		}
 	}

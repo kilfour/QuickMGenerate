@@ -20,6 +20,15 @@
 
 		[Fact]
 		[Longs(
+			Content = "Throws an ArgumentException if min > max.",
+			Order = 1.1)]
+		public void Throws()
+		{
+			Assert.Throws<ArgumentException>(() => MGen.Long(1, 0).Generate());
+		}
+
+		[Fact]
+		[Longs(
 			Content = "The default generator is (min = 1, max = 100).",
 			Order = 2)]
 		public void DefaultGeneratorNeverGeneratesZero()

@@ -20,8 +20,17 @@
 
 		[Fact]
 		[Ints(
-			Content = "The default generator is (min = 1, max = 100).",
+			Content = "Throws an ArgumentException if min > max.",
 			Order = 2)]
+		public void Throws()
+		{
+			Assert.Throws<ArgumentException>(() => MGen.Int(1, 0).Generate());
+		}
+
+		[Fact]
+		[Ints(
+			Content = "The default generator is (min = 1, max = 100).",
+			Order = 3)]
 		public void DefaultGeneratorNeverGeneratesZero()
 		{
 			var generator = MGen.Int();
@@ -36,7 +45,7 @@
 		[Fact]
 		[Ints(
 			Content = "Can be made to return `int?` using the `.Nullable()` extension.",
-			Order = 3)]
+			Order = 4)]
 		public void Nullable()
 		{
 			var generator = MGen.Int().Nullable();
@@ -60,7 +69,7 @@
 		[Fact]
 		[Ints(
 			Content = " - `int` is automatically detected and generated for object properties.",
-			Order = 4)]
+			Order = 5)]
 		public void Property()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
@@ -73,7 +82,7 @@
 		[Fact]
 		[Ints(
 			Content = " - `Int32` is automatically detected and generated for object properties.",
-			Order = 5)]
+			Order = 6)]
 		public void Int32Property()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();
@@ -86,7 +95,7 @@
 		[Fact]
 		[Ints(
 			Content = " - `int?` is automatically detected and generated for object properties.",
-			Order = 6)]
+			Order = 7)]
 		public void NullableProperty()
 		{
 			var generator = MGen.One<SomeThingToGenerate>();

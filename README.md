@@ -362,6 +362,8 @@ Use `MGen.Int()`.
 
 The overload `MGen.Int(int min, int max)` generates an int higher or equal than min and lower than max.
 
+Throws an ArgumentException if min > max.
+
 The default generator is (min = 1, max = 100).
 
 Can be made to return `int?` using the `.Nullable()` extension.
@@ -418,6 +420,8 @@ Use `MGen.Decimal()`.
 
 The overload `MGen.Decimal(decimal min, decimal max)` generates a decimal higher or equal than min and lower than max.
 
+Throws an ArgumentException if min > max.
+
 The default generator is (min = 1, max = 100).
 
 Can be made to return `decimal?` using the `.Nullable()` extension.
@@ -446,6 +450,8 @@ Use `MGen.Long()`.
 
 The overload `MGen.Long(long min, long max)` generates a long higher or equal than min and lower than max.
 
+Throws an ArgumentException if min > max.
+
 The default generator is (min = 1, max = 100).
 
 Can be made to return `long?` using the `.Nullable()` extension.
@@ -462,6 +468,8 @@ Use `MGen.Double()`.
 
 The overload `MGen.Double(double min, double max)` generates a double higher or equal than min and lower than max.
 
+Throws an ArgumentException if min > max.
+
 The default generator is (min = 1, max = 100).
 
 Can be made to return `double?` using the `.Nullable()` extension.
@@ -475,6 +483,8 @@ Can be made to return `double?` using the `.Nullable()` extension.
 Use `MGen.Float()`.
 
 The overload `MGen.Float(float min, float max)` generates a float higher or equal than min and lower than max.
+
+Throws an ArgumentException if min > max.
 
 The default generator is (min = 1, max = 100).
 

@@ -45,7 +45,7 @@ namespace QuickMGenerate.Tests.Tools
 				sb.AppendLine("___");
 			}
 			sb.AppendLine(AfterThoughts);
-			using (var writer = new StreamWriter("../../../README.md", false))
+			using (var writer = new StreamWriter("../../../../README.md", false))
 				writer.Write(sb.ToString());
 		}
 

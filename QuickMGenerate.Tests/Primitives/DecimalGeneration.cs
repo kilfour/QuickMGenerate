@@ -17,6 +17,14 @@
 				Assert.Equal(0, generator.Generate());
 			}
 		}
+		[Fact]
+		[Decimals(
+			Content = "Throws an ArgumentException if min > max.",
+			Order = 1.1)]
+		public void Throws()
+		{
+			Assert.Throws<ArgumentException>(() => MGen.Decimal(1, 0).Generate());
+		}
 
 		[Fact]
 		[Decimals(

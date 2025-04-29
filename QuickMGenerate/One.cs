@@ -11,7 +11,7 @@ namespace QuickMGenerate
 				s =>
 					{
 						var instance = (T)CreateInstance(s, typeof(T));
-						BuildInstance(instance, s, new List<PropertyInfo>());
+						BuildInstance(instance, s, new Stack<Type>());
 						return new Result<T>(instance, s);
 					};
 		}
@@ -22,18 +22,18 @@ namespace QuickMGenerate
 				s =>
 				{
 					var instance = constructor();
-					BuildInstance(instance, s, new List<PropertyInfo>());
+					BuildInstance(instance!, s, new Stack<Type>());
 					return new Result<T>(instance, s);
 				};
 		}
 
-		private static Generator<object> One(Type type, List<PropertyInfo> generatedComponents)
+		private static Generator<object> One(Type type, Stack<Type> generationStack)
 		{
 			return
 				s =>
 				{
 					var instance = CreateInstance(s, type);
-					BuildInstance(instance, s, generatedComponents);
+					BuildInstance(instance, s, generationStack);
 					return new Result<object>(instance, s);
 				};
 		}
@@ -60,17 +60,17 @@ namespace QuickMGenerate
 			}
 			return typeToGenerate;
 		}
-		private static void BuildInstance(object instance, State state, List<PropertyInfo> generatedComponents)
+		private static void BuildInstance(object instance, State state, Stack<Type> generationStack)
 		{
-			FillProperties(instance, state, generatedComponents);
+			FillProperties(instance, state, generationStack);
 			ApplyRegisteredActions(instance, state);
 		}
 
-		private static void FillProperties(object instance, State state, List<PropertyInfo> generatedComponents)
+		private static void FillProperties(object instance, State state, Stack<Type> generationStack)
 		{
 			foreach (var propertyInfo in instance.GetType().GetProperties(MyBinding.Flags))
 			{
-				HandleProperty(instance, state, propertyInfo, generatedComponents);
+				HandleProperty(instance, state, propertyInfo, generationStack);
 			}
 		}
 
@@ -85,7 +85,7 @@ namespace QuickMGenerate
 			}
 		}
 
-		private static void HandleProperty(object instance, State state, PropertyInfo propertyInfo, List<PropertyInfo> generatedComponents)
+		private static void HandleProperty(object instance, State state, PropertyInfo propertyInfo, Stack<Type> generationStack)
 		{
 			if (NeedsToBeIgnored(state, propertyInfo))
 				return;
@@ -104,7 +104,7 @@ namespace QuickMGenerate
 
 			if (IsAComponent(state, propertyInfo))
 			{
-				SetComponent(instance, propertyInfo, state, generatedComponents);
+				SetComponent(instance, propertyInfo, state, generationStack);
 				return;
 			}
 
@@ -171,20 +171,32 @@ namespace QuickMGenerate
 			return state.Components.Contains(propertyInfo.PropertyType);
 		}
 
-		private static bool ShouldGenerateComponent(PropertyInfo propertyInfo, State state, List<PropertyInfo> generatedComponents)
+		private static void SetComponent(object target, PropertyInfo propertyInfo, State state, Stack<Type> generationStack)
 		{
-			if (state.InheritanceInfo.ContainsKey(propertyInfo.PropertyType))
-				return true; // COULD GO BOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOM
-			if (generatedComponents.Contains(propertyInfo))
-				return false;
-			return true;
-		}
-		private static void SetComponent(object target, PropertyInfo propertyInfo, State state, List<PropertyInfo> generatedComponents)
-		{
-			if (!ShouldGenerateComponent(propertyInfo, state, generatedComponents))
+			var type = propertyInfo.PropertyType;
+
+			var currentDepth = generationStack.Count(t => t == type);
+
+			if (state.RecursionRules.TryGetValue(type, out var rule))
+			{
+				if (currentDepth >= rule.MaxDepth - 2) // it really is - 2 just check the doc and come up with a cool name after beers
+					type = rule.FallbackType;
+			}
+			else if (currentDepth >= 1)
+			{
 				return;
-			generatedComponents.Add(propertyInfo);
-			SetPropertyValue(propertyInfo, target, One(propertyInfo.PropertyType, generatedComponents)(state).Value);
+			}
+
+			generationStack.Push(type);
+			try
+			{
+				var result = One(type, generationStack)(state);
+				SetPropertyValue(propertyInfo, target, result.Value);
+			}
+			finally
+			{
+				generationStack.Pop();
+			}
 		}
 
 		private static void SetEnum(State state, PropertyInfo propertyInfo, object instance)

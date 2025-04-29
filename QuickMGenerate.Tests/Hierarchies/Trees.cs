@@ -4,7 +4,7 @@
 	Content =
 @"Trees are a special kind of hierarchy and care needs to be taken to avoid recursion and such.  
 
-They get their own generator : `MGen.Tree<TBase, TEnd>(int maxDepth, params Type[] derivedTypes)`
+They get their own generator : `MGen.Tree<TBase, TEnd>(int maxDepth, params Type[] derivedTypes)`  
 `TBase` the base type of your tree structure.  
 `TEnd` the *leaf* type of your tree structure.  
 derivedTypes : all types that exist in your tree hierarchy, make sure to also include TEnd.",

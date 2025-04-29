@@ -6,9 +6,9 @@
 
 They get their own generator : `MGen.Tree<TBase, TEnd>(int maxDepth, params Type[] derivedTypes)`  
 Params explained :
-- `TBase` : the base type of your tree structure.  
-- `TEnd` : the *leaf* type of your tree structure.  
-- `derivedTypes` : all types that exist in your tree hierarchy, make sure to also include TEnd.",
+ - `TBase` : the base type of your tree structure.  
+ - `TEnd` : the *leaf* type of your tree structure.  
+ - `derivedTypes` : all types that exist in your tree hierarchy, make sure to also include TEnd.",
 	Order = 0)]
 public class Trees
 {

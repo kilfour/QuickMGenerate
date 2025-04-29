@@ -25,6 +25,9 @@ namespace QuickMGenerate.UnderTheHood
 
 		public readonly List<Type> Components = new List<Type>();
 
+		public readonly Dictionary<Type, List<Type>> InheritanceInfo
+			= new Dictionary<Type, List<Type>>();
+
 		public readonly Dictionary<PropertyInfo, Generator<object>> Customizations
 			= new Dictionary<PropertyInfo, Generator<object>>();
 

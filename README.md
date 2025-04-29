@@ -154,6 +154,17 @@ referencing it.
 
 
 
+### Inheritance.
+Use The `MGen.For<T>().UseThese(params Type[] types)` method chain.
+
+F.i. :
+```
+MGen.For<SomeThingAbstract>().UseThese(typeof(T), typeof(SomethingDerived), typeof(SomethingElseDerived))
+```
+
+When generating an object of type T, an object of a random chosen type from the provided list will be generated instead.
+
+
 ### ToList.
 Use The `.ToList()` generator extension.
 

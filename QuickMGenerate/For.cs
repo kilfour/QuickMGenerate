@@ -56,6 +56,16 @@ namespace QuickMGenerate
 						};
 			}
 
+			public Generator<Unit> UseThese(params Type[] types)
+			{
+				return
+					s =>
+						{
+							s.InheritanceInfo[typeof(T)] = types.ToList();
+							return new Result<Unit>(Unit.Instance, s);
+						};
+			}
+
 			public Generator<Unit> Apply(Action<T> action)
 			{
 				return

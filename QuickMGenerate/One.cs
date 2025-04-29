@@ -10,7 +10,7 @@ namespace QuickMGenerate
 			return
 				s =>
 					{
-						var instance = (T)CreateInstance(typeof(T));
+						var instance = (T)CreateInstance(s, typeof(T));
 						BuildInstance(instance, s, new List<PropertyInfo>());
 						return new Result<T>(instance, s);
 					};
@@ -32,22 +32,34 @@ namespace QuickMGenerate
 			return
 				s =>
 				{
-					var instance = CreateInstance(type);
+					var instance = CreateInstance(s, type);
 					BuildInstance(instance, s, generatedComponents);
 					return new Result<object>(instance, s);
 				};
 		}
 
-		private static object CreateInstance(Type type)
+		private static object CreateInstance(State state, Type type)
 		{
+			var typeToGenerate = GetTypeToGenerate(state, type);
 			var constructor =
-				type
+				typeToGenerate
 					.GetConstructors(MyBinding.Flags)
 					.First(c => c.GetParameters().Count() == 0);
 
 			return constructor.Invoke(new object[0]);
 		}
 
+		private static Type GetTypeToGenerate(State s, Type type)
+		{
+			var typeToGenerate = type;
+			if (s.InheritanceInfo.ContainsKey(typeToGenerate))
+			{
+				var derivedTypes = s.InheritanceInfo[typeToGenerate];
+				var index = s.Random.Next(0, derivedTypes.Count);
+				typeToGenerate = derivedTypes[index];
+			}
+			return typeToGenerate;
+		}
 		private static void BuildInstance(object instance, State state, List<PropertyInfo> generatedComponents)
 		{
 			FillProperties(instance, state, generatedComponents);
@@ -159,9 +171,17 @@ namespace QuickMGenerate
 			return state.Components.Contains(propertyInfo.PropertyType);
 		}
 
+		private static bool ShouldGenerateComponent(PropertyInfo propertyInfo, State state, List<PropertyInfo> generatedComponents)
+		{
+			if (state.InheritanceInfo.ContainsKey(propertyInfo.PropertyType))
+				return true; // COULD GO BOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOM
+			if (generatedComponents.Contains(propertyInfo))
+				return false;
+			return true;
+		}
 		private static void SetComponent(object target, PropertyInfo propertyInfo, State state, List<PropertyInfo> generatedComponents)
 		{
-			if (generatedComponents.Contains(propertyInfo))
+			if (!ShouldGenerateComponent(propertyInfo, state, generatedComponents))
 				return;
 			generatedComponents.Add(propertyInfo);
 			SetPropertyValue(propertyInfo, target, One(propertyInfo.PropertyType, generatedComponents)(state).Value);

@@ -51,7 +51,7 @@
 			var generator = MGen.Int().Nullable();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 30; i++)
+			for (int i = 0; i < 100; i++)
 			{
 				var value = generator.Generate();
 				if (value.HasValue)

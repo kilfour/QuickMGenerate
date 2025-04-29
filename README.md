@@ -263,11 +263,13 @@ The only exception to the component rule is when it would lead to an infinite lo
 ### Generating Trees.
 Trees are a special kind of hierarchy and care needs to be taken to avoid recursion and such.  
 
-They get their own generator : `MGen.Tree<TBase, TEnd>(int maxDepth, params Type[] derivedTypes)`
-`TBase` the base type of your tree structure.  
-`TEnd` the *leaf* type of your tree structure.  
-derivedTypes : all types that exist in your tree hierarchy, make sure to also include TEnd.
+They get their own generator : `MGen.Tree<TBase, TEnd>(int maxDepth, params Type[] derivedTypes)`  
+Params explained :
+ - `TBase` : the base type of your tree structure.  
+ - `TEnd` : the *leaf* type of your tree structure.  
+ - `derivedTypes` : all types that exist in your tree hierarchy, make sure to also include TEnd.
 
+And then there's maxDepth ...  
 maxDepth N means: I want up to N levels of actual structure.  
 Once I hit depth N, I must return a Leaf.  
 That is:

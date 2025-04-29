@@ -127,7 +127,7 @@ namespace QuickMGenerate
 				state
 					.StuffToIgnore
 					.Any(
-						info => info.ReflectedType.IsAssignableFrom(propertyInfo.ReflectedType)
+						info => info.ReflectedType!.IsAssignableFrom(propertyInfo.ReflectedType)
 								&& info.Name == propertyInfo.Name);
 		}
 
@@ -138,7 +138,7 @@ namespace QuickMGenerate
 					.Customizations
 					.Keys
 					.Any(
-						info => info.ReflectedType.IsAssignableFrom(propertyInfo.ReflectedType)
+						info => info.ReflectedType!.IsAssignableFrom(propertyInfo.ReflectedType)
 								&& info.Name == propertyInfo.Name);
 		}
 
@@ -149,7 +149,7 @@ namespace QuickMGenerate
 					.Customizations
 					.Keys
 					.First(
-						info => info.ReflectedType.IsAssignableFrom(propertyInfo.ReflectedType)
+						info => info.ReflectedType!.IsAssignableFrom(propertyInfo.ReflectedType)
 								&& info.Name == propertyInfo.Name);
 			var generator = state.Customizations[key];
 			SetPropertyValue(propertyInfo, target, generator(state).Value);
@@ -220,7 +220,7 @@ namespace QuickMGenerate
 		{
 			if (state.Random.Next(0, 5) == 0)
 			{
-				SetPropertyValue(propertyInfo, instance, null);
+				SetPropertyValue(propertyInfo, instance, null!);
 			}
 			else
 			{
@@ -234,9 +234,9 @@ namespace QuickMGenerate
 		{
 			var prop = propertyInfo;
 			if (!prop.CanWrite)
-				prop = propertyInfo.DeclaringType.GetProperty(propertyInfo.Name);
+				prop = propertyInfo.DeclaringType!.GetProperty(propertyInfo.Name);
 
-			if (prop.CanWrite) // todo check this
+			if (prop != null && prop.CanWrite) // todo check this
 				prop.SetValue(target, value, null);
 		}
 	}

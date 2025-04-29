@@ -100,8 +100,8 @@ That is:
 
 	record Node : Tree
 	{
-		public Tree Left { get; set; }
-		public Tree Right { get; set; }
+		public Tree? Left { get; set; }
+		public Tree? Right { get; set; }
 		public Node() { } // required for component-based construction
 		public Node(Tree left, Tree right) => (Left, Right) = (left, right);
 

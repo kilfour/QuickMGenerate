@@ -33,7 +33,7 @@ namespace QuickMGenerate
 				s =>
 				{
 					var index = Int(0, values.Count())(s).Value;
-					return new Result<T>(values.ElementAt(index).Generate(), s);
+					return new Result<T>(values.ElementAt(index)(s).Value, s);
 				};
 		}
 	}

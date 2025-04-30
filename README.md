@@ -257,6 +257,10 @@ similarly to how primitives are handled.
 
 The only exception to the component rule is when it would lead to an infinite loop.
 
+An overload exists which allows for controlling potentially recursive generation: `.Component(int maxDepth)`
+maxDepth N means: I want up to N levels of actual structure. See `.Tree()` for a more detailed explanation 
+ 
+
 *Note :* The Component 'generator' does not actually generate anything, it only influences further generation.
 
 

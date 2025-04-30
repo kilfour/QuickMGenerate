@@ -60,8 +60,8 @@ This forces enumeration and is necessary because the lines are not enumerated ov
 			var value = generator.Generate();
 			Assert.Equal(2, value.OrderLines.Count());
 		}
-		[Fact]
 
+		[Fact]
 		[Relations(
 			Content =
 @"If we were to select the lines instead of the order, `ToArray` would not be necessary.",
@@ -80,6 +80,7 @@ This forces enumeration and is necessary because the lines are not enumerated ov
 			Assert.Equal(value[0].MyOrder, value[1].MyOrder);
 		}
 
+		[Fact]
 		[Relations(
 			Content =
 @"Relations defined by constructor injection can be generated using the `One<T>(Func<T> constructor)` overload.
@@ -120,8 +121,8 @@ var generator =
 
 		public class OrderLine
 		{
-			public Order MyOrder { get; set; }
-			public ProductItem Product { get; set; }
+			public Order? MyOrder { get; set; }
+			public ProductItem? Product { get; set; }
 		}
 
 		public class ProductItem { }

@@ -75,10 +75,48 @@ That is:
 		}
 	}
 
+	// 	[Fact]
+	// 	[Trees(
+	// 		Content =
+	// @"The following overload exists : `MGen.Tree<TBase>(int maxDepth, params Type[] derivedTypes)`.  
+	// In this case no *Leaf* is generated, generation just stops.
+	// ", Order = 2)]
+	// 	public void EndsOnNull()
+	// 	{
+	// 		for (int i = 0; i < 10; i++)
+	// 		{
+	// 			var generator = MGen.Tree<Tree>(1, typeof(Leaf), typeof(Node));
+
+	// 			var value = generator.Generate();
+
+	// 			Assert.NotNull(value);
+	// 			Assert.IsType<Leaf>(value);
+	// 		}
+	// 	}
+
+	// 	[Fact]
+	// 	[Trees(
+	// 		Content =
+	// @"The following overload exists : `MGen.Tree<TBase>(int maxDepth)`.  
+	// In this case no *Leaf* is generated, generation just stops.
+	// ", Order = 2)]
+	// 	public void SimplestCase()
+	// 	{
+	// 		for (int i = 0; i < 10; i++)
+	// 		{
+	// 			var generator = MGen.Tree<Tree>(1, typeof(Leaf), typeof(Node));
+
+	// 			var value = generator.Generate();
+
+	// 			Assert.NotNull(value);
+	// 			Assert.IsType<Leaf>(value);
+	// 		}
+	// 	}
+
 	[Fact]
 	[Trees(
 		Content = "Throws an ArgumentException if maxDepth < 1.",
-		Order = 1.1)]
+		Order = 3)]
 	public void Throws()
 	{
 		Assert.Throws<ArgumentException>(() => MGen.Tree<Tree, Leaf>(0, typeof(Leaf), typeof(Node)));

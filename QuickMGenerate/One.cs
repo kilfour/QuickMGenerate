@@ -179,8 +179,20 @@ namespace QuickMGenerate
 
 			if (state.RecursionRules.TryGetValue(type, out var rule))
 			{
-				if (currentDepth >= rule.MaxDepth - 2) // it really is - 2 just check the doc and come up with a cool name after beers
-					type = rule.FallbackType;
+				if (rule.FallbackType != null)
+				{
+					if (currentDepth >= rule.MaxDepth - 2) // it really is - 2 just check the doc and come up with a cool name after beers
+					{
+						type = rule.FallbackType;
+					}
+				}
+				else
+				{
+					if (currentDepth >= rule.MaxDepth - 1)
+					{
+						return; // This is the 'null' endpoint during recursive gen. Bad code style though.
+					}
+				}
 			}
 			else if (currentDepth >= 1)
 			{

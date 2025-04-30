@@ -48,8 +48,59 @@ similarly to how primitives are handled.",
 
 		[Fact]
 		[Component(
-			Content = "*Note :* The Component 'generator' does not actually generate anything, it only influences further generation.",
+			Content =
+@"An overload exists which allows for controlling potentially recursive generation: `.Component(int maxDepth)`
+maxDepth N means: I want up to N levels of actual structure. See `.Tree()` for a more detailed explanation 
+ ",
 			Order = 3)]
+		public void WithDepth1()
+		{
+			var generator =
+				from component in MGen.For<SomeThingRecursive>().Component(1)
+				from thing in MGen.One<SomeThingRecursive>()
+				select thing;
+
+			var value = generator.Generate();
+
+			Assert.NotNull(value);
+			Assert.Null(value.Curse);
+		}
+
+		[Fact]
+		public void WithDepth2()
+		{
+			var generator =
+				from component in MGen.For<SomeThingRecursive>().Component(2)
+				from thing in MGen.One<SomeThingRecursive>()
+				select thing;
+
+			var value = generator.Generate();
+
+			Assert.NotNull(value);
+			Assert.NotNull(value.Curse);
+			Assert.Null(value.Curse.Curse);
+		}
+
+		[Fact]
+		public void WithDepth3()
+		{
+			var generator =
+				from component in MGen.For<SomeThingRecursive>().Component(3)
+				from thing in MGen.One<SomeThingRecursive>()
+				select thing;
+
+			var value = generator.Generate();
+
+			Assert.NotNull(value);
+			Assert.NotNull(value.Curse);
+			Assert.NotNull(value.Curse.Curse);
+			Assert.Null(value.Curse.Curse.Curse);
+		}
+
+		[Fact]
+		[Component(
+			Content = "*Note :* The Component 'generator' does not actually generate anything, it only influences further generation.",
+			Order = 40)]
 		public void ReturnsUnit()
 		{
 			var generator = MGen.For<SomeComponent>().Component();
@@ -58,14 +109,14 @@ similarly to how primitives are handled.",
 
 		public class SomeThingToGenerate
 		{
-			public SomeComponent MyComponent { get; set; }
-			public SomeChildToGenerate MyChild { get; set; }
+			public SomeComponent? MyComponent { get; set; }
+			public SomeChildToGenerate? MyChild { get; set; }
 			public int Fire { get; set; }
 		}
 
 		public class SomeChildToGenerate
 		{
-			public SomeComponent MyComponent { get; set; }
+			public SomeComponent? MyComponent { get; set; }
 			public int WalkWithMe { get; set; }
 		}
 
@@ -76,7 +127,7 @@ similarly to how primitives are handled.",
 
 		public class SomeThingRecursive
 		{
-			public SomeThingRecursive Curse { get; set; }
+			public SomeThingRecursive? Curse { get; set; }
 		}
 
 		public class ComponentAttribute : GeneratingHierarchiesAttribute

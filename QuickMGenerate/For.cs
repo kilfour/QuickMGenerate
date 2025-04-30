@@ -56,6 +56,18 @@ namespace QuickMGenerate
 						};
 			}
 
+			public Generator<Unit> Component(int maxDepth)
+			{
+
+				return
+					s =>
+						{
+							s.RecursionRules[typeof(T)] = (maxDepth, null);
+							s.Components.Add(typeof(T));
+							return new Result<Unit>(Unit.Instance, s);
+						};
+			}
+
 			public Generator<Unit> UseThese(params Type[] types)
 			{
 				return

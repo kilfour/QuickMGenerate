@@ -28,7 +28,7 @@ namespace QuickMGenerate.UnderTheHood
 		public readonly Dictionary<Type, List<Type>> InheritanceInfo
 			= new Dictionary<Type, List<Type>>();
 
-		public Dictionary<Type, (int MaxDepth, Type FallbackType)> RecursionRules = new();
+		public Dictionary<Type, (int MaxDepth, Type? FallbackType)> RecursionRules = new();
 
 		public readonly Dictionary<PropertyInfo, Generator<object>> Customizations
 			= new Dictionary<PropertyInfo, Generator<object>>();

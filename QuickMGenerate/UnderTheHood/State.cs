@@ -33,6 +33,9 @@ namespace QuickMGenerate.UnderTheHood
 		public readonly Dictionary<PropertyInfo, Generator<object>> Customizations
 			= new Dictionary<PropertyInfo, Generator<object>>();
 
+		public readonly Dictionary<Type, List<Func<State, object>>> Constructors
+			= new Dictionary<Type, List<Func<State, object>>>();
+
 		public readonly Dictionary<Type, List<Action<object>>> ActionsToApply =
 			new Dictionary<Type, List<Action<object>>>();
 

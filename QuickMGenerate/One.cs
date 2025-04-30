@@ -41,12 +41,25 @@ namespace QuickMGenerate
 		private static object CreateInstance(State state, Type type)
 		{
 			var typeToGenerate = GetTypeToGenerate(state, type);
-			var constructor =
-				typeToGenerate
-					.GetConstructors(MyBinding.Flags)
-					.First(c => c.GetParameters().Count() == 0);
 
-			return constructor.Invoke(new object[0]);
+			// If we have a registered constructor generator, use it
+			if (state.Constructors.TryGetValue(typeToGenerate, out var constructors) && constructors.Count > 0)
+			{
+				// Optionally fuzz which constructor to use (if multiple)
+				var index = state.Random.Next(0, constructors.Count);
+				var chosen = constructors[index];
+				return chosen(state);
+			}
+
+			// Fallback to default constructor
+			var defaultCtor = typeToGenerate
+				.GetConstructors(MyBinding.Flags)
+				.FirstOrDefault(c => c.GetParameters().Length == 0);
+
+			if (defaultCtor == null)
+				throw new InvalidOperationException($"No constructor or Construct(...) rule found for type {typeToGenerate}");
+
+			return defaultCtor.Invoke(Array.Empty<object>());
 		}
 
 		private static Type GetTypeToGenerate(State s, Type type)

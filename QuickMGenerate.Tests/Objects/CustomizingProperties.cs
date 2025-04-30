@@ -4,7 +4,7 @@ namespace QuickMGenerate.Tests.Objects
 {
 	[CustomizingProperties(
 		Content =
-@"Use the `MGen.For<T>().Customize<TProperty>(Expression<Func<T, TProperty>> func, Generator<State, T>)` method chain.
+@"Use the `MGen.For<T>().Customize<TProperty>(Expression<Func<T, TProperty>> func, Generator<TProperty>)` method chain.
 
 F.i. :
 ```

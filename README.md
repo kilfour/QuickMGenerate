@@ -119,7 +119,7 @@ Derived classes generated also ignore the base property.
 
 
 ### Customizing properties.
-Use the `MGen.For<T>().Customize<TProperty>(Expression<Func<T, TProperty>> func, Generator<State, T>)` method chain.
+Use the `MGen.For<T>().Customize<TProperty>(Expression<Func<T, TProperty>> func, Generator<TProperty>)` method chain.
 
 F.i. :
 ```
@@ -133,6 +133,30 @@ An overload exists which allows for passing a value instead of a generator.
 Derived classes generated also use the custom property.
 
 *Note :* The Customize 'generator' does not actually generate anything, it only influences further generation.
+
+
+### Customizing constructors.
+Use the `MGen.For<T>().Construct<TArg>(Expression<Func<T, TProperty>> func, Generator<TProperty>)` method chain.
+
+F.i. :
+```
+MGen.For<SomeThing>().Construct(MGen.Constant(42))
+```
+
+Subsequent calls to `MGen.One<T>()` will then use the registered constructor.
+
+Various overloads exist : 
+ -  `MGen.For<T>().Construct<T1, T2>(Generator<T1> g1, Generator<T2> g2)`
+
+ -  `MGen.For<T>().Construct<T1, T2>(Generator<T1> g1, Generator<T2> g2, Generator<T3> g3)`
+
+ -  `MGen.For<T>().Construct<T1, T2>(Generator<T1> g1, Generator<T2> g2, Generator<T3> g3, Generator<T4> g4)`
+
+ -  `MGen.For<T>().Construct<T1, T2>(Generator<T1> g1, Generator<T2> g2, Generator<T3> g3, Generator<T4> g4, Generator<T5> g5)`  
+
+After that, ... you're on your own.
+
+*Note :* The Construct 'generator' does not actually generate anything, it only influences further generation.
 
 
 ### Many objects.

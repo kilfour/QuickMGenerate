@@ -37,20 +37,19 @@ Usefull f.i. to generate numeric strings.",
 		public void Nullable()
 		{
 			var generator = MGen.Int().Nullable();
-			var isSomeTimesNull = false;
-			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 30; i++)
+			var seenNull = false;
+			var seenValue = false;
+			var tries = 0;
+			while (tries++ < 1000 && !(seenNull && seenValue))
 			{
 				var value = generator.Generate();
-				if (value.HasValue)
-				{
-					isSomeTimesNotNull = true;
-				}
+				if (value is null)
+					seenNull = true;
 				else
-					isSomeTimesNull = true;
+					seenValue = true;
 			}
-			Assert.True(isSomeTimesNull);
-			Assert.True(isSomeTimesNotNull);
+			Assert.True(seenNull, "Never saw null in 1000 tries");
+			Assert.True(seenValue, "Never saw non-null in 1000 tries");
 		}
 
 		[Fact]

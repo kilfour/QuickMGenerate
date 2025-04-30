@@ -44,7 +44,7 @@
 
 		[Fact]
 		[Doubles(
-			Content = "Can be made to return `double?` using the `.Nullable()` extension.",
+			Content = "Can be made to return `double?` using the `.Nullable()` combinator.",
 			Order = 3)]
 		public void Nullable()
 		{

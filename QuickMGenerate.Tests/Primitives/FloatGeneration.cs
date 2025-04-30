@@ -44,7 +44,7 @@
 
 		[Fact]
 		[Floats(
-			Content = "Can be made to return `float?` using the `.Nullable()` extension.",
+			Content = "Can be made to return `float?` using the `.Nullable()` combinator.",
 			Order = 3)]
 		public void Nullable()
 		{

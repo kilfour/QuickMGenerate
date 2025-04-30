@@ -37,7 +37,7 @@
 
 		[Fact]
 		[Chars(
-			Content = "Can be made to return `char?` using the `.Nullable()` extension.",
+			Content = "Can be made to return `char?` using the `.Nullable()` combinator.",
 			Order = 2)]
 		public void Nullable()
 		{

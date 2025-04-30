@@ -37,7 +37,7 @@
 
 		[Fact]
 		[TimeSpans(
-			Content = "Can be made to return `TimeSpan?` using the `.Nullable()` extension.",
+			Content = "Can be made to return `TimeSpan?` using the `.Nullable()` combinator.",
 			Order = 3)]
 		public void Nullable()
 		{

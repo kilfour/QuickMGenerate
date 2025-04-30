@@ -43,7 +43,7 @@
 
 		[Fact]
 		[Decimals(
-			Content = "Can be made to return `decimal?` using the `.Nullable()` extension.",
+			Content = "Can be made to return `decimal?` using the `.Nullable()` combinator.",
 			Order = 3)]
 		public void Nullable()
 		{

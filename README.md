@@ -426,7 +426,7 @@ Throws an ArgumentException if min > max.
 
 The default generator is (min = 1, max = 100).
 
-Can be made to return `int?` using the `.Nullable()` extension.
+Can be made to return `int?` using the `.Nullable()` combinator.
 
  - `int` is automatically detected and generated for object properties.
 
@@ -442,7 +442,7 @@ No overload Exists.
 
 The default generator always generates a char between lower case 'a' and lower case 'z'.
 
-Can be made to return `char?` using the `.Nullable()` extension.
+Can be made to return `char?` using the `.Nullable()` combinator.
 
  - `char` is automatically detected and generated for object properties.
 
@@ -460,6 +460,8 @@ The Default generator generates a string of length higher than 0 and lower than 
 
  - `string` is automatically detected and generated for object properties.
 
+Can be made to return `string?` using the `.NullableRef()` combinator.
+
 
 ### Booleans.
 Use `MGen.Bool()`. 
@@ -468,7 +470,7 @@ No overload Exists.
 
 The default generator generates True or False.
 
-Can be made to return `bool?` using the `.Nullable()` extension.
+Can be made to return `bool?` using the `.Nullable()` combinator.
 
  - `bool` is automatically detected and generated for object properties.
 
@@ -484,7 +486,7 @@ Throws an ArgumentException if min > max.
 
 The default generator is (min = 1, max = 100).
 
-Can be made to return `decimal?` using the `.Nullable()` extension.
+Can be made to return `decimal?` using the `.Nullable()` combinator.
 
  - `decimal` is automatically detected and generated for object properties.
 
@@ -498,7 +500,7 @@ The overload `MGen.DateTimes(DateTime min, DateTime max)` generates a DateTime h
 
 The default generator is (min = new DateTime(1970, 1, 1), max = new DateTime(2020, 12, 31)).
 
-Can be made to return `DateTime?` using the `.Nullable()` extension.
+Can be made to return `DateTime?` using the `.Nullable()` combinator.
 
  - `DateTime` is automatically detected and generated for object properties.
 
@@ -514,7 +516,7 @@ Throws an ArgumentException if min > max.
 
 The default generator is (min = 1, max = 100).
 
-Can be made to return `long?` using the `.Nullable()` extension.
+Can be made to return `long?` using the `.Nullable()` combinator.
 
  - `long` is automatically detected and generated for object properties.
 
@@ -532,7 +534,7 @@ Throws an ArgumentException if min > max.
 
 The default generator is (min = 1, max = 100).
 
-Can be made to return `double?` using the `.Nullable()` extension.
+Can be made to return `double?` using the `.Nullable()` combinator.
 
  - `double` is automatically detected and generated for object properties.
 
@@ -548,7 +550,7 @@ Throws an ArgumentException if min > max.
 
 The default generator is (min = 1, max = 100).
 
-Can be made to return `float?` using the `.Nullable()` extension.
+Can be made to return `float?` using the `.Nullable()` combinator.
 
  - `float` is automatically detected and generated for object properties.
 
@@ -562,7 +564,7 @@ There is no overload.
 
 The default generator never generates Guid.Empty.
 
-Can be made to return `Guid?` using the `.Nullable()` extension.
+Can be made to return `Guid?` using the `.Nullable()` combinator.
 
  - `Guid` is automatically detected and generated for object properties.
 
@@ -576,7 +578,7 @@ The overload `MGen.Short(short min, short max)` generates a short higher or equa
 
 The default generator is (min = 1, max = 100).
 
-Can be made to return `short?` using the `.Nullable()` extension.
+Can be made to return `short?` using the `.Nullable()` combinator.
 
  - `short` is automatically detected and generated for object properties.
 
@@ -590,7 +592,7 @@ The overload `MGen.TimeSpan(int max)` generates a TimeSpan with Ticks higher or 
 
 The default generator is (max = 1000).
 
-Can be made to return `TimeSpan?` using the `.Nullable()` extension.
+Can be made to return `TimeSpan?` using the `.Nullable()` combinator.
 
  - `TimeSpan` is automatically detected and generated for object properties.
 

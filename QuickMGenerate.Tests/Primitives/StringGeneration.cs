@@ -66,9 +66,32 @@
 			}
 		}
 
+		[Fact]
+		[Strings(
+			Content = "Can be made to return `string?` using the `.NullableRef()` combinator.",
+			Order = 4)]
+		public void Nullable()
+		{
+			var generator = MGen.String().NullableRef();
+			var isSomeTimesNull = false;
+			var isSomeTimesNotNull = false;
+			for (int i = 0; i < 50; i++)
+			{
+				var value = generator.Generate();
+				if (value == null)
+				{
+					isSomeTimesNull = true;
+				}
+				else
+					isSomeTimesNotNull = true;
+			}
+			Assert.True(isSomeTimesNull);
+			Assert.True(isSomeTimesNotNull);
+		}
+
 		public class SomeThingToGenerate
 		{
-			public string AProperty { get; set; }
+			public string? AProperty { get; set; }
 		}
 
 		public class StringsAttribute : ThePrimitiveGeneratorsAttribute

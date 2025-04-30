@@ -42,7 +42,7 @@
 
 		[Fact]
 		[Longs(
-			Content = "Can be made to return `long?` using the `.Nullable()` extension.",
+			Content = "Can be made to return `long?` using the `.Nullable()` combinator.",
 			Order = 3)]
 		public void Nullable()
 		{

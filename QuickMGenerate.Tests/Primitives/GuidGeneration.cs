@@ -21,7 +21,7 @@
 
 		[Fact]
 		[Guids(
-			Content = "Can be made to return `Guid?` using the `.Nullable()` extension.",
+			Content = "Can be made to return `Guid?` using the `.Nullable()` combinator.",
 			Order = 3)]
 		public void Nullable()
 		{

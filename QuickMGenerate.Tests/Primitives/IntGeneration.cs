@@ -44,7 +44,7 @@
 
 		[Fact]
 		[Ints(
-			Content = "Can be made to return `int?` using the `.Nullable()` extension.",
+			Content = "Can be made to return `int?` using the `.Nullable()` combinator.",
 			Order = 4)]
 		public void Nullable()
 		{

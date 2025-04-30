@@ -35,7 +35,7 @@
 
 		[Fact]
 		[Shorts(
-			Content = "Can be made to return `short?` using the `.Nullable()` extension.",
+			Content = "Can be made to return `short?` using the `.Nullable()` combinator.",
 			Order = 3)]
 		public void Nullable()
 		{

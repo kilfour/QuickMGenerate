@@ -22,7 +22,7 @@
 
 		[Fact]
 		[Booleans(
-			Content = "Can be made to return `bool?` using the `.Nullable()` extension.",
+			Content = "Can be made to return `bool?` using the `.Nullable()` combinator.",
 			Order = 2)]
 		public void Nullable()
 		{

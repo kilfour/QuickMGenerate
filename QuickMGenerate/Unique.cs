@@ -19,7 +19,7 @@ namespace QuickMGenerate
 								return result;
 							}
 						}
-						throw new HeyITriedFiftyTimesButCouldNotGetADifferentValue();
+						throw new HeyITriedFiftyTimesButCouldNotGetADifferentValue($"(key: {key})");
 					};
 		}
 	}

@@ -28,7 +28,8 @@
 		public void Throws()
 		{
 			var generator = MGen.Constant(1).Unique("TheKey").Many(2);
-			Assert.Throws<HeyITriedFiftyTimesButCouldNotGetADifferentValue>(() => generator.Generate().ToArray());
+			var ex = Assert.Throws<HeyITriedFiftyTimesButCouldNotGetADifferentValue>(() => generator.Generate().ToArray());
+			Assert.Contains("TheKey", ex.Message);
 		}
 
 		[Fact]

@@ -653,7 +653,6 @@ ___
 ## Diagnostics
 ### 
 QuickMGenerate allows you to inspect generated values through use of the `Inspect<T>(...)` combinator.  
-
 Full signature:
 ```
 Inspect<T>(this Generator<T> generator, Func<T, (string[] tags, string message, object data)> describe)
@@ -665,7 +664,6 @@ Inspect<T>(this Generator<T> generator, string[] tags)
 Inspect<T>(this Generator<T> generator)
 ```
 In order to retrieve inspected values a concrete instance of `Inspector` must be registered.  
-
 Usage Example :
 ```
 InspectorContext.Current = myConcreteInspectorInstance;

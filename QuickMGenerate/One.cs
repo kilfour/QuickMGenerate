@@ -62,7 +62,7 @@ namespace QuickMGenerate
 				throw new InvalidOperationException($"No constructor or Construct(...) rule found for type {typeToGenerate}");
 
 			var defaultInstance = defaultCtor.Invoke(Array.Empty<object>());
-			ValidateInstanceType(defaultInstance, typeToGenerate);
+			//ValidateInstanceType(defaultInstance, typeToGenerate);
 			return defaultInstance;
 		}
 

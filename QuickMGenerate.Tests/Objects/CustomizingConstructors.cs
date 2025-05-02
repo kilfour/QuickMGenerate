@@ -141,6 +141,53 @@ After that, ... you're on your own.",
 
 		[Fact]
 		[CustomizingConstructors(
+			Content =
+@"Lastly, in cases like recursive structures, you can use `MGen.For<T>().ConstructFrom<T>(Func<Generator<T>> generator)`.
+While the double `T` might look a bit unusual, this method allows you to pass an entire generator — along with all its configuration and conventions — into the component system.
+This ensures the generator runs **within the current state**, respects recursion limits, and participates fully in `Tree(...)`, `Apply(...)`, or `IgnoreAll(...)` logic.
+It's especially useful when values can't be constructed via simple constructors but must come from custom generator logic.
+",
+			Order = 7)]
+		public void FromGenerator()
+		{
+			var innerGenerator =
+				from _ in MGen.Constant(42).Replace()
+				from r in MGen.One(() => new SomeThing())
+				select r;
+
+			var generator =
+				from c in MGen.For<SomeThing>().ConstructFrom(innerGenerator)
+				from r in MGen.One<SomeThing>()
+				select r;
+			var result = generator.Generate();
+			Assert.Equal(42, result.AnInt1);
+			Assert.Equal(42, result.AnInt2);
+			Assert.Equal(42, result.AnInt3);
+			Assert.Equal(42, result.AnInt4);
+		}
+
+		[Fact]
+		[CustomizingConstructors(
+			Content =
+@"In case this leads to a recursive loop an InvalidOperationException is raised.
+",
+			Order = 7)]
+		public void FromGeneratorFromThrows()
+		{
+			var innerGenerator =
+				from _ in MGen.Constant(42).Replace()
+				from r in MGen.One<SomeThing>()
+				select r;
+
+			var generator =
+				from c in MGen.For<SomeThing>().ConstructFrom(innerGenerator)
+				from r in MGen.One<SomeThing>()
+				select r;
+			Assert.Throws<InvalidOperationException>(() => generator.Generate());
+		}
+
+		[Fact]
+		[CustomizingConstructors(
 			Content = "*Note :* The Construct 'generator' does not actually generate anything, it only influences further generation.",
 			Order = 99)]
 		public void ReturnsUnit()
@@ -156,6 +203,8 @@ After that, ... you're on your own.",
 			public int? AnInt3 { get; private set; }
 			public int? AnInt4 { get; private set; }
 			public string? AString { get; private set; }
+
+			public SomeThing() { }
 
 			public SomeThing(int anInt1)
 			{

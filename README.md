@@ -118,7 +118,7 @@ Derived classes generated also ignore the base property.
 Sometimes it is useful to ignore all properties while generating an object.  
 For this use `MGen.For<SomeThingToGenerate>().IgnoreAll()`
 
-`IgnoreAll()` does not work ignore properties on derived classes, even inherited properties.
+`IgnoreAll()` does not ignore properties on derived classes, even inherited properties.
 
 *Note :* The Ignore 'generator' does not actually generate anything, it only influences further generation.
 
@@ -163,6 +163,15 @@ After that, ... you're on your own.
 
 Or use the factory method overload:  
 `MGen.For<T>().Construct<T>(Func<T> ctor)`
+
+Lastly, in cases like recursive structures, you can use `MGen.For<T>().ConstructFrom<T>(Func<Generator<T>> generator)`.
+While the double `T` might look a bit unusual, this method allows you to pass an entire generator — along with all its configuration and conventions — into the component system.
+This ensures the generator runs **within the current state**, respects recursion limits, and participates fully in `Tree(...)`, `Apply(...)`, or `IgnoreAll(...)` logic.
+It's especially useful when values can't be constructed via simple constructors but must come from custom generator logic.
+
+
+In case this leads to a recursive loop an InvalidOperationException is raised.
+
 
 *Note :* The Construct 'generator' does not actually generate anything, it only influences further generation.
 

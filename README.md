@@ -651,7 +651,7 @@ See also : [Creating a counter generator](./QuickMGenerate.Tests/CreatingCustomG
 
 ___
 ## Diagnostics
-### 
+### Inspecting
 QuickMGenerate allows you to inspect generated values through use of the `Inspect<T>(...)` combinator:
 ```
 Inspect<T>(this Generator<T> generator, Func<T, (string[] tags, string message, object data)> describe)

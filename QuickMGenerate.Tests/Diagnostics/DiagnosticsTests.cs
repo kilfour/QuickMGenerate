@@ -3,7 +3,7 @@ using QuickMGenerate.UnderTheHood.Diagnostics.Inspectors;
 
 namespace QuickMGenerate.Tests.Diagnostics;
 
-[Diagnostics(
+[DiagnosticsInspecting(
 	Content =
 @"QuickMGenerate allows you to inspect generated values through use of the `Inspect<T>(...)` combinator:
 ```
@@ -41,7 +41,7 @@ public class DiagnosticsTests
 	{
 		public DiagnosticsInspectingAttribute()
 		{
-			Caption = "Inspectors";
+			Caption = "Inspecting";
 			CaptionOrder = 0;
 		}
 	}

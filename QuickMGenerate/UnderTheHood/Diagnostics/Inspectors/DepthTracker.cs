@@ -3,6 +3,7 @@ namespace QuickMGenerate.UnderTheHood.Diagnostics.Inspectors;
 public class DepthTracker<T> : Inspector
 {
     private readonly Func<T, int> _depthFunc;
+
     public int MaxDepth { get; private set; }
 
     public DepthTracker(Func<T, int> depthFunc)

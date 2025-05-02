@@ -71,36 +71,37 @@ namespace QuickMGenerate
 				};
 			}
 
-			public Generator<Unit> ConstructFrom(Generator<T> generator)
-			{
-				return state =>
-				{
-					Func<State, object> ctorFunc = s =>
-					{
-						if (s.ConstructionStack.Contains(typeof(T)))
-						{
-							throw new InvalidOperationException(
-								$"Recursive call detected in ConstructFrom for type '{typeof(T)}'. " +
-								$"This usually means the generator passed to ConstructFrom indirectly calls MGen.One<{typeof(T).Name}>(), " +
-								$"causing infinite recursion.");
-						}
+			// --- MGENCHOOSEFROM ---
+			// public Generator<Unit> ConstructFrom(Generator<T> generator)
+			// {
+			// 	return state =>
+			// 	{
+			// 		Func<State, object> ctorFunc = s =>
+			// 		{
+			// 			if (s.ConstructionStack.Contains(typeof(T)))
+			// 			{
+			// 				throw new InvalidOperationException(
+			// 					$"Recursive call detected in ConstructFrom for type '{typeof(T)}'. " +
+			// 					$"This usually means the generator passed to ConstructFrom indirectly calls MGen.One<{typeof(T).Name}>(), " +
+			// 					$"causing infinite recursion.");
+			// 			}
 
-						s.ConstructionStack.Push(typeof(T));
-						var value = generator(s).Value!;
-						s.ConstructionStack.Pop();
-						return value;
-					};
+			// 			s.ConstructionStack.Push(typeof(T));
+			// 			var value = generator(s).Value!;
+			// 			s.ConstructionStack.Pop();
+			// 			return value;
+			// 		};
 
-					if (!state.Constructors.TryGetValue(typeof(T), out var list))
-					{
-						list = new List<Func<State, object>>();
-						state.Constructors[typeof(T)] = list;
-					}
+			// 		if (!state.Constructors.TryGetValue(typeof(T), out var list))
+			// 		{
+			// 			list = new List<Func<State, object>>();
+			// 			state.Constructors[typeof(T)] = list;
+			// 		}
 
-					list.Add(ctorFunc);
-					return new Result<Unit>(Unit.Instance, state);
-				};
-			}
+			// 		list.Add(ctorFunc);
+			// 		return new Result<Unit>(Unit.Instance, state);
+			// 	};
+			// }
 
 
 			public Generator<Unit> Construct<TArg>(Generator<TArg> generator)

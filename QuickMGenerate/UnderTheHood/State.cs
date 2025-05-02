@@ -41,7 +41,7 @@ namespace QuickMGenerate.UnderTheHood
 		public readonly Dictionary<Type, List<Action<State, object>>> ActionsToApply =
 			new Dictionary<Type, List<Action<State, object>>>();
 
-		public Stack<Type> ConstructionStack { get; } = new();
+		// --- MGENCHOOSEFROM --- public Stack<Type> ConstructionStack { get; } = new();
 
 		public void AddActionToApplyFor(Type type, Action<State, object> action)
 		{

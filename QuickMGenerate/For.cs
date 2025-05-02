@@ -12,6 +12,16 @@ namespace QuickMGenerate
 
 		public class GeneratorOptions<T>
 		{
+			public Generator<Unit> IgnoreAll()
+			{
+				return
+					s =>
+						{
+							s.StuffToIgnoreAll.Add(typeof(T));
+							return new Result<Unit>(Unit.Instance, s);
+						};
+			}
+
 			public Generator<Unit> Ignore<TProperty>(Expression<Func<T, TProperty>> func)
 			{
 				return
@@ -222,7 +232,7 @@ namespace QuickMGenerate
 				return
 					s =>
 						{
-							s.AddActionToApplyFor(typeof(T), o => action((T)o));
+							s.AddActionToApplyFor(typeof(T), (s, o) => action((T)o));
 							return new Result<Unit>(Unit.Instance, s);
 						};
 			}
@@ -232,7 +242,7 @@ namespace QuickMGenerate
 				return
 					s =>
 						   {
-							   Action<object> objectAction = o => action((T)o, generator(s).Value);
+							   Action<State, object> objectAction = (s1, o) => action((T)o, generator(s1).Value);
 							   s.AddActionToApplyFor(typeof(T), objectAction);
 							   return new Result<Unit>(Unit.Instance, s);
 						   };

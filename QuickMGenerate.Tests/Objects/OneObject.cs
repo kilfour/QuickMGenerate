@@ -1,4 +1,6 @@
-﻿namespace QuickMGenerate.Tests.Objects
+﻿using System.Text.Json.Nodes;
+
+namespace QuickMGenerate.Tests.Objects
 {
 	[OneObject(
 		Content = "Use `MGen.One<T>()`, where T is the type of object you want to generate.",

@@ -115,6 +115,11 @@ The property specified will be ignored during generation.
 
 Derived classes generated also ignore the base property.
 
+Sometimes it is useful to ignore all properties while generating an object.  
+For this use `MGen.For<SomeThingToGenerate>().IgnoreAll()`
+
+`IgnoreAll()` does not work ignore properties on derived classes, even inherited properties.
+
 *Note :* The Ignore 'generator' does not actually generate anything, it only influences further generation.
 
 

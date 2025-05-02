@@ -21,5 +21,10 @@
   <ItemGroup>
     <ProjectReference Include="..\QuickMGenerate\QuickMGenerate.csproj" />
   </ItemGroup>
+  <ItemGroup>
+      <Reference Include="QuickAcid">
+          <HintPath>../Libs/QuickAcid.dll</HintPath>
+      </Reference>
+  </ItemGroup>
 
 </Project>

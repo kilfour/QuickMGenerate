@@ -1,4 +1,6 @@
-﻿using QuickMGenerate.UnderTheHood;
+﻿using QuickAcid;
+using QuickMGenerate.Tests.Tools;
+using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate.Tests.Objects
 {
@@ -42,21 +44,8 @@ When executing above generator it will return a SomeThingToGenerate object where
 				from result in MGen.One<SomeThingToGenerate>()
 				select result;
 
-			var isSomeTimesNull = false;
-			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 50; i++)
-			{
-				var value = generator.Generate().ANullableProperty;
-				if (value.HasValue)
-				{
-					isSomeTimesNotNull = true;
-					Assert.Equal(42, value.Value);
-				}
-				else
-					isSomeTimesNull = true;
-			}
-			Assert.True(isSomeTimesNull);
-			Assert.True(isSomeTimesNotNull);
+			new QState(QA.ShouldEventuallyBeNullAndNotNull("NullableUsesReplacement", generator, v => v.ANullableProperty))
+				.Testify(100);
 		}
 
 		[Fact]

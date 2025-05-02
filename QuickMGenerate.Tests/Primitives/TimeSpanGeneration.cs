@@ -1,4 +1,7 @@
-﻿namespace QuickMGenerate.Tests.Primitives
+﻿using QuickAcid;
+using QuickMGenerate.Tests.Tools;
+
+namespace QuickMGenerate.Tests.Primitives
 {
 	[TimeSpans(
 		Content = "Use `MGen.TimeSpan()`.",
@@ -42,21 +45,7 @@
 		public void Nullable()
 		{
 			var generator = MGen.TimeSpan().Nullable();
-			var isSomeTimesNull = false;
-			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 30; i++)
-			{
-				var value = generator.Generate();
-				if (value.HasValue)
-				{
-					isSomeTimesNotNull = true;
-					Assert.NotEqual(0, value.Value.Ticks);
-				}
-				else
-					isSomeTimesNull = true;
-			}
-			Assert.True(isSomeTimesNull);
-			Assert.True(isSomeTimesNotNull);
+			new QState(QA.ShouldEventuallyBeNullAndNotNull("TimeSpan", generator)).Testify(100);
 		}
 
 		[Fact]
@@ -81,7 +70,7 @@
 			var generator = MGen.One<SomeThingToGenerate>();
 			var isSomeTimesNull = false;
 			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 30; i++)
+			for (int i = 0; i < 100; i++)
 			{
 				var value = generator.Generate().ANullableProperty;
 				if (value.HasValue)

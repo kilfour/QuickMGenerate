@@ -41,8 +41,40 @@ MGen.For<SomeThingToGenerate>().Ignore(s => s.Id)
 
 		[Fact]
 		[IgnoringProperties(
-			Content = "*Note :* The Ignore 'generator' does not actually generate anything, it only influences further generation.",
+			Content =
+@"Sometimes it is useful to ignore all properties while generating an object.  
+For this use `MGen.For<SomeThingToGenerate>().IgnoreAll()`",
 			Order = 3)]
+		public void IgnoreAll()
+		{
+			var generator =
+				from _ in MGen.For<SomeThingToGenerate>().IgnoreAll()
+				from result in MGen.One<SomeThingToGenerate>()
+				select result;
+			Assert.Equal(0, generator.Generate().AnInt);
+		}
+
+		[Fact]
+		[IgnoringProperties(
+			Content =
+@"`IgnoreAll()` does not work ignore properties on derived classes, even inherited properties.",
+			Order = 4)]
+		public void IgnoreAllDerived()
+		{
+			var generator =
+				from r in MGen.Constant(13).Replace()
+				from _ in MGen.For<SomeThingToGenerate>().IgnoreAll()
+				from result in MGen.One<SomeThingDerivedToGenerate>()
+				select result;
+			var thing = generator.Generate();
+			Assert.Equal(13, thing.AnInt);
+			Assert.Equal(13, thing.AnotherInt);
+		}
+
+		[Fact]
+		[IgnoringProperties(
+			Content = "*Note :* The Ignore 'generator' does not actually generate anything, it only influences further generation.",
+			Order = 4)]
 		public void ReturnsUnit()
 		{
 			var generator = MGen.For<SomeThingToGenerate>().Ignore(s => s.AnInt);
@@ -56,6 +88,7 @@ MGen.For<SomeThingToGenerate>().Ignore(s => s.Id)
 
 		public class SomeThingDerivedToGenerate : SomeThingToGenerate
 		{
+			public int AnotherInt { get; set; }
 		}
 
 		public class IgnoringPropertiesAttribute : GeneratingObjectsAttribute

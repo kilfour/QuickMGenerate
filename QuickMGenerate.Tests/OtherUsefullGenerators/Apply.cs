@@ -79,7 +79,7 @@ There is no `MGen.For<T>().Apply(Func<T, T> func)` as For can only be used for o
 			Assert.Equal(42, newGenerator.Generate().MyProperty);
 		}
 
-		[Fact(Skip = "This on fails, dunno why, use quickacid to find out ...")]
+		[Fact]
 		[Apply(
 			Content =
 @"Lastly the convention based `Apply` has an overload which takes another generator.
@@ -97,7 +97,7 @@ MGen.For<SomeChild>().Apply(MGen.ChooseFrom(parents), (child, parent) => parent.
 			var generator =
 				from convention in
 					MGen.For<SomeThingToGenerate>()
-						.Apply(MGen.ChooseFromThese(1, 2).Unique("SomeKey"), (thing, i) => thing.MyProperty = i)
+						.Apply(MGen.Int(1, 3).Unique("SomeKey"), (thing, i) => thing.MyProperty = i)
 				from result in MGen.One<SomeThingToGenerate>()
 				select result;
 

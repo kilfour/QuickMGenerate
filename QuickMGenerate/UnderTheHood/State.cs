@@ -6,6 +6,8 @@ namespace QuickMGenerate.UnderTheHood
 	{
 		public readonly MoreRandom Random = new MoreRandom();
 
+		public readonly List<Type> StuffToIgnoreAll = new List<Type>();
+
 		public readonly List<PropertyInfo> StuffToIgnore = new List<PropertyInfo>();
 
 		private readonly Dictionary<object, object> generatorMemory =
@@ -36,13 +38,13 @@ namespace QuickMGenerate.UnderTheHood
 		public readonly Dictionary<Type, List<Func<State, object>>> Constructors
 			= new Dictionary<Type, List<Func<State, object>>>();
 
-		public readonly Dictionary<Type, List<Action<object>>> ActionsToApply =
-			new Dictionary<Type, List<Action<object>>>();
+		public readonly Dictionary<Type, List<Action<State, object>>> ActionsToApply =
+			new Dictionary<Type, List<Action<State, object>>>();
 
-		public void AddActionToApplyFor(Type type, Action<object> action)
+		public void AddActionToApplyFor(Type type, Action<State, object> action)
 		{
 			if (!ActionsToApply.ContainsKey(type))
-				ActionsToApply[type] = new List<Action<object>>();
+				ActionsToApply[type] = new List<Action<State, object>>();
 			var actions = ActionsToApply[type];
 			if (actions.All(a => a.GetHashCode() != action.GetHashCode()))
 				actions.Add(action);

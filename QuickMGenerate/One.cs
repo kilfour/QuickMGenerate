@@ -11,7 +11,7 @@ namespace QuickMGenerate
 				s =>
 					{
 						var instance = (T)CreateInstance(s, typeof(T));
-						BuildInstance(instance, s, new Stack<Type>());
+						BuildInstance(instance, s, new Stack<Type>(), typeof(T));
 						return new Result<T>(instance, s);
 					};
 		}
@@ -22,7 +22,7 @@ namespace QuickMGenerate
 				s =>
 				{
 					var instance = constructor();
-					BuildInstance(instance!, s, new Stack<Type>());
+					BuildInstance(instance!, s, new Stack<Type>(), typeof(T));
 					return new Result<T>(instance, s);
 				};
 		}
@@ -33,7 +33,7 @@ namespace QuickMGenerate
 				s =>
 				{
 					var instance = CreateInstance(s, type);
-					BuildInstance(instance, s, generationStack);
+					BuildInstance(instance, s, generationStack, type);
 					return new Result<object>(instance, s);
 				};
 		}
@@ -45,10 +45,12 @@ namespace QuickMGenerate
 			// If we have a registered constructor generator, use it
 			if (state.Constructors.TryGetValue(typeToGenerate, out var constructors) && constructors.Count > 0)
 			{
-				// Optionally fuzz which constructor to use (if multiple)
 				var index = state.Random.Next(0, constructors.Count);
 				var chosen = constructors[index];
-				return chosen(state);
+				var instance = chosen(state);
+
+				ValidateInstanceType(instance, typeToGenerate);
+				return instance;
 			}
 
 			// Fallback to default constructor
@@ -59,8 +61,28 @@ namespace QuickMGenerate
 			if (defaultCtor == null)
 				throw new InvalidOperationException($"No constructor or Construct(...) rule found for type {typeToGenerate}");
 
-			return defaultCtor.Invoke(Array.Empty<object>());
+			var defaultInstance = defaultCtor.Invoke(Array.Empty<object>());
+			ValidateInstanceType(defaultInstance, typeToGenerate);
+			return defaultInstance;
 		}
+
+
+		private static void ValidateInstanceType(object instance, Type declaredType)
+		{
+			var actualType = instance?.GetType();
+			if (actualType is not null &&
+				actualType != declaredType &&
+				!declaredType.IsAssignableFrom(actualType))
+			{
+				throw new InvalidOperationException(
+					$"MGen created an instance of type '{actualType}' " +
+					$"but expected a type assignable to '{declaredType}'. " +
+					$"This might be due to an internal framework subclass " +
+					$"like 'JsonValueCustomized<T>'. Consider using IgnoreAll() " +
+					$"on '{actualType.BaseType}' or normalizing the type.");
+			}
+		}
+
 
 		private static Type GetTypeToGenerate(State s, Type type)
 		{
@@ -73,9 +95,11 @@ namespace QuickMGenerate
 			}
 			return typeToGenerate;
 		}
-		private static void BuildInstance(object instance, State state, Stack<Type> generationStack)
+
+		private static void BuildInstance(object instance, State state, Stack<Type> generationStack, Type declaringType)
 		{
-			FillProperties(instance, state, generationStack);
+			if (!state.StuffToIgnoreAll.Contains(declaringType))
+				FillProperties(instance, state, generationStack);
 			ApplyRegisteredActions(instance, state);
 		}
 
@@ -93,7 +117,7 @@ namespace QuickMGenerate
 			{
 				foreach (var action in state.ActionsToApply[key])
 				{
-					action(instance);
+					action(state, instance);
 				}
 			}
 		}

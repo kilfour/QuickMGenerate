@@ -49,7 +49,7 @@ MGen.For<SomeThing>().Construct(MGen.Constant(42))
 		[Fact]
 		[CustomizingConstructors(
 			Content = " -  `MGen.For<T>().Construct<T1, T2>(Generator<T1> g1, Generator<T2> g2, Generator<T3> g3)`",
-			Order = 2)]
+			Order = 3)]
 		public void WorksThreeArgs()
 		{
 			var generator =
@@ -68,7 +68,7 @@ MGen.For<SomeThing>().Construct(MGen.Constant(42))
 		[Fact]
 		[CustomizingConstructors(
 			Content = " -  `MGen.For<T>().Construct<T1, T2>(Generator<T1> g1, Generator<T2> g2, Generator<T3> g3, Generator<T4> g4)`",
-			Order = 2)]
+			Order = 4)]
 		public void WorksFourArgs()
 		{
 			var generator =
@@ -92,7 +92,7 @@ MGen.For<SomeThing>().Construct(MGen.Constant(42))
 @" -  `MGen.For<T>().Construct<T1, T2>(Generator<T1> g1, Generator<T2> g2, Generator<T3> g3, Generator<T4> g4, Generator<T5> g5)`  
 
 After that, ... you're on your own.",
-			Order = 2)]
+			Order = 5)]
 		public void WorksFiveArgs()
 		{
 			var generator =
@@ -110,6 +110,31 @@ After that, ... you're on your own.",
 			Assert.Equal(44, result.AnInt3);
 			Assert.Equal(45, result.AnInt4);
 			Assert.Equal("answer", result.AString);
+		}
+
+		[Fact]
+		[CustomizingConstructors(
+			Content =
+@"Or use the factory method overload:  
+`MGen.For<T>().Construct<T>(Func<T> ctor)`",
+			Order = 6)]
+		public void FactoryCtor()
+		{
+			var generator =
+				from i1 in MGen.For<SomeThing>().Ignore(a => a.AnInt1)
+				from i2 in MGen.For<SomeThing>().Ignore(a => a.AnInt2)
+				from i3 in MGen.For<SomeThing>().Ignore(a => a.AnInt3)
+				from i4 in MGen.For<SomeThing>().Ignore(a => a.AnInt4)
+				from i5 in MGen.For<SomeThing>().Ignore(a => a.AString)
+				from c in MGen.For<SomeThing>().Construct(() => new SomeThing(1, 2, 3, 4, "5"))
+				from r in MGen.One<SomeThing>()
+				select r;
+			var result = generator.Generate();
+			Assert.Equal(1, result.AnInt1);
+			Assert.Equal(2, result.AnInt2);
+			Assert.Equal(3, result.AnInt3);
+			Assert.Equal(4, result.AnInt4);
+			Assert.Equal("5", result.AString);
 		}
 
 		// throws InvalidOperationException

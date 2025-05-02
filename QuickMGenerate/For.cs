@@ -45,6 +45,21 @@ namespace QuickMGenerate
 							return new Result<Unit>(Unit.Instance, s);
 						};
 			}
+			public Generator<Unit> Construct(Func<T> ctor)
+			{
+				return state =>
+				{
+					var targetType = typeof(T);
+					if (!state.Constructors.TryGetValue(targetType, out var list))
+					{
+						list = new List<Func<State, object>>();
+						state.Constructors[targetType] = list;
+					}
+
+					list.Add(s => ctor()!);
+					return new Result<Unit>(Unit.Instance, state);
+				};
+			}
 
 			public Generator<Unit> Construct<TArg>(Generator<TArg> generator)
 			{

@@ -156,6 +156,9 @@ Various overloads exist :
 
 After that, ... you're on your own.
 
+Or use the factory method overload:  
+`MGen.For<T>().Construct<T>(Func<T> ctor)`
+
 *Note :* The Construct 'generator' does not actually generate anything, it only influences further generation.
 
 

@@ -57,7 +57,7 @@ For this use `MGen.For<SomeThingToGenerate>().IgnoreAll()`",
 		[Fact]
 		[IgnoringProperties(
 			Content =
-@"`IgnoreAll()` does not work ignore properties on derived classes, even inherited properties.",
+@"`IgnoreAll()` does not ignore properties on derived classes, even inherited properties.",
 			Order = 4)]
 		public void IgnoreAllDerived()
 		{

@@ -650,6 +650,31 @@ See also : [Creating a counter generator](./QuickMGenerate.Tests/CreatingCustomG
 
 
 ___
+## Diagnostics
+### 
+QuickMGenerate allows you to inspect generated values through use of the `Inspect<T>(...)` combinator.
+Full signature:
+```
+Inspect<T>(this Generator<T> generator, Func<T, (string[] tags, string message, object data)> describe)
+```
+Furthermore, three overloads are provided to remove unnecessary ceremony :
+```
+Inspect<T>(this Generator<T> generator, string[] tags, string message)
+Inspect<T>(this Generator<T> generator, string[] tags)
+Inspect<T>(this Generator<T> generator)
+```
+In order to retrieve inspected values a concrete instance of `Inspector` must be registered.
+Usage Example :
+```
+InspectorContext.Current = myConcreteInspectorInstance;
+MGen.Constant(42).Inspect(a => (["my tag"], "a log message", new { label = "constant", value = a }));
+```
+Several `Inspector` types are provided by QuickMGenerate.
+
+
+
+
+___
 ## After Thoughts
 
 Well ... 

@@ -26,7 +26,7 @@ namespace QuickMGenerate.Tests.CreatingCustomGenerators
 
 		public class SomethingToGenerate
 		{
-			public string MyProperty { get; set; }
+			public string? MyProperty { get; set; }
 		}
 
 		public Generator<int> Counter()

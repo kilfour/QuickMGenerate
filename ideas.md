@@ -6,10 +6,3 @@ Add an optional "Seed" to force deterministic outputs when wanted (great for deb
 
 Fuzz() as a higher-level abstraction for randomizing small object graphs automatically.
 
-ctor :
-MGen.For<Leaf>().Construct(MGen.Int())
-MGen.For<Node>().Construct(MGen.One<Tree>(), MGen.One<Tree>())
-
-
-Cannot implicitly convert type 'QuickMGenerate.Tests.Tools.Container<System.Collections.Generic.HashSet<string>>' to 'QuickMGenerate.Tests.Tools.Container<QuickMGenerate.Tests.Tools.Container<System.Collections.Generic.HashSet<string>>>'CS0029
-Cannot convert lambda expression to intended delegate typ

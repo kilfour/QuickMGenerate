@@ -67,7 +67,7 @@ MGen.For<SomeThingToGenerate>().Customize(s => s.MyProperty, MGen.Constant(42))
 
 		[Fact]
 		[CustomizingProperties(
-			Content = "*Note :* The Customize 'generator' does not actually generate anything, it only influences further generation.",
+			Content = "*Note :* The Customize combinator does not actually generate anything, it only influences further generation.",
 			Order = 99)]
 		public void ReturnsUnit()
 		{

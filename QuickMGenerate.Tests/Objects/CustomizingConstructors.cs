@@ -188,7 +188,7 @@ After that, ... you're on your own.",
 
 		[Fact]
 		[CustomizingConstructors(
-			Content = "*Note :* The Construct 'generator' does not actually generate anything, it only influences further generation.",
+			Content = "*Note :* The Construct combinator does not actually generate anything, it only influences further generation.",
 			Order = 99)]
 		public void ReturnsUnit()
 		{

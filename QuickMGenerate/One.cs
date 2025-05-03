@@ -57,8 +57,8 @@ namespace QuickMGenerate
 				if (rule.FallbackType != null)
 				{
 					// DANGER, DANGER, DANGER
-					var instance = CreateInstanceOfExactlyThisType(state, type);
-					BuildInstance(instance, state, type);
+					var instance = CreateInstanceOfExactlyThisType(state, rule.FallbackType);
+					BuildInstance(instance, state, rule.FallbackType);
 					return instance;
 				}
 			}

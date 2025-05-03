@@ -95,7 +95,7 @@ When executing above generator result1 will have all integers set to 42 and resu
 
 		[Fact]
 		[ReplacingPrimitiveGeneratorsAttribute(
-			Content = "*Note :* The Replace 'generator' does not actually generate anything, it only influences further generation.",
+			Content = "*Note :* The Replace combinator does not actually generate anything, it only influences further generation.",
 			Order = 5)]
 		public void ReturnsUnit()
 		{

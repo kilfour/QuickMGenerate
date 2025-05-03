@@ -96,6 +96,8 @@ Use `MGen.One<T>()`, where T is the type of object you want to generate.
 
 - The enumeration properties of the object will be automatically filled in using the default (or replaced) MGen.Enum<T> generator.
 
+- The object properties will also be automatically filled in using the default (or replaced) generators, similar to calling MGen.One<TProperty>() and setting the value using `Apply` (see below) explicitely.
+
 - Also works for properties with private setters.
 
 - Can generate any object that has a parameterless constructor, be it public, protected, or private.
@@ -120,7 +122,7 @@ For this use `MGen.For<SomeThingToGenerate>().IgnoreAll()`
 
 `IgnoreAll()` does not ignore properties on derived classes, even inherited properties.
 
-*Note :* The Ignore 'generator' does not actually generate anything, it only influences further generation.
+*Note :* The Ignore combinator does not actually generate anything, it only influences further generation.
 
 
 ### Customizing properties.
@@ -137,7 +139,7 @@ An overload exists which allows for passing a value instead of a generator.
 
 Derived classes generated also use the custom property.
 
-*Note :* The Customize 'generator' does not actually generate anything, it only influences further generation.
+*Note :* The Customize combinator does not actually generate anything, it only influences further generation.
 
 
 ### Customizing constructors.
@@ -164,7 +166,7 @@ After that, ... you're on your own.
 Or use the factory method overload:  
 `MGen.For<T>().Construct<T>(Func<T> ctor)`
 
-*Note :* The Construct 'generator' does not actually generate anything, it only influences further generation.
+*Note :* The Construct combinator does not actually generate anything, it only influences further generation.
 
 
 ### Many objects.
@@ -232,7 +234,7 @@ var generator =
 ```
 When executing above generator result1 will have all integers set to 42 and result2 to 666.
 
-*Note :* The Replace 'generator' does not actually generate anything, it only influences further generation.
+*Note :* The Replace combinator does not actually generate anything, it only influences further generation.
 
 
 
@@ -281,19 +283,80 @@ var generator =
 
 
 
-### A 'Component'.
-Use the `MGen.For<T>().Component()`, method chain.
+### Depth Control.
+As mentioned in the *A simple object section*: “The object properties will also be automatically filled in.”
+However, this automatic population only applies to the first level of object properties.
+Deeper properties will remain null unless configured otherwise.  
+So if we have the following class :
+```csharp
+public class NoRecurse { }
+public class Recurse
+{
+	public Recurse Child { get; set; }
+	public NoRecurse OtherChild { get; set; }
+	public override string ToString()
+	{
+		var childString =
+			Child == null ? "<null>" : Child.ToString();
+		var otherChildString =
+			OtherChild == null ? "<null>" : "{ NoRecurse }";
+		return $"{{ Recurse: Child = {childString}, OtherChild = {otherChildString} }}";
+	}
+}
+```
 
-Once a component is defined, from then on it is automatically generated for any object that has a property of the components type,
-similarly to how primitives are handled.
+If we then do :
+```csharp
+Console.WriteLine(MGen.One<Recurse>().Generate().ToString());
+```
+It outputs : 
+```
+{ Recurse: Child = <null>, OtherChild = { NoRecurse } }
+```
+While this may seem counter-intuitive, it is an intentional default to prevent infinite recursion or overly deep object trees.
+Internally, a `DepthConstraint(int Min, int Max)` is registered per type.
+The default values are `new(1, 1)`.  
+Revisiting our example we can see that both types have indeed been generated with these default values.
 
-The only exception to the component rule is when it would lead to an infinite loop.
-
-An overload exists which allows for controlling potentially recursive generation: `.Component(int maxDepth)`
-maxDepth N means: I want up to N levels of actual structure. See `.Tree()` for a more detailed explanation 
+You can control generation depth per type using the `.Depth(min, max)` combinator.  
+For instance:
+```csharp
+var generator =
+	from _ in MGen.For<Recurse>().Depth(2, 2)
+	from recurse in MGen.One<Recurse>()
+	select recurse;
+Console.WriteLine(generator.Generate().ToString());
+```
+Outputs:
+```
+{ Recurse: Child = { Recurse: Child = <null>, OtherChild = { NoRecurse } }
+, OtherChild = { NoRecurse } 
+}
+```
  
 
-*Note :* The Component 'generator' does not actually generate anything, it only influences further generation.
+Recap:
+```
+Depth(1, 1)
+{ Recurse: Child = <null>, OtherChild = { NoRecurse } }
+
+Depth(2, 2)
+{ Recurse: 
+	Child = { Recurse: Child = <null>, OtherChild = { NoRecurse } },
+  	OtherChild = { NoRecurse } 
+}
+
+Depth(3, 3)
+{ Recurse: 
+	Child = { Recurse: 
+				Child = { Recurse: Child = <null>, OtherChild = { NoRecurse } },
+                OtherChild = { NoRecurse } },
+  	OtherChild = { NoRecurse } 
+}
+```
+ 
+
+**Note :** The `Depth(...)` combinator does not actually generate anything, it only influences further generation.
 
 
 ### Generating Trees.

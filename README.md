@@ -362,7 +362,7 @@ This means some instances will be shallow, while others may be more deeply neste
 **Note :** The `Depth(...)` combinator does not actually generate anything, it only influences further generation.
 
 
-### Trees
+### Trees.
 Depth control together with the `.GenerateAsOneOf(...)` combinator mentioned above and the previously unmentioned `TreeLeaf<T>()` one allows you to build tree type hierarchies.  
 Given the cannonical abstract Tree, concrete Branch and Leaf example model, we can generate this like so:
 ```csharp

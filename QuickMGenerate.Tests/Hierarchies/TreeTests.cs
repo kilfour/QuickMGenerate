@@ -138,7 +138,7 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 	{
 		public TreesAttribute()
 		{
-			Caption = "Trees";
+			Caption = "Trees.";
 			CaptionOrder = 20;
 		}
 	}

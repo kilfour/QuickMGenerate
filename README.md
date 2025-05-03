@@ -731,6 +731,8 @@ However for complex stuff where generators get reused, sometimes in implicit way
 it is good to know what *exactly* is going on.
 
 
+This section is still being worked on, more information will follow.
+
 
 
 ___
@@ -754,6 +756,8 @@ MGen.Constant(42).Inspect(a => (["my tag"], "a log message", new { label = "cons
 ```
 Several `Inspector` types are provided by QuickMGenerate.
 
+
+This section is still being worked on, more information will follow.
 
 
 

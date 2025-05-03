@@ -15,6 +15,10 @@ it is good to know what *exactly* is going on.
 	Order = 0)]
 public class GeneralInfoTests
 {
+	[GeneralInfo(
+	Content =
+@"This section is still being worked on, more information will follow.",
+	Order = 0)]
 	[Fact]
 	public void UsageExample()
 	{

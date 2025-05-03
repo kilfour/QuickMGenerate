@@ -359,7 +359,11 @@ Depth(3, 3)
 Using for instance `.Depth(1, 3)` allows the generator to randomly choose a depth between 1 and 3 (inclusive) for that type.
 This means some instances will be shallow, while others may be more deeply nested, introducing variability within the defined bounds.
 
-Depth control together with the `.GenerateAsOneOf(...)` combinator mentioned above and the previously unmentioned `.TreeLeaf<T>()` one allows you to build tree type hierarchies.  
+**Note :** The `Depth(...)` combinator does not actually generate anything, it only influences further generation.
+
+
+### Trees
+Depth control together with the `.GenerateAsOneOf(...)` combinator mentioned above and the previously unmentioned `TreeLeaf<T>()` one allows you to build tree type hierarchies.  
 Given the cannonical abstract Tree, concrete Branch and Leaf example model, we can generate this like so:
 ```csharp
 var generator =
@@ -369,13 +373,17 @@ var generator =
 	from tree in MGen.One<Tree>()
 	select tree;
 ```
-Our leaf has an int value property, so the above would output something like:
+Our leaf has an int value property, so the following:
+```csharp
+Console.WriteLine(generator.Generate().ToString());
+```	
+Would output something like:
 ```
 Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 ```
 
 
-**Note :** The `Depth(...)` combinator does not actually generate anything, it only influences further generation.
+**Note :** The `TreeLeaf<T>()` combinator does not actually generate anything, it only influences further generation.
 
 
 

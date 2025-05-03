@@ -122,7 +122,7 @@ For this use `MGen.For<SomeThingToGenerate>().IgnoreAll()`
 
 `IgnoreAll()` does not ignore properties on derived classes, even inherited properties.
 
-*Note :* The Ignore combinator does not actually generate anything, it only influences further generation.
+**Note :** `The Ignore(...)` combinator does not actually generate anything, it only influences further generation.
 
 
 ### Customizing properties.
@@ -193,10 +193,13 @@ Use The `MGen.For<T>().GenerateAsOneOf(params Type[] types)` method chain.
 
 F.i. :
 ```
-MGen.For<SomeThingAbstract>().GenerateAsOneOf(typeof(T), typeof(SomethingDerived), typeof(SomethingElseDerived))
+MGen.For<SomeThingAbstract>().GenerateAsOneOf(
+	typeof(SomethingDerived), typeof(SomethingElseDerived))
 ```
 
 When generating an object of type T, an object of a random chosen type from the provided list will be generated instead.
+
+**Note :** The `GenerateAsOneOf(...)` combinator does not actually generate anything, it only influences further generation.
 
 
 ### ToList.

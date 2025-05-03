@@ -73,7 +73,7 @@ For this use `MGen.For<SomeThingToGenerate>().IgnoreAll()`",
 
 		[Fact]
 		[IgnoringProperties(
-			Content = "*Note :* The Ignore combinator does not actually generate anything, it only influences further generation.",
+			Content = "**Note :** `The Ignore(...)` combinator does not actually generate anything, it only influences further generation.",
 			Order = 4)]
 		public void ReturnsUnit()
 		{

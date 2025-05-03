@@ -1,4 +1,6 @@
-﻿namespace QuickMGenerate.Tests.Objects
+﻿using QuickMGenerate.UnderTheHood;
+
+namespace QuickMGenerate.Tests.Objects
 {
 	[Inheritance(
 		Content =
@@ -6,7 +8,8 @@
 
 F.i. :
 ```
-MGen.For<SomeThingAbstract>().GenerateAsOneOf(typeof(T), typeof(SomethingDerived), typeof(SomethingElseDerived))
+MGen.For<SomeThingAbstract>().GenerateAsOneOf(
+	typeof(SomethingDerived), typeof(SomethingElseDerived))
 ```",
 		Order = 0)]
 	public class Inheritance
@@ -16,7 +19,7 @@ MGen.For<SomeThingAbstract>().GenerateAsOneOf(typeof(T), typeof(SomethingDerived
 			Content =
 @"When generating an object of type T, an object of a random chosen type from the provided list will be generated instead.",
 			Order = 1)]
-		public void WellItWorksDunnit()
+		public void UsingDerived()
 		{
 			var generator =
 				from _ in MGen.For<SomeThingAbstract>().GenerateAsOneOf(typeof(SomeThingDerivedToGenerate))
@@ -24,6 +27,16 @@ MGen.For<SomeThingAbstract>().GenerateAsOneOf(typeof(T), typeof(SomethingDerived
 				select thing;
 			var result = generator.Generate();
 			Assert.IsType<SomeThingDerivedToGenerate>(result);
+		}
+
+		[Fact]
+		[Inheritance(
+			Content = "**Note :** The `GenerateAsOneOf(...)` combinator does not actually generate anything, it only influences further generation.",
+			Order = 4)]
+		public void ReturnsUnit()
+		{
+			var generator = MGen.For<SomeThingAbstract>().GenerateAsOneOf(typeof(SomeThingDerivedToGenerate));
+			Assert.Equal(Unit.Instance, generator.Generate());
 		}
 
 		public abstract class SomeThingAbstract

@@ -371,6 +371,7 @@ var generator =
 ```
 Our leaf has an int value property, so the above would output something like:
 ```
+Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 ```
 
 

@@ -231,6 +231,7 @@ var generator =
 ```
 Our leaf has an int value property, so the above would output something like:
 ```
+Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 ```
 ",
 		Order = 4)]
@@ -242,7 +243,6 @@ Our leaf has an int value property, so the above would output something like:
 			from _l in MGen.For<Tree>().TreeLeaf<Leaf>()
 			from tree in MGen.One<Tree>()
 			select tree;
-
 		new QState(
 			QA.Should(generator, () => new Container<HashSet<string>>([])
 				, (c, v) =>
@@ -334,7 +334,7 @@ Our leaf has an int value property, so the above would output something like:
 		return
 			from _1 in "Tree: Contains T".Assay(() => c.Value!.Contains("T"))
 			from _2 in "Tree: Contains TL".Assay(() => c.Value!.Contains("TL"))
-				//from _3 in "Tree: Contains TR".Assay(() => c.Value!.Contains("TR"))
+			from _3 in "Tree: Contains TR".Assay(() => c.Value!.Contains("TR"))
 			from _4 in "Tree: Contains TLL".Assay(() => c.Value!.Contains("TLL"))
 			from _5 in "Tree: Contains TLR".Assay(() => c.Value!.Contains("TLR"))
 			from _6 in "Tree: Contains TRL".Assay(() => c.Value!.Contains("TRL"))

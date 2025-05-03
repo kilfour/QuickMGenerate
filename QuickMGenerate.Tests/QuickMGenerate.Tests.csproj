@@ -20,11 +20,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\QuickMGenerate\QuickMGenerate.csproj" />
+    <ProjectReference Include="..\..\QuickAcid\QuickAcid\QuickAcid.csproj" />
   </ItemGroup>
-  <ItemGroup>
+  <!-- <ItemGroup>
       <Reference Include="QuickAcid">
           <HintPath>../Libs/QuickAcid.dll</HintPath>
       </Reference>
-  </ItemGroup>
+  </ItemGroup> -->
 
 </Project>

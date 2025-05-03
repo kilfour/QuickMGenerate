@@ -28,7 +28,7 @@ public class DiagnosticsTests
 {
 	[DiagnosticsInspecting(
 	Content =
-@"This section is still being worked on, more information will follow.",
+@"**Note:** This section is still being worked on, more information will follow.",
 	Order = 0)]
 	[Fact]
 	public void UsageExample()

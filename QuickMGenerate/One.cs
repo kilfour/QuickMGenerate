@@ -40,20 +40,45 @@ namespace QuickMGenerate
 		{
 			using (state.WithDepthFrame(type))
 			{
-				var currentDepth = state.GetDepth(type);
-				var (min, max) = state.GetDepthConstraint(type);
-				if (currentDepth <= min)
-					return BuildInstance(ctor(), state, type);
-				if (currentDepth > max)
-					return null!;
-				if (Bool()(state).Value)
-					return null!;
+				state.TreeLeaves.TryGetValue(type, out var leafType);
+				if (leafType == null)
+				{
+					var currentDepth = state.GetDepth(type);
+					var (min, max) = state.GetDepthConstraint(type);
+					if (currentDepth <= min)
+						return BuildInstance(ctor(), state, type);
+					if (currentDepth > max)
+						return null!;
+					if (Bool()(state).Value)
+						return null!;
+					else
+						return BuildInstance(ctor(), state, type);
+				}
 				else
-					return BuildInstance(ctor(), state, type);
+				{
+					var currentDepth = state.GetDepth(type);
+					var (min, max) = state.GetDepthConstraint(type);
+					if (currentDepth <= min)
+						return BuildInstance(ctor(), state, type);
+					if (currentDepth == max)
+						return BuildLeaf(state, leafType);
+					if (Bool()(state).Value)
+						return BuildLeaf(state, leafType);
+					else
+						return BuildInstance(ctor(), state, type);
+				}
 			}
 		}
 
-		public static object CheckForLeaves(State state, Type type, Func<object> ctor)
+		private static object BuildLeaf(State state, Type leafType)
+		{
+			// DANGER, DANGER, DANGER
+			var instance = CreateInstanceOfExactlyThisType(state, leafType);
+			BuildInstance(instance, state, leafType);
+			return instance;
+		}
+
+		private static object CheckForLeaves(State state, Type type, Func<object> ctor)
 		{
 			if (state.TreeLeaves.TryGetValue(type, out var leafType))
 			{

@@ -362,7 +362,17 @@ This means some instances will be shallow, while others may be more deeply neste
 Depth control together with the `.GenerateAsOneOf(...)` combinator mentioned above and the previously unmentioned `.TreeLeaf<T>()` one allows you to build tree type hierarchies.  
 Given the cannonical abstract Tree, concrete Branch and Leaf example model, we can generate this like so:
 ```csharp
+var generator =
+	from _d in MGen.For<Tree>().Depth(1, 3)
+	from _i in MGen.For<Tree>().GenerateAsOneOf(typeof(Branch), typeof(Leaf))
+	from _l in MGen.For<Tree>().TreeLeaf<Leaf>()
+	from tree in MGen.One<Tree>()
+	select tree;
 ```
+Our leaf has an int value property, so the above would output something like:
+```
+```
+
 
 **Note :** The `Depth(...)` combinator does not actually generate anything, it only influences further generation.
 

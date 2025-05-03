@@ -159,7 +159,7 @@ Depth(3, 3)
 @"Using for instance `.Depth(1, 3)` allows the generator to randomly choose a depth between 1 and 3 (inclusive) for that type.
 This means some instances will be shallow, while others may be more deeply nested, introducing variability within the defined bounds.",
 		Order = 4)]
-	public void WithDepth_1_5()
+	public void WithDepth_1_3()
 	{
 		var generator =
 			from _ in MGen.For<Recurse>().Depth(1, 3)
@@ -187,36 +187,31 @@ This means some instances will be shallow, while others may be more deeply neste
 			  select Acid.Test;
 	}
 
-	public string GetDepthString(Recurse v)
+	public string GetDepthString(Recurse thing)
 	{
-		if (v == null)
-			throw new Exception("BOOOOOOOOOOOOOOOM");
-		if (v.Child == null) return "1";
-		if (v.Child.Child == null) return "2";
-		if (v.Child.Child.Child == null) return "3";
+		if (thing == null)
+			throw new Exception("root == null");
+		if (thing.Child == null) return "1";
+		if (thing.Child.Child == null) return "2";
+		if (thing.Child.Child.Child == null) return "3";
 		return "4";
 	}
 
-	abstract record Tree
+	private abstract class Tree
 	{
 		public abstract override string ToString();
 	}
 
-	record Leaf : Tree
+	private class Leaf : Tree
 	{
 		public int Value { get; set; }
-		public Leaf() { } // required for component-based construction
-		public Leaf(int value) => Value = value;
-
 		public override string ToString() => $"Leaf({Value})";
 	}
 
-	record Branch : Tree
+	private class Branch : Tree
 	{
 		public Tree? Left { get; set; }
 		public Tree? Right { get; set; }
-		public Branch() { } // required for component-based construction
-		public Branch(Tree left, Tree right) => (Left, Right) = (left, right);
 
 		public override string ToString() => $"Node({Left}, {Right})";
 	}
@@ -227,7 +222,17 @@ This means some instances will be shallow, while others may be more deeply neste
 @"Depth control together with the `.GenerateAsOneOf(...)` combinator mentioned above and the previously unmentioned `.TreeLeaf<T>()` one allows you to build tree type hierarchies.  
 Given the cannonical abstract Tree, concrete Branch and Leaf example model, we can generate this like so:
 ```csharp
-```",
+var generator =
+	from _d in MGen.For<Tree>().Depth(1, 3)
+	from _i in MGen.For<Tree>().GenerateAsOneOf(typeof(Branch), typeof(Leaf))
+	from _l in MGen.For<Tree>().TreeLeaf<Leaf>()
+	from tree in MGen.One<Tree>()
+	select tree;
+```
+Our leaf has an int value property, so the above would output something like:
+```
+```
+",
 		Order = 4)]
 	public void Trees()
 	{
@@ -235,39 +240,71 @@ Given the cannonical abstract Tree, concrete Branch and Leaf example model, we c
 			from _d in MGen.For<Tree>().Depth(1, 2)
 			from _i in MGen.For<Tree>().GenerateAsOneOf(typeof(Branch), typeof(Leaf))
 			from _l in MGen.For<Tree>().TreeLeaf<Leaf>()
-			from thing in MGen.One<Tree>()
-			select thing;
+			from tree in MGen.One<Tree>()
+			select tree;
 
 		new QState(
 			QA.Should(generator, () => new Container<HashSet<string>>([])
 				, (c, v) => c.Value!.Add(GetDepthString(v))
-				, c => !c.Value!.Contains("4")
-					&& c.Value!.Contains("1")
-					&& c.Value!.Contains("2")
-					&& c.Value!.Contains("3")
-				, GetAssays)
+				, c =>
+					!c.Value!.Contains("ERROR")
+					&& c.Value!.Contains("T")
+					&& c.Value!.Contains("TL")
+					&& c.Value!.Contains("TR")
+					&& c.Value!.Contains("TLL")
+					&& c.Value!.Contains("TLR")
+					&& c.Value!.Contains("TRL")
+					&& c.Value!.Contains("TRR")
+				, GetAssaysForTree)
 		).Testify(1000);
 	}
 
 	private string GetDepthString(Tree tree)
 	{
 		if (tree == null)
-			throw new Exception("BOOOOOOOOOOOOOOOM");
+			throw new Exception("Root == null");
+		if (tree is Leaf) return "T";
 		var branch = (Branch)tree;
-		if (branch == null) return "T";
 		if (branch.Left == null) throw new Exception("branch.Left == null");
 		if (branch.Right == null) throw new Exception("branch.Right == null");
+		if (branch.Left is Leaf) return "TL";
+		if (branch.Right is Leaf) return "TR";
+		if (branch.Left is Branch bl)
+		{
+			if (bl.Left == null) throw new Exception("branch.Left.Left == null");
+			if (bl.Left is Leaf) return "TLL";
+			if (bl.Left is Branch) throw new Exception("branch.Left.Left is Branch");
+
+			if (bl.Right == null) throw new Exception("branch.Left.Right == null");
+			if (bl.Right is Leaf) return "TLR";
+			if (bl.Right is Branch) throw new Exception("branch.Left.Right is Branch");
+		}
+		if (branch.Right is Branch br)
+		{
+			if (br.Left == null) throw new Exception("branch.Right.Left == null");
+			if (br.Left is Leaf) return "TRL";
+			if (br.Left is Branch) throw new Exception("branch.Right.Left is Branch");
+
+			if (br.Right == null) throw new Exception("branch.Right.Right == null");
+			if (br.Right is Leaf) return "TRR";
+			if (br.Right is Branch) throw new Exception("branch.Right.Right is Branch");
+		}
+
 		return "ERROR";
 	}
 
 	public static QAcidRunner<Acid> GetAssaysForTree(Container<HashSet<string>> c)
 	{
 		return
-			  from _1 in "Tree: Contains T".Assay(() => c.Value!.Contains("T"))
-				  //   from _2 in "DepthControl: Contains 2".Assay(() => c.Value!.Contains("2"))
-				  //   from _3 in "DepthControl: Contains 3".Assay(() => c.Value!.Contains("3"))
-				  //   from _6 in "DepthControl: !Contains 4".Assay(() => !c.Value!.Contains("4"))
-			  select Acid.Test;
+			from _1 in "Tree: Contains T".Assay(() => c.Value!.Contains("T"))
+			from _2 in "Tree: Contains TL".Assay(() => c.Value!.Contains("TL"))
+			from _3 in "Tree: Contains TR".Assay(() => c.Value!.Contains("TR"))
+			from _4 in "Tree: Contains TLL".Assay(() => c.Value!.Contains("TLL"))
+			from _5 in "Tree: Contains TLR".Assay(() => c.Value!.Contains("TLR"))
+			from _6 in "Tree: Contains TRL".Assay(() => c.Value!.Contains("TRL"))
+			from _7 in "Tree: Contains TRR".Assay(() => c.Value!.Contains("TRR"))
+			from _ in "Tree: !Contains ERROR".Assay(() => !c.Value!.Contains("ERROR"))
+			select Acid.Test;
 	}
 
 	[Fact]

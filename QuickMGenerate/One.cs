@@ -56,7 +56,10 @@ namespace QuickMGenerate
 				}
 				else
 				{
+
 					var currentDepth = state.GetDepth(type);
+					// if (leafType != null)
+					// 	Console.WriteLine($"LEAF: {type.Name} @ depth {currentDepth} → {leafType.Name}");
 					var (min, max) = state.GetDepthConstraint(type);
 					if (currentDepth <= min)
 						return BuildInstance(ctor(), state, type);
@@ -276,11 +279,8 @@ namespace QuickMGenerate
 		{
 			var type = propertyInfo.PropertyType;
 			var result = One(type)(state);
-			// Console.WriteLine($"Target : {target}");
-			// if (result.Value != null)
-			// 	Console.WriteLine($"Property : {result.Value}");
-			// else
-			// 	Console.WriteLine($"Property : <null>");
+			// if (propertyInfo.Name is not null)
+			// 	Console.WriteLine($"SET {propertyInfo.Name} = {result.Value?.GetType().Name ?? "null"} on {target.GetType().Name}");
 			SetPropertyValue(propertyInfo, target, result.Value);
 		}
 

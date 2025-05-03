@@ -28,7 +28,7 @@ namespace QuickMGenerate.UnderTheHood
 		public DisposableAction WithDepthFrame(Type type)
 		{
 			PushDepthFrame(type);
-			return new DisposableAction(() => PopDepthFrame());
+			return new DisposableAction(PopDepthFrame);
 		}
 		// ---------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ namespace QuickMGenerate.UnderTheHood
 		public readonly Dictionary<Type, List<Type>> InheritanceInfo
 			= new Dictionary<Type, List<Type>>();
 
-		public Dictionary<Type, (int MaxDepth, Type? FallbackType)> RecursionRules = new();
+		public Dictionary<Type, Type> TreeLeaves = new();
 
 		public readonly Dictionary<PropertyInfo, Generator<object>> Customizations
 			= new Dictionary<PropertyInfo, Generator<object>>();

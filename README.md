@@ -349,35 +349,22 @@ Depth(2, 2)
 Depth(3, 3)
 { Recurse: 
 	Child = { Recurse: 
-				Child = { Recurse: Child = <null>, OtherChild = { NoRecurse } },
-                OtherChild = { NoRecurse } },
+		Child = { Recurse: Child = <null>, OtherChild = { NoRecurse } },
+        OtherChild = { NoRecurse } },
   	OtherChild = { NoRecurse } 
 }
 ```
  
 
+Using for instance `.Depth(1, 3)` allows the generator to randomly choose a depth between 1 and 3 (inclusive) for that type.
+This means some instances will be shallow, while others may be more deeply nested, introducing variability within the defined bounds.
+
+Depth control together with the `.GenerateAsOneOf(...)` combinator mentioned above and the previously unmentioned `.TreeLeaf<T>()` one allows you to build tree type hierarchies.  
+Given the cannonical abstract Tree, concrete Branch and Leaf example model, we can generate this like so:
+```csharp
+```
+
 **Note :** The `Depth(...)` combinator does not actually generate anything, it only influences further generation.
-
-
-### Generating Trees.
-Trees are a special kind of hierarchy and care needs to be taken to avoid recursion and such.  
-
-They get their own generator : `MGen.Tree<TBase, TEnd>(int maxDepth, params Type[] derivedTypes)`  
-Params explained :
- - `TBase` : the base type of your tree structure.  
- - `TEnd` : the *leaf* type of your tree structure.  
- - `derivedTypes` : all types that exist in your tree hierarchy, make sure to also include TEnd.
-
-And then there's maxDepth ...  
-maxDepth N means: I want up to N levels of actual structure.  
-Once I hit depth N, I must return a Leaf.  
-That is:
- - maxDepth = 1 → just a Leaf
- - maxDepth = 2 → a Node(Leaf, Leaf)
- - maxDepth = 3 → a Node(Node(Leaf, Leaf), Leaf)
-
-
-Throws an ArgumentException if maxDepth < 1.
 
 
 

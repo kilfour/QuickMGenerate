@@ -247,6 +247,16 @@ namespace QuickMGenerate
 						};
 			}
 
+			public Generator<Unit> TreeLeaf<TLeaf>()
+			{
+				return
+					s =>
+						{
+							s.TreeLeaves[typeof(T)] = typeof(TLeaf);
+							return new Result<Unit>(Unit.Instance, s);
+						};
+			}
+
 			public Generator<Unit> Apply(Action<T> action)
 			{
 				return

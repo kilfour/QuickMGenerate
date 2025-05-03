@@ -12,7 +12,6 @@ namespace QuickMGenerate
 				s =>
 					{
 						var instance = (T)DepthControlledCreation(s, typeof(T), () => (T)CreateInstance(s, typeof(T)));
-						// BuildInstance(instance, s, typeof(T));
 						return new Result<T>(instance, s);
 					};
 		}
@@ -43,22 +42,26 @@ namespace QuickMGenerate
 			{
 				var currentDepth = state.GetDepth(type);
 				var (min, max) = state.GetDepthConstraint(type);
-				if (currentDepth < min) return BuildInstance(ctor(), state, type);
-				if (currentDepth == min) return BuildInstance(CheckForLeaves(state, type, ctor), state, type);
-				if (currentDepth > max) return null!;
-				return null!; // todo choose(null, ctor)
+				if (currentDepth <= min)
+					return BuildInstance(ctor(), state, type);
+				if (currentDepth > max)
+					return null!;
+				if (Bool()(state).Value)
+					return null!;
+				else
+					return BuildInstance(ctor(), state, type);
 			}
 		}
 
 		public static object CheckForLeaves(State state, Type type, Func<object> ctor)
 		{
-			if (state.RecursionRules.TryGetValue(type, out var rule))
+			if (state.TreeLeaves.TryGetValue(type, out var leafType))
 			{
-				if (rule.FallbackType != null)
+				if (leafType != null)
 				{
 					// DANGER, DANGER, DANGER
-					var instance = CreateInstanceOfExactlyThisType(state, rule.FallbackType);
-					BuildInstance(instance, state, rule.FallbackType);
+					var instance = CreateInstanceOfExactlyThisType(state, leafType);
+					BuildInstance(instance, state, leafType);
 					return instance;
 				}
 			}
@@ -248,6 +251,11 @@ namespace QuickMGenerate
 		{
 			var type = propertyInfo.PropertyType;
 			var result = One(type)(state);
+			// Console.WriteLine($"Target : {target}");
+			// if (result.Value != null)
+			// 	Console.WriteLine($"Property : {result.Value}");
+			// else
+			// 	Console.WriteLine($"Property : <null>");
 			SetPropertyValue(propertyInfo, target, result.Value);
 		}
 

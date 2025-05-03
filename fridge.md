@@ -5,7 +5,6 @@ Add tests to document. Might need improvement.
 # Recursive Structures
 Update the docs !  
 `from _ in MGen.Depth(min, max)` to override default  
-`// todo choose(null, ctor)` in `DepthControlledCreation`
 --- slide ---
 # Recursive Test Structure 
 ```csharp

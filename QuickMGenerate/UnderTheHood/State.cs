@@ -2,9 +2,35 @@
 
 namespace QuickMGenerate.UnderTheHood
 {
+	public record DepthConstraint(int Min, int Max);
+	public record DepthFrame(Type Type, int Depth);
 	public class State
 	{
 		public readonly MoreRandom Random = new MoreRandom();
+
+		// ---------------------------------------------------------------------
+		// Depth Control
+		public readonly Dictionary<Type, DepthConstraint> DepthConstraints = [];
+
+		private readonly Stack<DepthFrame> depthFrames = new();
+
+		public DepthConstraint GetDepthConstraint(Type type) =>
+			DepthConstraints.TryGetValue(type, out var c) ? c : new(1, 1);
+
+		public int GetDepth(Type type) =>
+			depthFrames.FirstOrDefault(f => f.Type == type)?.Depth ?? 0;
+
+		public void PushDepthFrame(Type type)
+			=> depthFrames.Push(new(type, GetDepth(type) + 1));
+
+		public void PopDepthFrame() => depthFrames.Pop();
+
+		public DisposableAction WithDepthFrame(Type type)
+		{
+			PushDepthFrame(type);
+			return new DisposableAction(() => PopDepthFrame());
+		}
+		// ---------------------------------------------------------------------
 
 		public readonly List<Type> StuffToIgnoreAll = new List<Type>();
 
@@ -24,8 +50,6 @@ namespace QuickMGenerate.UnderTheHood
 		{
 			generatorMemory[key] = value!;
 		}
-
-		public readonly List<Type> Components = new List<Type>();
 
 		public readonly Dictionary<Type, List<Type>> InheritanceInfo
 			= new Dictionary<Type, List<Type>>();

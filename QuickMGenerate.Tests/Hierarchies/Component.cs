@@ -16,7 +16,6 @@ similarly to how primitives are handled.",
 		public void IsGenerated()
 		{
 			var generator =
-				from component in MGen.For<SomeComponent>().Component()
 				from child in MGen.One<SomeChildToGenerate>()
 				from thing in MGen.One<SomeThingToGenerate>().Apply(t => t.MyChild = child)
 				select thing;
@@ -36,7 +35,7 @@ similarly to how primitives are handled.",
 		public void AvoidsRecursion()
 		{
 			var generator =
-				from component in MGen.For<SomeThingRecursive>().Component()
+				from component in MGen.For<SomeThingRecursive>().Depth(2, 2)
 				from thing in MGen.One<SomeThingRecursive>()
 				select thing;
 
@@ -56,7 +55,6 @@ maxDepth N means: I want up to N levels of actual structure. See `.Tree()` for a
 		public void WithDepth1()
 		{
 			var generator =
-				from component in MGen.For<SomeThingRecursive>().Component(1)
 				from thing in MGen.One<SomeThingRecursive>()
 				select thing;
 
@@ -70,7 +68,7 @@ maxDepth N means: I want up to N levels of actual structure. See `.Tree()` for a
 		public void WithDepth2()
 		{
 			var generator =
-				from component in MGen.For<SomeThingRecursive>().Component(2)
+				from component in MGen.For<SomeThingRecursive>().Depth(2, 2)
 				from thing in MGen.One<SomeThingRecursive>()
 				select thing;
 
@@ -85,7 +83,7 @@ maxDepth N means: I want up to N levels of actual structure. See `.Tree()` for a
 		public void WithDepth3()
 		{
 			var generator =
-				from component in MGen.For<SomeThingRecursive>().Component(3)
+				from component in MGen.For<SomeThingRecursive>().Depth(3, 3)
 				from thing in MGen.One<SomeThingRecursive>()
 				select thing;
 
@@ -103,7 +101,7 @@ maxDepth N means: I want up to N levels of actual structure. See `.Tree()` for a
 			Order = 40)]
 		public void ReturnsUnit()
 		{
-			var generator = MGen.For<SomeComponent>().Component();
+			var generator = MGen.For<SomeComponent>().Depth(1, 1);
 			Assert.Equal(Unit.Instance, generator.Generate());
 		}
 

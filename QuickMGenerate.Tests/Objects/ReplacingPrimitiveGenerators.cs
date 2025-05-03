@@ -1,5 +1,5 @@
 ﻿using QuickAcid;
-using QuickMGenerate.Tests.Tools;
+using QuickMGenerate.Tests._Tools;
 using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate.Tests.Objects

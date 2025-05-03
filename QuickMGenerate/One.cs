@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate
@@ -10,8 +11,8 @@ namespace QuickMGenerate
 			return
 				s =>
 					{
-						var instance = (T)CreateInstance(s, typeof(T));
-						BuildInstance(instance, s, new Stack<Type>(), typeof(T));
+						var instance = (T)DepthControlledCreation(s, typeof(T), () => (T)CreateInstance(s, typeof(T)));
+						// BuildInstance(instance, s, typeof(T));
 						return new Result<T>(instance, s);
 					};
 		}
@@ -21,21 +22,46 @@ namespace QuickMGenerate
 			return
 				s =>
 				{
-					var instance = constructor();
-					BuildInstance(instance!, s, new Stack<Type>(), typeof(T));
+					var instance = (T)DepthControlledCreation(s, typeof(T), () => constructor()!);
+					// BuildInstance(instance!, s, typeof(T));
 					return new Result<T>(instance, s);
 				};
 		}
 
-		private static Generator<object> One(Type type, Stack<Type> generationStack)
+		private static Generator<object> One(Type type)
 		{
 			return
 				s =>
 				{
-					var instance = CreateInstance(s, type);
-					BuildInstance(instance, s, generationStack, type);
+					var instance = DepthControlledCreation(s, type, () => CreateInstance(s, type));
+					// BuildInstance(instance, s, type);
 					return new Result<object>(instance, s);
 				};
+		}
+
+		public static object DepthControlledCreation(State state, Type type, Func<object> ctor)
+		{
+			using (state.WithDepthFrame(type))
+			{
+				var currentDepth = state.GetDepth(type);
+				var (min, max) = state.GetDepthConstraint(type);
+				if (currentDepth < min) return BuildInstance(ctor(), state, type);
+				if (currentDepth == min) return BuildInstance(CheckForLeaves(state, type, ctor), state, type);
+				if (currentDepth > max) return null;
+				return null; // todo choose(null, ctor)
+			}
+		}
+
+		public static object CheckForLeaves(State state, Type type, Func<object> ctor)
+		{
+			if (state.RecursionRules.TryGetValue(type, out var rule))
+			{
+				if (rule.FallbackType != null)
+				{
+					return One(type)(state);
+				}
+			}
+			return ctor();
 		}
 
 		private static object CreateInstance(State state, Type type)
@@ -96,18 +122,19 @@ namespace QuickMGenerate
 			return typeToGenerate;
 		}
 
-		private static void BuildInstance(object instance, State state, Stack<Type> generationStack, Type declaringType)
+		private static object BuildInstance(object instance, State state, Type declaringType)
 		{
 			if (!state.StuffToIgnoreAll.Contains(declaringType))
-				FillProperties(instance, state, generationStack);
+				FillProperties(instance, state);
 			ApplyRegisteredActions(instance, state);
+			return instance;
 		}
 
-		private static void FillProperties(object instance, State state, Stack<Type> generationStack)
+		private static void FillProperties(object instance, State state)
 		{
 			foreach (var propertyInfo in instance.GetType().GetProperties(MyBinding.Flags))
 			{
-				HandleProperty(instance, state, propertyInfo, generationStack);
+				HandleProperty(instance, state, propertyInfo);
 			}
 		}
 
@@ -122,7 +149,7 @@ namespace QuickMGenerate
 			}
 		}
 
-		private static void HandleProperty(object instance, State state, PropertyInfo propertyInfo, Stack<Type> generationStack)
+		private static void HandleProperty(object instance, State state, PropertyInfo propertyInfo)
 		{
 			if (NeedsToBeIgnored(state, propertyInfo))
 				return;
@@ -139,12 +166,6 @@ namespace QuickMGenerate
 				return;
 			}
 
-			if (IsAComponent(state, propertyInfo))
-			{
-				SetComponent(instance, propertyInfo, state, generationStack);
-				return;
-			}
-
 			if (propertyInfo.PropertyType.IsEnum)
 			{
 				SetEnum(state, propertyInfo, instance);
@@ -154,6 +175,16 @@ namespace QuickMGenerate
 			if (IsANullableEnum(propertyInfo))
 			{
 				SetNullableEnum(state, propertyInfo, instance);
+				return;
+			}
+
+			// Implement Lists et all here
+			if (typeof(IEnumerable).IsAssignableFrom(propertyInfo.PropertyType))
+				return;
+
+			if (IsObject(propertyInfo))
+			{
+				SetObject(instance, propertyInfo, state);
 				return;
 			}
 		}
@@ -203,49 +234,21 @@ namespace QuickMGenerate
 			SetPropertyValue(propertyInfo, target, generator(state).Value);
 		}
 
-		private static bool IsAComponent(State state, PropertyInfo propertyInfo)
+		private static bool IsObject(PropertyInfo propertyInfo)
 		{
-			return state.Components.Contains(propertyInfo.PropertyType);
+			return propertyInfo.PropertyType.IsClass && propertyInfo.PropertyType != typeof(string);
 		}
 
-		private static void SetComponent(object target, PropertyInfo propertyInfo, State state, Stack<Type> generationStack)
+		private static void SetObject(object target, PropertyInfo propertyInfo, State state)
 		{
 			var type = propertyInfo.PropertyType;
+			var result = One(type)(state);
+			SetPropertyValue(propertyInfo, target, result.Value);
+		}
 
-			var currentDepth = generationStack.Count(t => t == type);
-
-			if (state.RecursionRules.TryGetValue(type, out var rule))
-			{
-				if (rule.FallbackType != null)
-				{
-					if (currentDepth >= rule.MaxDepth - 2) // it really is - 2 just check the doc and come up with a cool name after beers
-					{
-						type = rule.FallbackType;
-					}
-				}
-				else
-				{
-					if (currentDepth >= rule.MaxDepth - 1)
-					{
-						return; // This is the 'null' endpoint during recursive gen. Bad code style though.
-					}
-				}
-			}
-			else if (currentDepth >= 1)
-			{
-				return;
-			}
-
-			generationStack.Push(type);
-			try
-			{
-				var result = One(type, generationStack)(state);
-				SetPropertyValue(propertyInfo, target, result.Value);
-			}
-			finally
-			{
-				generationStack.Pop();
-			}
+		public static bool IsGenericTypeOf(this Type type, Type openGeneric)
+		{
+			return type.IsGenericType && type.GetGenericTypeDefinition() == openGeneric;
 		}
 
 		private static void SetEnum(State state, PropertyInfo propertyInfo, object instance)

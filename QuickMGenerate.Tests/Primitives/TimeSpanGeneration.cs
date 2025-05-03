@@ -1,5 +1,5 @@
 ﻿using QuickAcid;
-using QuickMGenerate.Tests.Tools;
+using QuickMGenerate.Tests._Tools;
 
 namespace QuickMGenerate.Tests.Primitives
 {

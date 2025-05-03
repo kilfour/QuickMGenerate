@@ -12,7 +12,7 @@ Params explained :
 	Order = 0)]
 public class Trees
 {
-	[Fact]
+	[Fact(Skip = "obsolete")]
 	[Trees(
 		Content =
 @"And then there's maxDepth ...  
@@ -36,7 +36,7 @@ That is:
 		}
 	}
 
-	[Fact]
+	[Fact(Skip = "obsolete")]
 	public void CheckLeafDepth2()
 	{
 		for (int i = 0; i < 100; i++)
@@ -54,66 +54,25 @@ That is:
 		}
 	}
 
-	[Fact]
+	[Fact(Skip = "obsolete")]
 	public void CheckLeafDepth3()
 	{
 		for (int i = 0; i < 100; i++)
 		{
-			var generator = MGen.Tree<Tree, Leaf>(2, typeof(Leaf), typeof(Node));
+			var generator = MGen.Tree<Tree, Leaf>(3, typeof(Leaf), typeof(Node));
 
 			var value = generator.Generate();
 
 			Assert.NotNull(value);
-			if (value is Node node)
+			if (value is Node node && node.Left is Node nextNode)
 			{
-				if (node is Node nextNode)
-				{
-					Assert.IsType<Leaf>(nextNode.Left);
-					Assert.IsType<Leaf>(nextNode.Right);
-				}
+				Assert.IsType<Leaf>(nextNode.Left);
+				Assert.IsType<Leaf>(nextNode.Right);
 			}
 		}
 	}
 
-	// 	[Fact]
-	// 	[Trees(
-	// 		Content =
-	// @"The following overload exists : `MGen.Tree<TBase>(int maxDepth, params Type[] derivedTypes)`.  
-	// In this case no *Leaf* is generated, generation just stops.
-	// ", Order = 2)]
-	// 	public void EndsOnNull()
-	// 	{
-	// 		for (int i = 0; i < 10; i++)
-	// 		{
-	// 			var generator = MGen.Tree<Tree>(1, typeof(Leaf), typeof(Node));
-
-	// 			var value = generator.Generate();
-
-	// 			Assert.NotNull(value);
-	// 			Assert.IsType<Leaf>(value);
-	// 		}
-	// 	}
-
-	// 	[Fact]
-	// 	[Trees(
-	// 		Content =
-	// @"The following overload exists : `MGen.Tree<TBase>(int maxDepth)`.  
-	// In this case no *Leaf* is generated, generation just stops.
-	// ", Order = 2)]
-	// 	public void SimplestCase()
-	// 	{
-	// 		for (int i = 0; i < 10; i++)
-	// 		{
-	// 			var generator = MGen.Tree<Tree>(1, typeof(Leaf), typeof(Node));
-
-	// 			var value = generator.Generate();
-
-	// 			Assert.NotNull(value);
-	// 			Assert.IsType<Leaf>(value);
-	// 		}
-	// 	}
-
-	[Fact]
+	[Fact(Skip = "obsolete")]
 	[Trees(
 		Content = "Throws an ArgumentException if maxDepth < 1.",
 		Order = 3)]

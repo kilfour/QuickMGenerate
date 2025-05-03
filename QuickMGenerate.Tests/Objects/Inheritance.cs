@@ -2,11 +2,11 @@
 {
 	[Inheritance(
 		Content =
-@"Use The `MGen.For<T>().UseThese(params Type[] types)` method chain.
+@"Use The `MGen.For<T>().GenerateAsOneOf(params Type[] types)` method chain.
 
 F.i. :
 ```
-MGen.For<SomeThingAbstract>().UseThese(typeof(T), typeof(SomethingDerived), typeof(SomethingElseDerived))
+MGen.For<SomeThingAbstract>().GenerateAsOneOf(typeof(T), typeof(SomethingDerived), typeof(SomethingElseDerived))
 ```",
 		Order = 0)]
 	public class Inheritance
@@ -19,7 +19,7 @@ MGen.For<SomeThingAbstract>().UseThese(typeof(T), typeof(SomethingDerived), type
 		public void WellItWorksDunnit()
 		{
 			var generator =
-				from _ in MGen.For<SomeThingAbstract>().UseThese(typeof(SomeThingDerivedToGenerate))
+				from _ in MGen.For<SomeThingAbstract>().GenerateAsOneOf(typeof(SomeThingDerivedToGenerate))
 				from thing in MGen.One<SomeThingAbstract>()
 				select thing;
 			var result = generator.Generate();

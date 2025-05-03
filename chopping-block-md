@@ -1,0 +1,47 @@
+MGen.For<MyNode>().Depth(2, 5);
+public record DepthConstraint(int Min, int Max);
+
+public class TypeConfig<T>
+{
+    public DepthConstraint Depth { get; private set; } = new(1, 1);
+
+    public TypeConfig<T> Depth(int min, int max)
+    {
+        Depth = new(min, max);
+        return this;
+    }
+}
+
+public record DepthFrame(Type Type, int Depth);
+
+public class GenerationContext
+{
+    private readonly Stack<DepthFrame> _stack = new();
+
+    public int GetDepth<T>() =>
+        _stack.FirstOrDefault(f => f.Type == typeof(T))?.Depth ?? 0;
+
+    public void Push<T>() => _stack.Push(new(typeof(T), GetDepth<T>() + 1));
+    public void Pop() => _stack.Pop();
+}
+
+
+ctx.Push<T>();
+var currentDepth = ctx.GetDepth<T>();
+var (min, max) = config.GetDepthConstraint<T>();
+
+if (currentDepth >= max) return Gen.Leaf(); // no more recursion
+if (currentDepth < min) return Gen.RecursiveCall(); // must go deeper
+return Gen.OneOf(Leaf(), RecursiveCall());
+ctx.Pop();
+
+var (min, max) = config.GetDepthConstraint<T>();
+var depth = ctx.GetDepth<T>();
+
+if (depth >= max)
+    return Gen.Leaf(); // stop recursing
+if (depth < min)
+    return Gen.RecursiveOnly(); // *must* recurse
+
+return Gen.OneOf(Leaf(), Recursive()); // may recurse
+

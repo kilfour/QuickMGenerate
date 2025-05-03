@@ -5,7 +5,7 @@
 		Order = 0)]
 	public class Relations
 	{
-		[Fact]
+
 		[Relations(
 			Content =
 @"E.g. :
@@ -19,6 +19,7 @@ var generator =
 ```
 ",
 			Order = 1)]
+		[Fact]
 		public void SetOneToOne()
 		{
 			var generator =
@@ -31,7 +32,6 @@ var generator =
 			Assert.NotNull(value.Product);
 		}
 
-		[Fact]
 		[Relations(
 			Content =
 @"In case of a one-to-many relation where the collection is inaccessible, but a method is provided for adding the many to the one,
@@ -49,6 +49,7 @@ Note the `ToArray` call on the orderlines.
 This forces enumeration and is necessary because the lines are not enumerated over just by selecting the order.
 ",
 			Order = 2)]
+		[Fact]
 		public void OneToMany()
 		{
 			var generator =
@@ -61,11 +62,12 @@ This forces enumeration and is necessary because the lines are not enumerated ov
 			Assert.Equal(2, value.OrderLines.Count());
 		}
 
-		[Fact]
+
 		[Relations(
 			Content =
 @"If we were to select the lines instead of the order, `ToArray` would not be necessary.",
 			Order = 2)]
+		[Fact]
 		public void OneToManyVerifying()
 		{
 			var generator =
@@ -80,7 +82,7 @@ This forces enumeration and is necessary because the lines are not enumerated ov
 			Assert.Equal(value[0].MyOrder, value[1].MyOrder);
 		}
 
-		[Fact]
+
 		[Relations(
 			Content =
 @"Relations defined by constructor injection can be generated using the `One<T>(Func<T> constructor)` overload.
@@ -94,6 +96,7 @@ var generator =
 ```
 ",
 			Order = 3)]
+		[Fact]
 		public void ThroughConstructor()
 		{
 			var generator =

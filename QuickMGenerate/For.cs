@@ -12,6 +12,15 @@ namespace QuickMGenerate
 
 		public class GeneratorOptions<T>
 		{
+			public Generator<Unit> Depth(int min, int max)
+			{
+				return
+					s =>
+						{
+							s.DepthConstraints[typeof(T)] = new(min, max);
+							return new Result<Unit>(Unit.Instance, s);
+						};
+			}
 			public Generator<Unit> IgnoreAll()
 			{
 				return
@@ -228,29 +237,7 @@ namespace QuickMGenerate
 				};
 			}
 
-			public Generator<Unit> Component()
-			{
-				return
-					s =>
-						{
-							s.Components.Add(typeof(T));
-							return new Result<Unit>(Unit.Instance, s);
-						};
-			}
-
-			public Generator<Unit> Component(int maxDepth)
-			{
-
-				return
-					s =>
-						{
-							s.RecursionRules[typeof(T)] = (maxDepth, null);
-							s.Components.Add(typeof(T));
-							return new Result<Unit>(Unit.Instance, s);
-						};
-			}
-
-			public Generator<Unit> UseThese(params Type[] types)
+			public Generator<Unit> GenerateAsOneOf(params Type[] types)
 			{
 				return
 					s =>

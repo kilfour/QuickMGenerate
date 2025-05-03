@@ -1,9 +1,10 @@
 using QuickAcid;
 using QuickAcid.Bolts;
 using QuickAcid.Bolts.Nuts;
+using QuickMGenerate;
 using QuickMGenerate.UnderTheHood;
 
-namespace QuickMGenerate.Tests.Tools;
+namespace QuickMGenerate.Tests._Tools;
 
 public static class QA
 {

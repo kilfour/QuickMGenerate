@@ -1,55 +1,56 @@
 ﻿using System.Text;
+using QuickMGenerate;
 
-namespace QuickMGenerate.Tests.Tools
+namespace QuickMGenerate.Tests._Tools;
+
+public class CreateDoc
 {
-	public class CreateDoc
+	[Fact]
+	public void Go()
 	{
-		[Fact]
-		public void Go()
+		var typeattributes =
+			typeof(CreateDoc).Assembly
+				.GetTypes()
+				.SelectMany(t => t.GetCustomAttributes(typeof(DocAttribute), false));
+
+		var methodattributes =
+			typeof(CreateDoc).Assembly
+				.GetTypes()
+				.SelectMany(t => t.GetMethods())
+				.SelectMany(t => t.GetCustomAttributes(typeof(DocAttribute), false));
+
+		var attributes = typeattributes.Union(methodattributes)
+				.Cast<DocAttribute>();
+
+		var chapters = attributes.OrderBy(a => a.ChapterOrder).Select(a => a.Chapter).Distinct();
+		var sb = new StringBuilder();
+		sb.AppendLine(Introduction);
+		foreach (var chapter in chapters)
 		{
-			var typeattributes =
-				typeof(CreateDoc).Assembly
-					.GetTypes()
-					.SelectMany(t => t.GetCustomAttributes(typeof(DocAttribute), false));
-
-			var methodattributes =
-				typeof(CreateDoc).Assembly
-					.GetTypes()
-					.SelectMany(t => t.GetMethods())
-					.SelectMany(t => t.GetCustomAttributes(typeof(DocAttribute), false));
-
-			var attributes = typeattributes.Union(methodattributes)
-					.Cast<DocAttribute>();
-
-			var chapters = attributes.OrderBy(a => a.ChapterOrder).Select(a => a.Chapter).Distinct();
-			var sb = new StringBuilder();
-			sb.AppendLine(Introduction);
-			foreach (var chapter in chapters)
+			sb.AppendFormat("## {0}", chapter);
+			sb.AppendLine();
+			var chapterAttributes = attributes.Where(a => a.Chapter == chapter);
+			var captions = chapterAttributes.OrderBy(a => a.CaptionOrder).Select(a => a.Caption).Distinct();
+			foreach (var caption in captions)
 			{
-				sb.AppendFormat("## {0}", chapter);
+				sb.AppendFormat("### {0}", caption);
 				sb.AppendLine();
-				var chapterAttributes = attributes.Where(a => a.Chapter == chapter);
-				var captions = chapterAttributes.OrderBy(a => a.CaptionOrder).Select(a => a.Caption).Distinct();
-				foreach (var caption in captions)
+				foreach (var attribute in chapterAttributes.Where(a => a.Caption == caption).OrderBy(a => a.Order))
 				{
-					sb.AppendFormat("### {0}", caption);
-					sb.AppendLine();
-					foreach (var attribute in chapterAttributes.Where(a => a.Caption == caption).OrderBy(a => a.Order))
-					{
-						sb.AppendLine(attribute.Content);
-						sb.AppendLine();
-					}
+					sb.AppendLine(attribute.Content);
 					sb.AppendLine();
 				}
 				sb.AppendLine();
-				sb.AppendLine("___");
 			}
-			sb.AppendLine(AfterThoughts);
-			using (var writer = new StreamWriter("../../../../README.md", false))
-				writer.Write(sb.ToString());
+			sb.AppendLine();
+			sb.AppendLine("___");
 		}
+		sb.AppendLine(AfterThoughts);
+		using (var writer = new StreamWriter("../../../../README.md", false))
+			writer.Write(sb.ToString());
+	}
 
-		private const string Introduction =
+	private const string Introduction =
 @"# QuickMGenerate
 
 ## Introduction
@@ -65,7 +66,7 @@ Aiming for :
 
  ---
 ";
-		private const string AfterThoughts =
+	private const string AfterThoughts =
 @"## After Thoughts
 
 Well ... 
@@ -111,5 +112,4 @@ Even though QuickMGenerate uses a lot of patterns (there's static all over the p
 It's a lot less code, it's a lot more composable, it's, ... well, ... what QuickGenerate should have been.
 
 ";
-	}
 }

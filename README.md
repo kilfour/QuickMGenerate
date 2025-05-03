@@ -187,11 +187,11 @@ referencing it.
 
 
 ### Inheritance.
-Use The `MGen.For<T>().UseThese(params Type[] types)` method chain.
+Use The `MGen.For<T>().GenerateAsOneOf(params Type[] types)` method chain.
 
 F.i. :
 ```
-MGen.For<SomeThingAbstract>().UseThese(typeof(T), typeof(SomethingDerived), typeof(SomethingElseDerived))
+MGen.For<SomeThingAbstract>().GenerateAsOneOf(typeof(T), typeof(SomethingDerived), typeof(SomethingElseDerived))
 ```
 
 When generating an object of type T, an object of a random chosen type from the provided list will be generated instead.
@@ -646,6 +646,18 @@ return s => new Result<State, int>(s.Random.Next(42, 42), s);
 ```
 
 See also : [Creating a counter generator](./QuickMGenerate.Tests/CreatingCustomGenerators/CreatingACounterGeneratorExample.cs).
+
+
+
+___
+## On Scope
+### Overview
+Linq chains especially in query syntax can be confusing when it comes to scope.
+But once you understand the basic rule, everything will quickly seem obvious.
+For generating trivial and even less than trivial examples, you can likely ignore this chapter completely.
+However for complex stuff where generators get reused, sometimes in implicit ways, 
+it is good to know what *exactly* is going on.
+
 
 
 

@@ -1,4 +1,4 @@
-﻿using QuickMGenerate.Tests.Tools;
+﻿using QuickMGenerate.Tests._Tools;
 
 namespace QuickMGenerate.Tests.OtherUsefullGenerators
 {

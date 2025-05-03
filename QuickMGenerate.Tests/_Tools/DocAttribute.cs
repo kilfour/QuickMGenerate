@@ -1,4 +1,4 @@
-﻿namespace QuickMGenerate.Tests.Tools;
+﻿namespace QuickMGenerate.Tests._Tools;
 
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]

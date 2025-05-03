@@ -47,8 +47,8 @@ namespace QuickMGenerate
 				var (min, max) = state.GetDepthConstraint(type);
 				if (currentDepth < min) return BuildInstance(ctor(), state, type);
 				if (currentDepth == min) return BuildInstance(CheckForLeaves(state, type, ctor), state, type);
-				if (currentDepth > max) return null;
-				return null; // todo choose(null, ctor)
+				if (currentDepth > max) return null!;
+				return null!; // todo choose(null, ctor)
 			}
 		}
 

@@ -23,7 +23,6 @@ namespace QuickMGenerate
 				s =>
 				{
 					var instance = (T)DepthControlledCreation(s, typeof(T), () => constructor()!);
-					// BuildInstance(instance!, s, typeof(T));
 					return new Result<T>(instance, s);
 				};
 		}
@@ -34,7 +33,6 @@ namespace QuickMGenerate
 				s =>
 				{
 					var instance = DepthControlledCreation(s, type, () => CreateInstance(s, type));
-					// BuildInstance(instance, s, type);
 					return new Result<object>(instance, s);
 				};
 		}
@@ -58,7 +56,10 @@ namespace QuickMGenerate
 			{
 				if (rule.FallbackType != null)
 				{
-					return One(type)(state);
+					// DANGER, DANGER, DANGER
+					var instance = CreateInstanceOfExactlyThisType(state, type);
+					BuildInstance(instance, state, type);
+					return instance;
 				}
 			}
 			return ctor();
@@ -67,7 +68,11 @@ namespace QuickMGenerate
 		private static object CreateInstance(State state, Type type)
 		{
 			var typeToGenerate = GetTypeToGenerate(state, type);
+			return CreateInstanceOfExactlyThisType(state, typeToGenerate);
+		}
 
+		private static object CreateInstanceOfExactlyThisType(State state, Type typeToGenerate)
+		{
 			// If we have a registered constructor generator, use it
 			if (state.Constructors.TryGetValue(typeToGenerate, out var constructors) && constructors.Count > 0)
 			{

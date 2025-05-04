@@ -56,7 +56,7 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 		// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 		// ----------------------------------------------------------------------------------
 		var generator =
-			from _d in MGen.For<Tree>().Depth(1, 3) // still passes with 1, 5 need better test
+			from _d in MGen.For<Tree>().Depth(1, 1) // still passes with 1, 5 need better test
 			from _i in MGen.For<Tree>().GenerateAsOneOf(typeof(Branch), typeof(Leaf))
 			from _l in MGen.For<Tree>().TreeLeaf<Leaf>()
 			from tree in MGen.One<Tree>()
@@ -79,6 +79,29 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 					&& c.Value!.Contains("TRR")
 				, GetAssaysForTree)
 		).Testify(1000);
+	}
+
+	[Fact]
+	public void TreesN()
+	{
+		var generator =
+			from _ in MGen.For<Tree>().Depth(1, 1)
+			from __ in MGen.For<Tree>().GenerateAsOneOf(typeof(Branch), typeof(Leaf))
+			from ___ in MGen.For<Tree>().TreeLeaf<Leaf>()
+			from tree in MGen.One<Tree>()
+			select string.Join("|", GetDepthLabels(tree)); // "|" avoids label collision
+
+		CheckIf.GeneratedValuesShouldEventuallySatisfyAll(1000,
+			generator,
+			("has T", s => s.Contains("T")),
+			("has TL", s => s.Contains("TL")),
+			("has TR", s => s.Contains("TR")),
+			("has TLL", s => s.Contains("TLL")),
+			("has TLR", s => s.Contains("TLR")),
+			("has TRL", s => s.Contains("TRL")),
+			("has TRR", s => s.Contains("TRR")),
+			("no ERROR", s => !s.Contains("ERROR"))
+		);
 	}
 
 	private IEnumerable<string> GetDepthLabels(Tree tree)

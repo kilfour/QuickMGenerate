@@ -5,7 +5,6 @@ using QuickMGenerate;
 using QuickMGenerate.Diagnostics;
 using QuickMGenerate.Diagnostics.Inspectors;
 using QuickMGenerate.UnderTheHood;
-using System.Linq;
 
 namespace QuickMGenerate.Tests._Tools;
 
@@ -58,16 +57,6 @@ public static class QA
             , (c, v) => c.Value!.Add(v is null ? "null" : "non-null")
             , c => c.Value!.Contains("null") && c.Value!.Contains("non-null"));
     }
-
-    public static QAcidRunner<Acid> ShouldEventuallyBeNullAndNotNull<T, TProperty>(
-        string label
-        , Generator<T?> generator,
-        Func<T, TProperty> getter)
-    {
-        return Should($"{label}: null and non-null seen", generator, () => new Container<HashSet<string>>([])
-            , (c, v) => c.Value!.Add(getter(v!) is null ? "null" : "non-null")
-            , c => c.Value!.Contains("null") && c.Value!.Contains("non-null"));
-    }
 }
 public static class CheckIf
 {
@@ -79,7 +68,21 @@ public static class CheckIf
         GeneratedValuesShouldEventuallySatisfyAll(generator, [.. needsToBeSeen.Select(Is)]);
     }
 
+    public static void GeneratesNullAndNotNull<T>(Generator<T> generator)
+    {
+        GeneratedValuesShouldEventuallySatisfyAll(generator,
+            ("is null", a => a == null), ("is not null", a => a != null));
+    }
+
     public static void GeneratedValuesShouldEventuallySatisfyAll<T>(
+        Generator<T> generator,
+        params (string, Func<T, bool>)[] labeledChecks)
+    {
+        GeneratedValuesShouldEventuallySatisfyAll(100, generator, labeledChecks);
+    }
+
+    public static void GeneratedValuesShouldEventuallySatisfyAll<T>(
+        int numberOfExecutions,
         Generator<T> generator,
         params (string, Func<T, bool>)[] labeledChecks)
     {
@@ -93,6 +96,35 @@ public static class CheckIf
             from _s in "Assayer".Assay(
                 [.. labeledChecks.Select(a => (a.Item1, (Func<bool>)(() => inspector.HasValueThatSatisfies(a.Item2))))])
             select Acid.Test;
-        new QState(run).Testify(200);
+        new QState(run).Testify(numberOfExecutions);
     }
+
+    public static void GeneratedValuesShouldAllSatisfy<T>(
+        Generator<T> generator,
+        params (string, Func<T, bool>)[] labeledChecks)
+    {
+        GeneratedValuesShouldAllSatisfy(20, generator, labeledChecks);
+    }
+
+    public static void GeneratedValuesShouldAllSatisfy<T>(
+        int numberOfExecutions,
+        Generator<T> generator,
+        params (string, Func<T, bool>)[] labeledChecks)
+    {
+        var run =
+            from input in "Generator".Shrinkable(generator.Inspect())
+            from _ in CombineSpecs(input, labeledChecks) // Move this to QuickAcid
+            select Acid.Test;
+        new QState(run).Testify(numberOfExecutions);
+    }
+
+    private static QAcidRunner<Acid> CombineSpecs<T>(T input, IEnumerable<(string, Func<T, bool>)> checks)
+    {
+        return checks
+            .Select(c => c.Item1.Spec(() => c.Item2(input)))
+            .Aggregate(Acc, (acc, next) => from _ in acc from __ in next select Acid.Test);
+    }
+
+    public static readonly QAcidRunner<Acid> Acc =
+        s => QAcidResult.AcidOnly(s);
 }

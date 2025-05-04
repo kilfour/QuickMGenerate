@@ -1,5 +1,4 @@
-﻿using QuickAcid;
-using QuickMGenerate.Tests._Tools;
+﻿using QuickMGenerate.Tests._Tools;
 using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate.Tests.Objects
@@ -43,9 +42,8 @@ When executing above generator it will return a SomeThingToGenerate object where
 				from _ in MGen.Int(42, 42).Replace()
 				from result in MGen.One<SomeThingToGenerate>()
 				select result;
-
-			new QState(QA.ShouldEventuallyBeNullAndNotNull("NullableUsesReplacement", generator, v => v.ANullableProperty))
-				.Testify(100);
+			CheckIf.GeneratedValuesShouldEventuallySatisfyAll(generator.Select(a => a.ANullableProperty),
+				("is null", a => a == null), ("is not null", a => a != null));
 		}
 
 		[Fact]

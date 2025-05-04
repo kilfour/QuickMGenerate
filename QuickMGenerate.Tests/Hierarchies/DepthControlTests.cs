@@ -164,34 +164,20 @@ This means some instances will be shallow, while others may be more deeply neste
 	{
 		var generator =
 			from _ in MGen.For<Recurse>().Depth(1, 3)
-			from thing in MGen.One<Recurse>()
-			select thing;
+			from value in MGen.One<Recurse>()
+			select value;
 
-		new QState(
-			QA.Should(generator, () => new Container<HashSet<string>>([])
-				, (c, v) => c.Value!.Add(GetDepthString(v))
-				, c => !c.Value!.Contains("4")
-					&& c.Value!.Contains("1")
-					&& c.Value!.Contains("2")
-					&& c.Value!.Contains("3")
-				, GetAssays)
-		).Testify(1000);
-	}
-
-	public static QAcidRunner<Acid> GetAssays(Container<HashSet<string>> c)
-	{
-		return
-			  from _1 in "DepthControl: Contains 1".Assay(() => c.Value!.Contains("1"))
-			  from _2 in "DepthControl: Contains 2".Assay(() => c.Value!.Contains("2"))
-			  from _3 in "DepthControl: Contains 3".Assay(() => c.Value!.Contains("3"))
-			  from _6 in "DepthControl: !Contains 4".Assay(() => !c.Value!.Contains("4"))
-			  select Acid.Test;
+		CheckIf.GeneratedValuesShouldEventuallySatisfyAll(
+			generator.Select(GetDepthString),
+			("has depth 1", d => d == "1"),
+			("has depth 2", d => d == "2"),
+			("has depth 3", d => d == "3"),
+			("no depth 4", d => d != "4")
+		);
 	}
 
 	public string GetDepthString(Recurse thing)
 	{
-		if (thing == null)
-			throw new Exception("root == null");
 		if (thing.Child == null) return "1";
 		if (thing.Child.Child == null) return "2";
 		if (thing.Child.Child.Child == null) return "3";

@@ -83,8 +83,6 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 
 	private IEnumerable<string> GetDepthLabels(Tree tree)
 	{
-		if (tree == null) yield return "ERROR";
-
 		if (tree is Leaf)
 		{
 			yield return "T";

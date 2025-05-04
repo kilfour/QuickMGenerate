@@ -22,8 +22,7 @@ public class BoolGeneration
 		Order = 2)]
 	public void Nullable()
 	{
-		CheckIf.GeneratedValuesShouldEventuallySatisfyAll(MGen.Bool().Nullable(),
-			("is null", a => a == null), ("is not null", a => a != null));
+		CheckIf.GeneratesNullAndNotNull(MGen.Bool().Nullable());
 	}
 
 	[Fact]
@@ -33,8 +32,7 @@ public class BoolGeneration
 	public void Property()
 	{
 		CheckIf.TheseValuesAreGenerated(
-			MGen.One<SomeThingToGenerate>().Select(x => x.AProperty), true, false
-		);
+			MGen.One<SomeThingToGenerate>().Select(x => x.AProperty), true, false);
 	}
 
 	[Fact]
@@ -43,10 +41,8 @@ public class BoolGeneration
 		Order = 4)]
 	public void NullableProperty()
 	{
-		CheckIf.GeneratedValuesShouldEventuallySatisfyAll(
-			MGen.One<SomeThingToGenerate>().Select(x => x.ANullableProperty),
-				("is null", a => a == null), ("is not null", a => a != null)
-		);
+		CheckIf.GeneratesNullAndNotNull(
+			MGen.One<SomeThingToGenerate>().Select(x => x.ANullableProperty));
 	}
 
 	public class SomeThingToGenerate

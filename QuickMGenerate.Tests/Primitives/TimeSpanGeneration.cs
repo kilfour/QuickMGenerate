@@ -1,103 +1,74 @@
-﻿using QuickAcid;
-using QuickMGenerate.Tests._Tools;
+﻿using QuickMGenerate.Tests._Tools;
 
-namespace QuickMGenerate.Tests.Primitives
+namespace QuickMGenerate.Tests.Primitives;
+
+[TimeSpans(
+	Content = "Use `MGen.TimeSpan()`.",
+	Order = 0)]
+public class TimeSpanGeneration
 {
+	[Fact]
 	[TimeSpans(
-		Content = "Use `MGen.TimeSpan()`.",
-		Order = 0)]
-	public class TimeSpanGeneration
+		Content = "The overload `MGen.TimeSpan(int max)` generates a TimeSpan with Ticks higher or equal than 1 and lower than max.",
+		Order = 1)]
+	public void OverloadRange()
 	{
-		[Fact]
-		[TimeSpans(
-			Content = "The overload `MGen.TimeSpan(int max)` generates a TimeSpan with Ticks higher or equal than 1 and lower than max.",
-			Order = 1)]
-		public void Zero()
-		{
-			var generator = MGen.TimeSpan(5);
-			for (int i = 0; i < 10; i++)
-			{
-				var val = generator.Generate();
-				Assert.True(val.Ticks >= 1);
-				Assert.True(val.Ticks < 5);
-			}
-		}
+		CheckIf.GeneratedValuesShouldAllSatisfy(MGen.TimeSpan(5),
+			("Ticks >= 1", a => a.Ticks >= 1), ("Ticks < 5", a => a.Ticks < 5));
+	}
 
-		[Fact]
-		[TimeSpans(
-			Content = "The default generator is (max = 1000).",
-			Order = 2)]
-		public void DefaultGeneratorNeverGeneratesZero()
-		{
-			var generator = MGen.TimeSpan();
-			for (int i = 0; i < 10; i++)
-			{
-				var val = generator.Generate();
-				Assert.True(val.Ticks >= 1);
-				Assert.True(val.Ticks < 1000);
-			}
-		}
+	[Fact]
+	[TimeSpans(
+		Content = "The default generator is (max = 1000).",
+		Order = 2)]
+	public void GeneratesValuesBetweenOneIncludedAndThousandExcluded()
+	{
+		CheckIf.GeneratedValuesShouldAllSatisfy(MGen.TimeSpan(),
+			("Ticks >= 1", a => a.Ticks >= 1), ("Ticks < 1000", a => a.Ticks < 1000));
+	}
 
-		[Fact]
-		[TimeSpans(
-			Content = "Can be made to return `TimeSpan?` using the `.Nullable()` combinator.",
-			Order = 3)]
-		public void Nullable()
-		{
-			var generator = MGen.TimeSpan().Nullable();
-			new QState(QA.ShouldEventuallyBeNullAndNotNull("TimeSpan", generator)).Testify(100);
-		}
+	[Fact]
+	[TimeSpans(
+		Content = "Can be made to return `TimeSpan?` using the `.Nullable()` combinator.",
+		Order = 3)]
+	public void Nullable()
+	{
+		CheckIf.GeneratesNullAndNotNull(MGen.TimeSpan().Nullable());
+	}
 
-		[Fact]
-		[TimeSpans(
-			Content = " - `TimeSpan` is automatically detected and generated for object properties.",
-			Order = 4)]
-		public void Property()
-		{
-			var generator = MGen.One<SomeThingToGenerate>();
-			for (int i = 0; i < 10; i++)
-			{
-				Assert.NotEqual(0, generator.Generate().AProperty.Ticks);
-			}
-		}
+	[Fact]
+	[TimeSpans(
+		Content = " - `TimeSpan` is automatically detected and generated for object properties.",
+		Order = 4)]
+	public void Property()
+	{
+		CheckIf.GeneratedValuesShouldAllSatisfy(
+			MGen.One<SomeThingToGenerate>().Select(a => a.AProperty),
+			("not zero", a => a.Ticks != 0));
+	}
 
-		[Fact]
-		[TimeSpans(
-			Content = " - `TimeSpan?` is automatically detected and generated for object properties.",
-			Order = 5)]
-		public void NullableProperty()
-		{
-			var generator = MGen.One<SomeThingToGenerate>();
-			var isSomeTimesNull = false;
-			var isSomeTimesNotNull = false;
-			for (int i = 0; i < 100; i++)
-			{
-				var value = generator.Generate().ANullableProperty;
-				if (value.HasValue)
-				{
-					isSomeTimesNotNull = true;
-					Assert.NotEqual(0, value.Value.Ticks);
-				}
-				else
-					isSomeTimesNull = true;
-			}
-			Assert.True(isSomeTimesNull);
-			Assert.True(isSomeTimesNotNull);
-		}
+	[Fact]
+	[TimeSpans(
+		Content = " - `TimeSpan?` is automatically detected and generated for object properties.",
+		Order = 5)]
+	public void NullableProperty()
+	{
+		CheckIf.GeneratesNullAndNotNull(
+			MGen.One<SomeThingToGenerate>().Select(a => a.ANullableProperty));
+	}
 
-		public class SomeThingToGenerate
-		{
-			public TimeSpan AProperty { get; set; }
-			public TimeSpan? ANullableProperty { get; set; }
-		}
+	public class SomeThingToGenerate
+	{
+		public TimeSpan AProperty { get; set; }
+		public TimeSpan? ANullableProperty { get; set; }
+	}
 
-		public class TimeSpansAttribute : ThePrimitiveGeneratorsAttribute
+	public class TimeSpansAttribute : ThePrimitiveGeneratorsAttribute
+	{
+		public TimeSpansAttribute()
 		{
-			public TimeSpansAttribute()
-			{
-				Caption = "TimeSpans.";
-				CaptionOrder = 12;
-			}
+			Caption = "TimeSpans.";
+			CaptionOrder = 12;
 		}
 	}
 }

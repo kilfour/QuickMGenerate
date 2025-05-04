@@ -2,7 +2,7 @@ namespace QuickMGenerate.Diagnostics.Inspectors;
 
 public class DistinctValueInspector<T> : IAmAnInspector
 {
-    public readonly HashSet<T?> Seen = new();
+    public readonly HashSet<T> Seen = new();
 
     public bool AllTheseHaveBeenSeen(T[] values)
     {

@@ -759,6 +759,10 @@ Several `Inspector` types are provided by QuickMGenerate.
 
 **Note:** This section is still being worked on, more information will follow.
 
+MULTIPLE INSPECTORS 
+
+**Note:** This section is still being worked on, more information will follow.
+
 
 
 ___

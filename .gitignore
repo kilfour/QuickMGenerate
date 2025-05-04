@@ -5,3 +5,4 @@ _ReSharper.*/
 *.user
 *.suo
 /.vs/QuickMGenerate/v15/Server/sqlite3
+pbt-inspector.ndjson

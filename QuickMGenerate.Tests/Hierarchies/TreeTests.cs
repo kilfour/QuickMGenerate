@@ -1,8 +1,6 @@
 ﻿using QuickAcid;
 using QuickAcid.Bolts;
 using QuickAcid.Bolts.Nuts;
-using QuickMGenerate.Diagnostics;
-using QuickMGenerate.Diagnostics.Inspectors;
 using QuickMGenerate.Tests._Tools;
 using QuickMGenerate.UnderTheHood;
 
@@ -54,7 +52,9 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 ",
 		Order = 1)]
 	public void Trees()
-	{
+	{   // ----------------------------------------------------------------------------------
+		// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+		// ----------------------------------------------------------------------------------
 		var generator =
 			from _d in MGen.For<Tree>().Depth(1, 3) // still passes with 1, 5 need better test
 			from _i in MGen.For<Tree>().GenerateAsOneOf(typeof(Branch), typeof(Leaf))
@@ -125,19 +125,6 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 			from _7 in "Tree: Contains TRR".Assay(() => c.Value!.Contains("TRR"))
 			from _ in "Tree: !Contains ERROR".Assay(() => !c.Value!.Contains("ERROR"))
 			select Acid.Test;
-	}
-	[Fact]
-	public void Spike()
-	{
-		var inspector = new FileInspector();
-		InspectorContext.Current = inspector;
-		var generator =
-			from _d in MGen.For<Tree>().Depth(1, 1) // still passes with 1, 5 need better test
-			from _i in MGen.For<Tree>().GenerateAsOneOf(typeof(Branch), typeof(Leaf))
-			from _l in MGen.For<Tree>().TreeLeaf<Leaf>()
-			from tree in MGen.One<Tree>().Inspect(["Generating"], "Tree")
-			select tree;
-		var result = generator.Generate();
 	}
 
 	[Fact]

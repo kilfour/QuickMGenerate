@@ -1,19 +1,19 @@
 namespace QuickMGenerate.Diagnostics.Inspectors;
 
-public class CompositeInspector : Inspector
+public class CompositeInspector : IAmAnInspector
 {
-    private readonly List<Inspector> _inspectors = new();
+    private readonly List<IAmAnInspector> _inspectors = new();
 
-    public CompositeInspector(params Inspector[] inspectors)
+    public CompositeInspector(params IAmAnInspector[] inspectors)
     {
         _inspectors.AddRange(inspectors);
     }
 
-    public void Add(Inspector inspector) => _inspectors.Add(inspector);
+    public void Add(IAmAnInspector inspector) => _inspectors.Add(inspector);
 
-    public void Log(string[] tags, string message, object structuredData)
+    public void Log(Entry entry)
     {
         foreach (var inspector in _inspectors)
-            inspector.Log(tags, message, structuredData);
+            inspector.Log(entry);
     }
 }

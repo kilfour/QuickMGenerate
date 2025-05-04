@@ -8,15 +8,15 @@ body {
 
 .log-entry {
     display: grid;
-    grid-template-columns: 20ch 1fr;
+    grid-template-columns: max-content auto minmax(0, 1fr);
     gap: 0.5em 1em;
     padding: 0.5em 0;
     border-bottom: 1px solid #333;
+    align-items: start;
+    font-family: monospace;
+    color: #eee;
     white-space: pre-wrap;
     word-break: break-word;
-    align-items: baseline;
-    margin-left: 5vw;
-    margin-right: 5vw;
 }
 
 .log-entry .tags {
@@ -35,4 +35,5 @@ body {
     grid-column: 3 / 3;
     font-size: 0.9em;
     margin-left: 1ch;
+    overflow-wrap: anywhere;
 }

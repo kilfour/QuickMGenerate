@@ -1,13 +1,13 @@
 namespace QuickMGenerate.Diagnostics.Inspectors;
 
-public class NullabilityInspector<T> : Inspector
+public class NullabilityInspector<T> : IAmAnInspector
 {
     public bool SawNull { get; private set; }
     public bool SawNonNull { get; private set; }
 
-    public void Log(string[] tags, string message, object data)
+    public void Log(Entry entry)
     {
-        if (data is null) SawNull = true;
+        if (entry.Data is null) SawNull = true;
         else SawNonNull = true;
     }
 }

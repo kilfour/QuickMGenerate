@@ -29,7 +29,7 @@ public static partial class MGenInspecting
 			select value;
 	}
 
-	public static Generator<Unit> Log(string[] tags, string message, object data)
+	private static Generator<Unit> Log(string[] tags, string message, object data)
 	{
 		return state =>
 		{
@@ -37,5 +37,4 @@ public static partial class MGenInspecting
 			return new Result<Unit>(Unit.Instance, state);
 		};
 	}
-
 }

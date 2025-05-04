@@ -42,6 +42,24 @@ public class DiagnosticsTests
 		Assert.Equal(42, valueLogger.Values[0]);
 	}
 
+	[DiagnosticsInspecting(
+	Content =
+@"MULTIPLE INSPECTORS 
+
+**Note:** This section is still being worked on, more information will follow.",
+	Order = 0)]
+	[Fact]
+	public void Multiples()
+	{
+		var writer = new AppendToWebviewInspector();
+		var valueLogger = new ValueLogger<object>();
+		InspectorContext.Current = valueLogger;
+		var generator = MGen.Constant(42).Inspect();
+		generator.Generate();
+		Assert.Single(valueLogger.Values);
+		Assert.Equal(42, valueLogger.Values[0]);
+	}
+
 	public class DiagnosticsInspectingAttribute : DiagnosticsAttribute
 	{
 		public DiagnosticsInspectingAttribute()

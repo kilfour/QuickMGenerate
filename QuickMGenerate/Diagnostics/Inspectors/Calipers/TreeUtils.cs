@@ -53,13 +53,13 @@ public static class TreeVisualizer
         return string.Join("\n", lines);
     }
 
-    public static string ToPrettyStringWithPipes<T>(
-        T root,
-        Func<T, IEnumerable<T?>> getChildren,
-        Func<T, string> labelFunc)
+    public static string ToPrettyStringWithPipes(
+        object root,
+        Func<object, IEnumerable<object?>> getChildren,
+        Func<object, string> labelFunc)
     {
         var lines = new List<string>();
-        var stack = new Stack<(T Node, int Depth, bool IsLast, string Indent)>();
+        var stack = new Stack<(object Node, int Depth, bool IsLast, string Indent)>();
         stack.Push((root, 0, true, ""));
 
         while (stack.Count > 0)

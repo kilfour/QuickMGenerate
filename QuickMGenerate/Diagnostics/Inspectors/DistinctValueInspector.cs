@@ -1,12 +1,12 @@
 namespace QuickMGenerate.Diagnostics.Inspectors;
 
-public class DistinctValueInspector<T> : Inspector
+public class DistinctValueInspector<T> : IAmAnInspector
 {
     public readonly HashSet<T> Seen = new();
 
-    public void Log(string[] tags, string message, object data)
+    public void Log(Entry entry)
     {
-        if (data is T t)
+        if (entry.Data is T t)
             Seen.Add(t);
     }
 }

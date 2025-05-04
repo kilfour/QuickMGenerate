@@ -1,47 +1,93 @@
 using QuickMGenerate;
+using QuickMGenerate.Diagnostics.Inspectors.Calipers;
 
 namespace QuickMGenerate.Diagnostics.Inspectors;
-
-
-public static class Depth
+public record DepthEntry(string Path, string Type, int Depth);
+internal static class Depth
 {
-    public static DepthTracker Track()
+    internal static IEnumerable<DepthEntry> Inspect(object root)
     {
-        return new DepthTracker();
-    }
+        var queue = new Queue<(object Node, string Path, int Depth)>();
+        queue.Enqueue((root, "Root", 1));
 
-    public class DepthTracker : Inspector
-    {
-        public List<List<(string Path, string type, int Depth)>> Depths { get; private set; } = [];
-
-        public void Log(string[] tags, string message, object data)
+        while (queue.Count > 0)
         {
-            Depths.Add([.. InspectDepths(data)]);
-        }
+            var (node, path, depth) = queue.Dequeue();
+            yield return new(path, node.GetType().Name, depth);
 
-        private static IEnumerable<(string Path, string type, int Depth)> InspectDepths(object root)
-        {
-            var queue = new Queue<(object Node, string Path, int Depth)>();
-            queue.Enqueue((root, "Root", 1));
+            var props = node.GetType()
+                .GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public)
+                .Where(p => p.PropertyType.IsClass && p.PropertyType != typeof(string));
 
-            while (queue.Count > 0)
+            foreach (var prop in props)
             {
-                var (node, path, depth) = queue.Dequeue();
-                yield return (path, node.GetType().Name, depth);
-
-                var props = node.GetType()
-                    .GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public)
-                    .Where(p => p.PropertyType.IsClass && p.PropertyType != typeof(string));
-
-                foreach (var prop in props)
+                var value = prop.GetValue(node);
+                if (value != null)
                 {
-                    var value = prop.GetValue(node);
-                    if (value != null)
-                    {
-                        queue.Enqueue((value, $"{path}.{prop.Name}", depth + 1));
-                    }
+                    queue.Enqueue((value, $"{path}.{prop.Name}", depth + 1));
                 }
             }
         }
+    }
+
+    public static string ToPrettyStringWithPipes(
+        object root,
+        Func<object, string> labelFunc)
+    {
+        var lines = new List<string>();
+        var stack = new Stack<(object Node, int Depth, bool IsLast, string Indent)>();
+        stack.Push((root, 0, true, ""));
+
+        while (stack.Count > 0)
+        {
+            var (node, depth, isLast, indent) = stack.Pop();
+            var prefix = isLast ? "└── " : "├── ";
+            lines.Add($"{indent}{prefix}{labelFunc(node)}");
+
+
+            var props = node.GetType()
+                .GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public)
+                .Where(p => p.PropertyType.IsClass && p.PropertyType != typeof(string))
+                .ToList();
+            string childIndent = indent + (isLast ? "    " : "│   ");
+            // foreach (var prop in props)
+            // {
+            //     var value = prop.GetValue(node);
+            //     if (value != null)
+            //     {
+            //         queue.Enqueue((value, $"{path}.{prop.Name}", depth + 1));
+            //     }
+            // }
+
+
+            for (int i = props.Count - 1; i >= 0; i--)
+            {
+                bool isLastChild = i == props.Count - 1;
+                stack.Push((props[i]!, depth + 1, isLastChild, childIndent));
+            }
+        }
+
+        return string.Join("\n", lines);
+    }
+}
+
+public class DepthTracker : IAmAnInspector
+{
+    public List<List<DepthEntry>> Depths { get; private set; } = [];
+    public void Log(Entry entry)
+    {
+        Depths.Add([.. Depth.Inspect(entry.Data)]);
+    }
+}
+
+public class DepthSculpter : IReshaper
+{
+    public Entry Sculpt(Entry entry)
+    {
+        (string[] tags, string message, object data) = entry;
+        return new(
+            tags.Append("Depth").ToArray(),
+            message,
+            Depth.Inspect(data).ToArray());
     }
 }

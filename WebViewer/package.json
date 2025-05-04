@@ -1,0 +1,28 @@
+{
+    "name": "pbt-inspector",
+    "displayName": "PBT Inspector",
+    "description": "Live panel for real-time property-based test logs",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.70.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "main": "./extension.js",
+    "activationEvents": [
+        "onCommand:pbtInspector.showPanel"
+    ],
+    "contributes": {
+        "commands": [
+            {
+                "command": "pbtInspector.showPanel",
+                "title": "PBT Inspector: Show Panel"
+            }
+        ]
+    },
+    "scripts": {
+        "compile": "elm make src/Main.elm --optimize --output=media/elm.js"
+    },
+    "devDependencies": {}
+}

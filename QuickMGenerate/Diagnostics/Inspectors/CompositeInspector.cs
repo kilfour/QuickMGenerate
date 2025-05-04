@@ -1,4 +1,4 @@
-namespace QuickMGenerate.UnderTheHood.Diagnostics.Inspectors;
+namespace QuickMGenerate.Diagnostics.Inspectors;
 
 public class CompositeInspector : Inspector
 {

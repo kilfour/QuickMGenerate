@@ -1,4 +1,4 @@
-namespace QuickMGenerate.UnderTheHood.Diagnostics;
+namespace QuickMGenerate.Diagnostics;
 
 public static class InspectorContext
 {

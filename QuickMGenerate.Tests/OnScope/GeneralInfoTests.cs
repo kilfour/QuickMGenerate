@@ -1,8 +1,4 @@
-﻿using System.ComponentModel;
-using QuickMGenerate.UnderTheHood.Diagnostics;
-using QuickMGenerate.UnderTheHood.Diagnostics.Inspectors;
-
-namespace QuickMGenerate.Tests.OnScope;
+﻿namespace QuickMGenerate.Tests.OnScope;
 
 [GeneralInfo(
 	Content =

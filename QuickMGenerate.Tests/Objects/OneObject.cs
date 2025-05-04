@@ -48,7 +48,7 @@ public class OneObject
 		Assert.NotNull(result.Nest);
 		Assert.NotEqual(0, result.Nest.Value);
 	}
-	public class RootObject { public NestedObject Nest { get; set; } }
+	public class RootObject { public NestedObject? Nest { get; set; } }
 
 	public class NestedObject { public int Value { get; set; } }
 

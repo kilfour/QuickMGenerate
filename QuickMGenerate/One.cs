@@ -56,10 +56,7 @@ namespace QuickMGenerate
 				}
 				else
 				{
-
 					var currentDepth = state.GetDepth(type);
-					// if (leafType != null)
-					// 	Console.WriteLine($"LEAF: {type.Name} @ depth {currentDepth} → {leafType.Name}");
 					var (min, max) = state.GetDepthConstraint(type);
 					if (currentDepth <= min)
 						return BuildInstance(ctor(), state, type);

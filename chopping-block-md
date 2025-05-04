@@ -45,3 +45,5 @@ if (depth < min)
 
 return Gen.OneOf(Leaf(), Recursive()); // may recurse
 
+Node(Leaf(66), Leaf(27))
+│  ├─ Leaf(66)\n   └─ Leaf(27)

@@ -1,5 +1,6 @@
-﻿using QuickMGenerate.UnderTheHood.Diagnostics;
-using QuickMGenerate.UnderTheHood.Diagnostics.Inspectors;
+﻿using QuickMGenerate.Diagnostics;
+using QuickMGenerate.Diagnostics.Inspectors;
+
 
 namespace QuickMGenerate.Tests.Diagnostics;
 

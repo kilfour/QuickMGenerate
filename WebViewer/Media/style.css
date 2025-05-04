@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    padding: 1em;
+    font-family: monospace;
+    background-color: #111;
+    color: #eee;
+}
+
+.log-entry {
+    display: grid;
+    grid-template-columns: 20ch 1fr;
+    gap: 0.5em 1em;
+    padding: 0.5em 0;
+    border-bottom: 1px solid #333;
+    white-space: pre-wrap;
+    word-break: break-word;
+    align-items: baseline;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.log-entry .tags {
+    font-weight: bold;
+    color: #8be9fd;
+    grid-column: 1 / 2;
+}
+
+.log-entry .message {
+    color: #f1fa8c;
+    grid-column: 2 / 3;
+}
+
+.log-entry .data {
+    color: #8cfaa9;
+    grid-column: 3 / 3;
+    font-size: 0.9em;
+    margin-left: 1ch;
+}

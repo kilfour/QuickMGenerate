@@ -5226,8 +5226,9 @@ var $author$project$Main$update = F2(
 					[
 						{
 						C: $elm$json$Json$Encode$object(_List_Nil),
-						D: 'LogUpdate FAILED',
-						K: _List_Nil
+						D: $elm$json$Json$Decode$errorToString(err),
+						K: _List_fromArray(
+							['LogUpdate FAILED'])
 					}
 					]);
 			}
@@ -5301,7 +5302,7 @@ var $author$project$Main$view = function (model) {
 								_List_fromArray(
 									[
 										$elm$html$Html$text(
-										A2($elm$json$Json$Encode$encode, 2, entry.C))
+										A2($elm$json$Json$Encode$encode, 0, entry.C))
 									]))
 							]));
 				},

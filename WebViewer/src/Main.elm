@@ -76,7 +76,7 @@ view model =
                         div [ class "log-entry" ]
                             [ div [ class "tags" ] [ text <| String.join ", " entry.tags ]
                             , div [ class "message" ] [ text entry.message ]
-                            , div [ class "data" ] [ text <| Json.Encode.encode 2 entry.data ]
+                            , div [ class "data" ] [ text <| Json.Encode.encode 0 entry.data ]
                             ]
                     )
                 |> div []

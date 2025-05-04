@@ -2,7 +2,10 @@ using QuickAcid;
 using QuickAcid.Bolts;
 using QuickAcid.Bolts.Nuts;
 using QuickMGenerate;
+using QuickMGenerate.Diagnostics;
+using QuickMGenerate.Diagnostics.Inspectors;
 using QuickMGenerate.UnderTheHood;
+using System.Linq;
 
 namespace QuickMGenerate.Tests._Tools;
 
@@ -64,5 +67,32 @@ public static class QA
         return Should($"{label}: null and non-null seen", generator, () => new Container<HashSet<string>>([])
             , (c, v) => c.Value!.Add(getter(v!) is null ? "null" : "non-null")
             , c => c.Value!.Contains("null") && c.Value!.Contains("non-null"));
+    }
+}
+public static class CheckIf
+{
+    public static (string, Func<T, bool>) Is<T>(T expected) =>
+        (expected?.ToString() ?? "null", x => EqualityComparer<T>.Default.Equals(x, expected));
+
+    public static void TheseValuesAreGenerated<T>(Generator<T> generator, params T[] needsToBeSeen)
+    {
+        GeneratedValuesShouldEventuallySatisfyAll(generator, [.. needsToBeSeen.Select(Is)]);
+    }
+
+    public static void GeneratedValuesShouldEventuallySatisfyAll<T>(
+        Generator<T> generator,
+        params (string, Func<T, bool>)[] labeledChecks)
+    {
+        static DistinctValueInspector<T> inspectorFactory() => new();
+        var run =
+            from inspector in "inspector".Stashed(
+                () => InspectorContext.SetCurrent(inspectorFactory()))
+            from input in "Generator".Shrinkable(generator.Inspect())
+            from _e in "early exit".TestifyProvenWhen(
+                () => inspector.SeenSatisfyEach([.. labeledChecks.Select(a => a.Item2)]))
+            from _s in "Assayer".Assay(
+                [.. labeledChecks.Select(a => (a.Item1, (Func<bool>)(() => inspector.HasValueThatSatisfies(a.Item2))))])
+            select Acid.Test;
+        new QState(run).Testify(200);
     }
 }

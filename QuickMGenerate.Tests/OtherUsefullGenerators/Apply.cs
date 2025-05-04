@@ -36,7 +36,9 @@ var generator =
 				from _ in MGen.Decimal().Apply(d => Math.Round(d, 2)).Replace()
 				from result in MGen.One<SomeThingToGenerate>()
 				select result;
-			var count = BitConverter.GetBytes(decimal.GetBits(generator.Generate().MyProperty)[3])[2];
+			var value = generator.Generate().MyProperty;
+			//var count = BitConverter.GetBytes(decimal.GetBits(generator.Generate().MyProperty)[3])[2];
+			var count = value.ToString().Split('.', ',')[1].Count();
 			Assert.Equal(2, count);
 		}
 

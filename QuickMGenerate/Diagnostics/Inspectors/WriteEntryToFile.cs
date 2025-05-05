@@ -2,11 +2,11 @@ using QuickMGenerate.Diagnostics.Inspectors.Calipers;
 
 namespace QuickMGenerate.Diagnostics;
 
-public class WriteToFile : IAmAnInspector
+public class WriteEntryToFile : IAmAnInspector
 {
     private readonly string logFilePath;
 
-    public WriteToFile(string? maybePath = null)
+    public WriteEntryToFile(string? maybePath = null)
     {
         var path = maybePath ?? SolutionLocator.FindSolutionRoot() + "/mgen-log.txt";
         logFilePath = Path.GetFullPath(path);

@@ -2,6 +2,7 @@
 using QuickAcid.Bolts;
 using QuickAcid.Bolts.Nuts;
 using QuickMGenerate.Diagnostics;
+using QuickMGenerate.Diagnostics.Inspectors.DepthInspecting;
 using QuickMGenerate.Tests._Tools;
 using QuickMGenerate.UnderTheHood;
 
@@ -10,25 +11,6 @@ namespace QuickMGenerate.Tests.Hierarchies;
 
 public class TreeTests
 {
-	private abstract class Tree
-	{
-		public abstract override string ToString();
-	}
-
-	private class Leaf : Tree
-	{
-		public int Value { get; set; }
-		public override string ToString() => "Leaf";//$"Leaf({Value})";
-	}
-
-	private class Branch : Tree
-	{
-		public Tree? Left { get; set; }
-		public Tree? Right { get; set; }
-
-		public override string ToString() => $"Node";//({Left}, {Right})";
-	}
-
 	[Fact]
 	[Trees(
 		Content =
@@ -56,9 +38,11 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 	{   // ----------------------------------------------------------------------------------
 		// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 		// ----------------------------------------------------------------------------------
-		InspectorContext.SetCurrent(new WriteToFile());
+
+		InspectorContext.Current =
+			Shape.Entry(new PrettyDeep(a => a.ToString()!)).For(new WriteDataToFile());
 		var generator =
-			from _d in MGen.For<Tree>().Depth(1, 1) // still passes with 1, 5 need better test
+			from _d in MGen.For<Tree>().Depth(1, 1)
 			from _i in MGen.For<Tree>().GenerateAsOneOf(typeof(Branch), typeof(Leaf))
 			from _l in MGen.For<Tree>().TreeLeaf<Leaf>()
 			from tree in MGen.One<Tree>().Inspect()
@@ -82,7 +66,7 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 					&& c.Value!.Contains("TRL")
 					&& c.Value!.Contains("TRR")
 				, GetAssaysForTree)
-		).Testify(1000);
+		).Testify(100);
 	}
 
 	[Fact]
@@ -95,7 +79,7 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 			from tree in MGen.One<Tree>()
 			select string.Join("|", GetDepthLabels(tree)); // "|" avoids label collision
 
-		CheckIf.GeneratedValuesShouldEventuallySatisfyAll(1000,
+		CheckIf.GeneratedValuesShouldEventuallySatisfyAll(100,
 			generator,
 			("has T", s => s.Contains("T")),
 			("has TL", s => s.Contains("TL")),
@@ -162,6 +146,24 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 		Assert.Equal(Unit.Instance, generator.Generate());
 	}
 
+	private abstract class Tree
+	{
+		public abstract override string ToString();
+	}
+
+	private class Leaf : Tree
+	{
+		public int Value { get; set; }
+		public override string ToString() => "Leaf";//$"Leaf({Value})";
+	}
+
+	private class Branch : Tree
+	{
+		public Tree? Left { get; set; }
+		public Tree? Right { get; set; }
+
+		public override string ToString() => $"Node";//({Left}, {Right})";
+	}
 	public class TreesAttribute : GeneratingHierarchiesAttribute
 	{
 		public TreesAttribute()

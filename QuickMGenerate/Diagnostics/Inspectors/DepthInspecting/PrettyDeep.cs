@@ -26,8 +26,12 @@ public class PrettyDeep : IAmAnArtist
             string childIndent = indent + (isLast ? "    " : "│   ");
             for (int i = props.Count - 1; i >= 0; i--)
             {
-                bool isLastChild = i == props.Count - 1;
-                stack.Push((props[i]!, depth + 1, isLastChild, childIndent));
+                var child = props[i].GetValue(node);
+                if (child != null)
+                {
+                    bool isLastChild = i == props.Count - 1;
+                    stack.Push((child, depth + 1, isLastChild, childIndent));
+                }
             }
         }
         return new Entry(entry.Tags, entry.Message, string.Join("\n", lines));

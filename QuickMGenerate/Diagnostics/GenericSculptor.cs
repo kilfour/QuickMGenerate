@@ -2,11 +2,11 @@ namespace QuickMGenerate.Diagnostics;
 
 public class GenericSculptor : IAmAnArtist
 {
-    private readonly Func<object, object> sculptData;
-    public GenericSculptor(Func<object, object> sculptData) { this.sculptData = sculptData; }
+    private readonly Func<Entry, Entry> chisel;
+    public GenericSculptor(Func<Entry, Entry> chisel) { this.chisel = chisel; }
     public Entry Sculpt(Entry entry)
     {
-        return new Entry(entry.Tags, entry.Message, sculptData(entry.Data));
+        return chisel(entry);
     }
 }
 

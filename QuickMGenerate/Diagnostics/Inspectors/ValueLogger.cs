@@ -9,6 +9,7 @@ public class ValueLogger<T> : IAmAnInspector
     {
         _max = max;
     }
+
     public void Log(Entry entry)
     {
         if (entry.Data is T t && Values.Count < _max)

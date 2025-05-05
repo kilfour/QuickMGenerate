@@ -1,6 +1,5 @@
-﻿using QuickAcid;
-using QuickAcid.Bolts;
-using QuickAcid.Bolts.Nuts;
+﻿using QuickMGenerate.Diagnostics;
+using QuickMGenerate.Diagnostics.Inspectors;
 using QuickMGenerate.Tests._Tools;
 using QuickMGenerate.UnderTheHood;
 
@@ -138,10 +137,21 @@ Depth(3, 3)
 		Order = 3)]
 	public void WithDepth3()
 	{
+
 		var generator =
 			from _ in MGen.For<Recurse>().Depth(3, 3)
-			from thing in MGen.One<Recurse>()
+			from thing in MGen.One<Recurse>().Inspect()
 			select thing;
+
+		InspectorContext.Current =
+			Shape.Entry(
+				new HierarchyLabeler<Recurse>('R', 'N')
+					.Label(a => a.Child).With('C')
+					.Label(a => a.OtherChild).With('O'))
+				.For(new ValueLogger<List<char[]>>())
+				.ReshapeData<List<char[]>, string>(
+					a => string.Join("|", [.. a.Select(b => new string(b))]))
+				.For(new WriteDataToFile());
 
 		var value = generator.Generate();
 

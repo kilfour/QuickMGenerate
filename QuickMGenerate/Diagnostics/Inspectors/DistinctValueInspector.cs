@@ -4,6 +4,11 @@ public class DistinctValueInspector<T> : IAmAnInspector
 {
     public readonly HashSet<T> Seen = new();
 
+    public bool HasSeen(T value)
+    {
+        return Seen.Contains(value);
+    }
+
     public bool AllTheseHaveBeenSeen(T[] values)
     {
         return values.All(a => Seen.Contains(a));
@@ -17,11 +22,6 @@ public class DistinctValueInspector<T> : IAmAnInspector
     public bool SeenSatisfyEach(Func<T, bool>[] predicates)
     {
         return predicates.All(predicate => Seen.Any(value => predicate(value)));
-    }
-
-    public bool HasSeen(T value)
-    {
-        return Seen.Contains(value);
     }
 
     public void Log(Entry entry)

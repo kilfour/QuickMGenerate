@@ -1,6 +1,7 @@
 ﻿using QuickAcid;
 using QuickAcid.Bolts;
 using QuickAcid.Bolts.Nuts;
+using QuickMGenerate.Diagnostics;
 using QuickMGenerate.Tests._Tools;
 using QuickMGenerate.UnderTheHood;
 
@@ -17,7 +18,7 @@ public class TreeTests
 	private class Leaf : Tree
 	{
 		public int Value { get; set; }
-		public override string ToString() => $"Leaf({Value})";
+		public override string ToString() => "Leaf";//$"Leaf({Value})";
 	}
 
 	private class Branch : Tree
@@ -25,7 +26,7 @@ public class TreeTests
 		public Tree? Left { get; set; }
 		public Tree? Right { get; set; }
 
-		public override string ToString() => $"Node({Left}, {Right})";
+		public override string ToString() => $"Node";//({Left}, {Right})";
 	}
 
 	[Fact]
@@ -55,12 +56,15 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 	{   // ----------------------------------------------------------------------------------
 		// TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 		// ----------------------------------------------------------------------------------
+		InspectorContext.SetCurrent(new WriteToFile());
 		var generator =
 			from _d in MGen.For<Tree>().Depth(1, 1) // still passes with 1, 5 need better test
 			from _i in MGen.For<Tree>().GenerateAsOneOf(typeof(Branch), typeof(Leaf))
 			from _l in MGen.For<Tree>().TreeLeaf<Leaf>()
-			from tree in MGen.One<Tree>()
+			from tree in MGen.One<Tree>().Inspect()
 			select tree;
+
+
 		new QState(
 			QA.Should(generator, () => new Container<HashSet<string>>([])
 				, (c, v) =>

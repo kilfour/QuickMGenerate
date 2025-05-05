@@ -51,7 +51,7 @@ public class DiagnosticsTests
 	[Fact]
 	public void Multiples()
 	{
-		var writer = new AppendToWebviewInspector();
+		var writer = new WriteToJsonFile();
 		var valueLogger = new ValueLogger<object>();
 		InspectorContext.Current = valueLogger;
 		var generator = MGen.Constant(42).Inspect();

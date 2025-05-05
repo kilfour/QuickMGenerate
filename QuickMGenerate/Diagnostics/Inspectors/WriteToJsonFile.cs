@@ -1,28 +1,14 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using QuickMGenerate.Diagnostics.Inspectors.Calipers;
 
 namespace QuickMGenerate.Diagnostics;
 
-public class AppendToWebviewInspector : IAmAnInspector
+public class WriteToJsonFile : IAmAnInspector
 {
     private readonly string logFilePath;
-    public static class SolutionLocator
-    {
-        public static string? FindSolutionRoot(string? startDirectory = null)
-        {
-            var dir = new DirectoryInfo(startDirectory ?? Directory.GetCurrentDirectory());
-            while (dir != null)
-            {
-                if (dir.GetFiles("*.sln").Length != 0)
-                    return dir.FullName;
 
-                dir = dir.Parent;
-            }
-            return null;
-        }
-    }
-
-    public AppendToWebviewInspector(string? maybePath = null)
+    public WriteToJsonFile(string? maybePath = null)
     {
         var path = maybePath ?? SolutionLocator.FindSolutionRoot() + "/pbt-inspector.ndjson";
         logFilePath = Path.GetFullPath(path);
@@ -46,15 +32,15 @@ public class AppendToWebviewInspector : IAmAnInspector
             Console.Error.WriteLine($"[FileInspector] Failed to log entry: {ex.Message}");
         }
     }
-}
-
-public class LowercaseFirstLetterPolicy : JsonNamingPolicy
-{
-    public override string ConvertName(string name)
+    public class LowercaseFirstLetterPolicy : JsonNamingPolicy
     {
-        if (string.IsNullOrEmpty(name) || char.IsLower(name[0]))
-            return name;
+        public override string ConvertName(string name)
+        {
+            if (string.IsNullOrEmpty(name) || char.IsLower(name[0]))
+                return name;
 
-        return char.ToLower(name[0]) + name.Substring(1);
+            return char.ToLower(name[0]) + name.Substring(1);
+        }
     }
 }
+

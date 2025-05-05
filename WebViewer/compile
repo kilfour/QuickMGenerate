@@ -1,5 +1,0 @@
-npm install -g vsce
-vsce package
-
-
-CTRL-SHIFT-P : Extensions: Install from VSIX...

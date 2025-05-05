@@ -5,5 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\..\QuickPulse\QuickPulse\QuickPulse.csproj" />
+  </ItemGroup>
 </Project>

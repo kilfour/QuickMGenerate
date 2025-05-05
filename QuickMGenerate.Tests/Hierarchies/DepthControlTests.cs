@@ -1,7 +1,7 @@
-﻿using QuickMGenerate.Diagnostics;
-using QuickMGenerate.Diagnostics.Inspectors;
-using QuickMGenerate.Tests._Tools;
+﻿using QuickMGenerate.Tests._Tools;
 using QuickMGenerate.UnderTheHood;
+using QuickPulse;
+using QuickPulse.Diagnostics;
 
 namespace QuickMGenerate.Tests.Hierarchies;
 
@@ -140,18 +140,8 @@ Depth(3, 3)
 
 		var generator =
 			from _ in MGen.For<Recurse>().Depth(3, 3)
-			from thing in MGen.One<Recurse>().Inspect()
+			from thing in MGen.One<Recurse>()
 			select thing;
-
-		InspectorContext.Current =
-			Shape.Entry(
-				new HierarchyLabeler<Recurse>('R', 'N')
-					.Label(a => a.Child).With('C')
-					.Label(a => a.OtherChild).With('O'))
-				.For(new ValueLogger<List<char[]>>())
-				.ReshapeData<List<char[]>, string>(
-					a => string.Join("|", [.. a.Select(b => new string(b))]))
-				.For(new WriteDataToFile());
 
 		var value = generator.Generate();
 

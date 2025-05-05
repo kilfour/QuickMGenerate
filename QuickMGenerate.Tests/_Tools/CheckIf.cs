@@ -2,10 +2,9 @@ using QuickAcid;
 using QuickAcid.Bolts;
 using QuickAcid.Bolts.Nuts;
 using QuickMGenerate;
-using QuickMGenerate.Diagnostics;
-using QuickMGenerate.Diagnostics.Inspectors;
 using QuickMGenerate.UnderTheHood;
-
+using QuickPulse.Diagnostics;
+using QuickPulse.Diagnostics.Sinks;
 namespace QuickMGenerate.Tests._Tools;
 
 public static class CheckIf
@@ -39,7 +38,7 @@ public static class CheckIf
         static DistinctValueInspector<T> inspectorFactory() => new();
         var run =
             from inspector in "inspector".Stashed(
-                () => InspectorContext.SetCurrent(inspectorFactory()))
+                () => PulseContext.SetCurrent(inspectorFactory()))
             from input in "Generator".Shrinkable(generator.Inspect())
             from _e in "early exit".TestifyProvenWhen(
                 () => inspector.SeenSatisfyEach([.. labeledChecks.Select(a => a.Item2)]))

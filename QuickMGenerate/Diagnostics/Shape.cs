@@ -2,10 +2,17 @@ namespace QuickMGenerate.Diagnostics;
 
 public static class Shape
 {
+
     public static Shaper Entry(IAmAnArtist reshaper)
     {
         return new Shaper(reshaper);
     }
+
+    public static Shaper Data(Func<object, object> sculptData)
+    {
+        return new Shaper(new GenericSculptor(sculptData));
+    }
+
     public class Shaper
     {
         private IAmAnArtist reshaper;

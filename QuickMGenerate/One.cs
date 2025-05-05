@@ -11,7 +11,7 @@ namespace QuickMGenerate
 			return
 				s =>
 					{
-						var instance = (T)DepthControlledCreation(s, typeof(T), () => (T)CreateInstance(s, typeof(T)));
+						var instance = (T)DepthControlledCreation(s, typeof(T), a => (T)CreateInstance(s, typeof(T), a));
 						return new Result<T>(instance, s);
 					};
 		}
@@ -21,7 +21,7 @@ namespace QuickMGenerate
 			return
 				s =>
 				{
-					var instance = (T)DepthControlledCreation(s, typeof(T), () => constructor()!);
+					var instance = (T)DepthControlledCreation(s, typeof(T), _ => constructor()!);
 					return new Result<T>(instance, s);
 				};
 		}
@@ -31,12 +31,12 @@ namespace QuickMGenerate
 			return
 				s =>
 				{
-					var instance = DepthControlledCreation(s, type, () => CreateInstance(s, type));
+					var instance = DepthControlledCreation(s, type, a => CreateInstance(s, type, a));
 					return new Result<object>(instance, s);
 				};
 		}
 
-		public static object DepthControlledCreation(State state, Type type, Func<object> ctor)
+		public static object DepthControlledCreation(State state, Type type, Func<Type?, object> ctor)
 		{
 			using (state.WithDepthFrame(type))
 			{
@@ -46,26 +46,26 @@ namespace QuickMGenerate
 					var currentDepth = state.GetDepth(type);
 					var (min, max) = state.GetDepthConstraint(type);
 					if (currentDepth <= min)
-						return BuildInstance(ctor(), state, type);
+						return BuildInstance(ctor(null), state, type);
 					if (currentDepth > max)
 						return null!;
 					if (Bool()(state).Value)
 						return null!;
 					else
-						return BuildInstance(ctor(), state, type);
+						return BuildInstance(ctor(null), state, type);
 				}
 				else
 				{
 					var currentDepth = state.GetDepth(type);
 					var (min, max) = state.GetDepthConstraint(type);
-					if (currentDepth <= min)
-						return BuildInstance(ctor(), state, type);
 					if (currentDepth == max)
 						return BuildLeaf(state, leafType);
+					if (currentDepth < min)
+						return BuildInstance(ctor(leafType), state, type);
 					if (Bool()(state).Value)
 						return BuildLeaf(state, leafType);
 					else
-						return BuildInstance(ctor(), state, type);
+						return BuildInstance(ctor(null), state, type);
 				}
 			}
 		}
@@ -78,24 +78,9 @@ namespace QuickMGenerate
 			return instance;
 		}
 
-		private static object CheckForLeaves(State state, Type type, Func<object> ctor)
+		private static object CreateInstance(State state, Type type, Type? typeToExlude)
 		{
-			if (state.TreeLeaves.TryGetValue(type, out var leafType))
-			{
-				if (leafType != null)
-				{
-					// DANGER, DANGER, DANGER
-					var instance = CreateInstanceOfExactlyThisType(state, leafType);
-					BuildInstance(instance, state, leafType);
-					return instance;
-				}
-			}
-			return ctor();
-		}
-
-		private static object CreateInstance(State state, Type type)
-		{
-			var typeToGenerate = GetTypeToGenerate(state, type);
+			var typeToGenerate = GetTypeToGenerate(state, type, typeToExlude);
 			return CreateInstanceOfExactlyThisType(state, typeToGenerate);
 		}
 
@@ -143,12 +128,27 @@ namespace QuickMGenerate
 		}
 
 
-		private static Type GetTypeToGenerate(State s, Type type)
+		// private static Type GetTypeToGenerate(State s, Type type)
+		// {
+		// 	var typeToGenerate = type;
+		// 	if (s.InheritanceInfo.ContainsKey(typeToGenerate))
+		// 	{
+		// 		var derivedTypes = s.InheritanceInfo[typeToGenerate];
+		// 		var index = s.Random.Next(0, derivedTypes.Count);
+		// 		typeToGenerate = derivedTypes[index];
+		// 	}
+		// 	return typeToGenerate;
+		// }
+
+		private static Type GetTypeToGenerate(State s, Type type, Type? typeToExlude)
 		{
 			var typeToGenerate = type;
 			if (s.InheritanceInfo.ContainsKey(typeToGenerate))
 			{
+
 				var derivedTypes = s.InheritanceInfo[typeToGenerate];
+				if (typeToExlude != null)
+					derivedTypes = derivedTypes.Where(a => a != typeToExlude).ToList();
 				var index = s.Random.Next(0, derivedTypes.Count);
 				typeToGenerate = derivedTypes[index];
 			}

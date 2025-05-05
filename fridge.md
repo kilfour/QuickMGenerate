@@ -1,9 +1,9 @@
 # MGen.Tree
     just do it
 --- slide --- 
-# Fix Test
+# Depth Inspector
+useful for
 QuickMGenerate.Tests.Hierarchies.TreeTests.Trees()
-TODO
 --- slide ---
 
 ## GeneratedValuesShouldAllSatisfy
@@ -44,15 +44,10 @@ TODO
 --- slide ---
 
 ## Recursive Structures
-
-* Docs need update for recursive generator controls
 * `from _ in MGen.Depth(min, max)` overrides the default recursion depth
-* Should be added to tutorial and reference wiki
-
 --- slide ---
 
 ## Diagnostics
-
 * Add tests to exercise and document `Inspector` usage
 * Show examples using `HasSeen`, `SeenSatisfyEach`, etc.
 * Useful for teaching value tracking and runtime inspection in PBT

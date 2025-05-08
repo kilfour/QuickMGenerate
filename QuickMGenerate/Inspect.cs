@@ -1,5 +1,5 @@
 ﻿using QuickMGenerate.UnderTheHood;
-using QuickPulse.Diagnostics;
+using QuickPulse;
 
 namespace QuickMGenerate;
 

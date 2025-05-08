@@ -3,8 +3,8 @@ using QuickAcid.Bolts;
 using QuickAcid.Bolts.Nuts;
 using QuickMGenerate;
 using QuickMGenerate.UnderTheHood;
-using QuickPulse.Diagnostics;
-using QuickPulse.Diagnostics.Sinks;
+using QuickPulse;
+
 namespace QuickMGenerate.Tests._Tools;
 
 public static class CheckIf

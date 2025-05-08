@@ -39,7 +39,7 @@ public static class CheckIf
         var run =
             from inspector in "inspector".Stashed(
                 () => PulseContext.SetCurrent(inspectorFactory()))
-            from input in "Generator".Shrinkable(generator.Inspect())
+            from input in "Generator".Input(generator.Inspect())
             from _e in "early exit".TestifyProvenWhen(
                 () => inspector.SeenSatisfyEach([.. labeledChecks.Select(a => a.Item2)]))
             from _s in "Assayer".Assay(
@@ -61,7 +61,7 @@ public static class CheckIf
         params (string, Func<T, bool>)[] labeledChecks)
     {
         var run =
-            from input in "Generator".Shrinkable(generator.Inspect())
+            from input in "Generator".Input(generator.Inspect())
             from _ in CombineSpecs(input, labeledChecks) // Move this to QuickAcid
             select Acid.Test;
         new QState(run).Testify(numberOfExecutions);

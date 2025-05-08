@@ -17,7 +17,7 @@ public static class QA
     {
         return
             from container in "container".Stashed(ctor)
-            from input in "input".DynamicInput(generator)
+            from input in "input".Derived(generator)
             from _a in "act".Act(() => act(container, input))
             from _e in "early exit".TestifyProvenWhen(() => testifyProven(container))
             from _s in specs(container)

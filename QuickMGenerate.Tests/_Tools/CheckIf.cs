@@ -35,10 +35,14 @@ public static class CheckIf
         Generator<T> generator,
         params (string, Func<T, bool>)[] labeledChecks)
     {
-        static DistinctValueInspector<T> inspectorFactory() => new();
         var run =
             from inspector in "inspector".Stashed(
-                () => PulseContext.SetCurrent(inspectorFactory()))
+                () =>
+                {
+                    var artery = new DistinctValueInspector<T>();
+                    InspectContext.Current = artery.Flow;
+                    return artery;
+                })
             from input in "Generator".Input(generator.Inspect())
             from _e in "early exit".TestifyProvenWhen(
                 () => inspector.SeenSatisfyEach([.. labeledChecks.Select(a => a.Item2)]))

@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using QuickPulse.Instruments;
 
 namespace QuickMGenerate.UnderTheHood
 {

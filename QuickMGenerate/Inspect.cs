@@ -1,5 +1,4 @@
 ﻿using QuickMGenerate.UnderTheHood;
-using QuickPulse;
 
 namespace QuickMGenerate;
 
@@ -17,8 +16,14 @@ public static partial class MGenInspecting
 	{
 		return state =>
 		{
-			PulseContext.Log(data);
+			InspectContext.Current?.Invoke([data]);
 			return new Result<Unit>(Unit.Instance, state);
 		};
 	}
+}
+
+public static class InspectContext
+{
+	[ThreadStatic]
+	public static Action<object[]>? Current;
 }

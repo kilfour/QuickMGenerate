@@ -4,6 +4,7 @@ using QuickAcid.Bolts.Nuts;
 using QuickMGenerate;
 using QuickMGenerate.UnderTheHood;
 using QuickPulse;
+using QuickPulse.Arteries;
 
 namespace QuickMGenerate.Tests._Tools;
 

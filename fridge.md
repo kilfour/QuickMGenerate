@@ -1,11 +1,3 @@
-# MGen.Tree
-    just do it
---- slide --- 
-# Depth Inspector
-useful for
-QuickMGenerate.Tests.Hierarchies.TreeTests.Trees()
---- slide ---
-
 ## GeneratedValuesShouldAllSatisfy
 
 * Final version working via `CombineSpecs`

@@ -16,7 +16,7 @@ public static partial class MGenInspecting
 	{
 		return state =>
 		{
-			InspectContext.Current?.Invoke([data]);
+			InspectContext.Current?.Invoke(data);
 			return new Result<Unit>(Unit.Instance, state);
 		};
 	}
@@ -25,5 +25,5 @@ public static partial class MGenInspecting
 public static class InspectContext
 {
 	[ThreadStatic]
-	public static Action<object[]>? Current;
+	public static Action<object>? Current;
 }

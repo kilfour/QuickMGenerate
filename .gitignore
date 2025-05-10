@@ -7,3 +7,4 @@ _ReSharper.*/
 /.vs/QuickMGenerate/v15/Server/sqlite3
 pbt-inspector.ndjson
 *log.txt
+temp.md

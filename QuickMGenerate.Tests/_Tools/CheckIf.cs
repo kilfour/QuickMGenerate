@@ -40,7 +40,7 @@ public static class CheckIf
                 () =>
                 {
                     var artery = new DistinctValueInspector<T>();
-                    InspectContext.Current = artery.Flow;
+                    InspectContext.Current = a => artery.Flow(a);
                     return artery;
                 })
             from input in "Generator".Input(generator.Inspect())

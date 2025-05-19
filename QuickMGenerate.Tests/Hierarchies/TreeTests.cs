@@ -37,7 +37,7 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 			from _ in MGen.For<Tree>().Depth(1, 3)
 			from __ in MGen.For<Tree>().GenerateAsOneOf(typeof(Branch), typeof(Leaf))
 			from ___ in MGen.For<Tree>().TreeLeaf<Leaf>()
-			from tree in MGen.One<Tree>().Inspect()
+			from tree in MGen.One<Tree>()
 			select tree.ToLabel();
 
 		var validLabels = new[] { "E", "LE", "RE", "LLE", "LRE", "RLE", "RRE" };

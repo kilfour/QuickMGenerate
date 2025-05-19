@@ -36,14 +36,11 @@ public static class CheckIf
         Generator<T> generator,
         params (string, Func<T, bool>)[] labeledChecks)
     {
+        var signal = Signal.Tracing<T>();
+        InspectContext.Current = a => signal.Pulse((T)a);
         var run =
             from inspector in "inspector".Stashed(
-                () =>
-                {
-                    var artery = new DistinctValueInspector<T>();
-                    InspectContext.Current = a => artery.Flow(a);
-                    return artery;
-                })
+                () => signal.SetAndReturnArtery(new DistinctValueInspector<T>()))
             from input in "Generator".Input(generator.Inspect())
             from _e in "early exit".TestifyProvenWhen(
                 () => inspector.SeenSatisfyEach([.. labeledChecks.Select(a => a.Item2)]))
@@ -72,13 +69,13 @@ public static class CheckIf
         new QState(run).Testify(numberOfExecutions);
     }
 
-    private static QAcidRunner<Acid> CombineSpecs<T>(T input, IEnumerable<(string, Func<T, bool>)> checks)
+    private static QAcidScript<Acid> CombineSpecs<T>(T input, IEnumerable<(string, Func<T, bool>)> checks)
     {
         return checks
             .Select(c => c.Item1.Spec(() => c.Item2(input)))
             .Aggregate(Acc, (acc, next) => from _ in acc from __ in next select Acid.Test);
     }
 
-    public static readonly QAcidRunner<Acid> Acc =
+    public static readonly QAcidScript<Acid> Acc =
         s => QAcidResult.AcidOnly(s);
 }

@@ -4,8 +4,6 @@ using QuickMGenerate.UnderTheHood;
 
 namespace QuickMGenerate.Tests.Hierarchies;
 
-public class Simple { public Simple? Child { get; set; } }
-
 public class Recurse
 {
 	public Recurse? Child { get; set; }

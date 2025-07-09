@@ -9,6 +9,7 @@
     <PackageId>QuickMGenerate</PackageId>
     <Description>Easily create random objects or hierarchies thereof in c#, ... part two.</Description>
     <RepositoryUrl>https://github.com/kilfour/QuickMGenerate</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>LINQ;fuzzing;testing;diagnostics;random-data;generators</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>

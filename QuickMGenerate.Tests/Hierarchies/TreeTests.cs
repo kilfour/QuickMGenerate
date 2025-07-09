@@ -1,10 +1,4 @@
-﻿using QuickAcid.Bolts;
-using QuickMGenerate;
-using QuickMGenerate.Tests._Tools;
-using QuickMGenerate.UnderTheHood;
-
-
-namespace QuickMGenerate.Tests.Hierarchies;
+﻿namespace QuickMGenerate.Tests.Hierarchies;
 
 public class TreeTests
 {

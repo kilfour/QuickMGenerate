@@ -482,6 +482,20 @@ Useful f.i. to generate numeric strings.
  - `.Nullable(int timesBeforeResultIsNullAproximation)` : overload of `Nullable()`, generates null 1 out of `timesBeforeResultIsNullAproximation` times .
 
 
+### How About Null(s)?
+Various extension methods allow for influencing null generation.
+
+- `.Nullable()` : Casts a `Generator<T>` to `Generator<T?>`. In addition generates null 1 out of 5 times.  
+> Used for value types.
+
+- `.Nullable(int timesBeforeResultIsNullAproximation)` : overload of `Nullable()`, generates null 1 out of `timesBeforeResultIsNullAproximation` times .
+
+- `.NullableRef()` : Casts a `Generator<T>` to `Generator<T?>`. In addition generates null 1 out of 5 times.  
+> Used for reference types, including `string`.
+
+- `.NullableRef(int timesBeforeResultIsNullAproximation)` : overload of `NullableRef()`, generates null 1 out of `timesBeforeResultIsNullAproximation` times .
+
+
 ### 'Generating' constants.
 Use `MGen.Constant<T>(T value)`.
 

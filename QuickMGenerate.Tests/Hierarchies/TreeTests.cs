@@ -1,4 +1,7 @@
-﻿namespace QuickMGenerate.Tests.Hierarchies;
+﻿using QuickMGenerate.Tests._Tools;
+using QuickMGenerate.UnderTheHood;
+
+namespace QuickMGenerate.Tests.Hierarchies;
 
 public class TreeTests
 {

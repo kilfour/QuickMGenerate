@@ -12,7 +12,7 @@
 
 The old quickgenerate had a *PickOne()* method, which randomly picked an element from an IEnumerable.
 
-This has now been replaced with `MGen.ChooseFrom()` and `MGen.ChooseFromThese()` (see Chapter 'Other Usefull Generators').
+This has now been replaced with `MGen.ChooseFrom()` and `MGen.ChooseFromThese()` (see Chapter 'Other Useful Generators').
 
 QuickGenerate also had a *PickMany(int number)* method which picked *number* amount of elements from an IEnumerable 
 and also made sure that it picked different elements.

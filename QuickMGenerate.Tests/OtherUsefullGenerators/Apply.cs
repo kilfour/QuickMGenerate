@@ -46,7 +46,7 @@ var generator =
 		[Apply(
 			Content =
 @"An overload exists with signature `Apply<T>(Action<T> action)`.
-This is usefull when dealing with objects and you just don't want to return said object.
+This is useful when dealing with objects and you just don't want to return said object.
 E.g. `MGen.One<SomeThingToGenerate>().Apply(session.Save)`.",
 			Order = 3)]
 		public void ActionIsApplied()

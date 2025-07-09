@@ -8,7 +8,7 @@
 		[Fact]
 		[Constant(
 			Content =
-@"This generator is most usefull in combination with others and is used to inject constants into combined generators.",
+@"This generator is most useful in combination with others and is used to inject constants into combined generators.",
 			Order = 1)]
 		public void JustReturnsValue()
 		{

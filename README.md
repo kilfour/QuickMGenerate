@@ -70,7 +70,7 @@ Jumping slightly ahead of ourselves as below example will use methods that are e
 
 The old quickgenerate had a *PickOne()* method, which randomly picked an element from an IEnumerable.
 
-This has now been replaced with `MGen.ChooseFrom()` and `MGen.ChooseFromThese()` (see Chapter 'Other Usefull Generators').
+This has now been replaced with `MGen.ChooseFrom()` and `MGen.ChooseFromThese()` (see Chapter 'Other Useful Generators').
 
 QuickGenerate also had a *PickMany(int number)* method which picked *number* amount of elements from an IEnumerable 
 and also made sure that it picked different elements.
@@ -258,7 +258,7 @@ var generator =
 
 
 In case of a one-to-many relation where the collection is inaccessible, but a method is provided for adding the many to the one,
-we can use the `Apply` method, which is explained in detail in the chapter 'Other Usefull Generators'.
+we can use the `Apply` method, which is explained in detail in the chapter 'Other Useful Generators'.
 E.g. :
 
 ```
@@ -391,7 +391,7 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 
 
 ___
-## Other Usefull Generators
+## Other Useful Generators
 ### Apply.
 Use the `.Apply<T>(Func<T, T> func)` extension method.
 
@@ -407,7 +407,7 @@ var generator =
 ```
 
 An overload exists with signature `Apply<T>(Action<T> action)`.
-This is usefull when dealing with objects and you just don't want to return said object.
+This is useful when dealing with objects and you just don't want to return said object.
 E.g. `MGen.One<SomeThingToGenerate>().Apply(session.Save)`.
 
 This function also exists as a convention instead of a generator.
@@ -473,7 +473,7 @@ Various extension methods allow for casting the generated value.
 
  - `.AsString()` : Invokes `.ToString()` on the generated value and 
 casts the generator from `Generator<T>` to `Generator<string>`. 
-Usefull f.i. to generate numeric strings.
+Useful f.i. to generate numeric strings.
 
  - `.AsObject()` : Simply casts the generator itself from `Generator<T>` to `Generator<object>`. Mostly used internally.
 
@@ -485,7 +485,7 @@ Usefull f.i. to generate numeric strings.
 ### 'Generating' constants.
 Use `MGen.Constant<T>(T value)`.
 
-This generator is most usefull in combination with others and is used to inject constants into combined generators.
+This generator is most useful in combination with others and is used to inject constants into combined generators.
 
 
 ### 'Never return null.

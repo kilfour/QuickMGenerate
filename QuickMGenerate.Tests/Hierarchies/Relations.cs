@@ -35,7 +35,7 @@ var generator =
 		[Relations(
 			Content =
 @"In case of a one-to-many relation where the collection is inaccessible, but a method is provided for adding the many to the one,
-we can use the `Apply` method, which is explained in detail in the chapter 'Other Usefull Generators'.
+we can use the `Apply` method, which is explained in detail in the chapter 'Other Useful Generators'.
 E.g. :
 
 ```

@@ -1,8 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>0.1.0</Version>
+    <Authors>Kilfour</Authors>
+    <PackageId>QuickMGenerate</PackageId>
+    <Description>Easily create random objects or hierarchies thereof in c#, ... part two.</Description>
+    <RepositoryUrl>https://github.com/kilfour/QuickMGenerate</RepositoryUrl>
+    <PackageTags>LINQ;fuzzing;testing;diagnostics;random-data;generators</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 </Project>

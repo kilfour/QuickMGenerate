@@ -23,10 +23,5 @@
     <ProjectReference Include="..\..\QuickAcid\QuickAcid\QuickAcid.csproj" />
     <ProjectReference Include="..\..\QuickPulse\QuickPulse\QuickPulse.csproj" />
   </ItemGroup>
-  <!-- <ItemGroup>
-      <Reference Include="QuickAcid">
-          <HintPath>../Libs/QuickAcid.dll</HintPath>
-      </Reference>
-  </ItemGroup> -->
 
 </Project>

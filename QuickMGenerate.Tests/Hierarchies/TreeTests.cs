@@ -39,7 +39,7 @@ Node(Leaf(31), Node(Leaf(71), Leaf(10)))
 
 		var validLabels = new[] { "E", "LE", "RE", "LLE", "LRE", "RLE", "RRE" };
 
-		CheckIf.GeneratedValuesShouldEventuallySatisfyAll(100,
+		CheckIf.GeneratedValuesShouldEventuallySatisfyAll(200,
 			generator,
 			("has E", s => s.Split("|").Contains("E")),
 			("has LE", s => s.Split("|").Contains("LE")),

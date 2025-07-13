@@ -5,14 +5,21 @@ namespace QuickMGenerate.UnderTheHood
 {
 	public static class ExpressionExtensions
 	{
-		public static MemberExpression AsMemberExpression<TTarget, TExpression>(this Expression<Func<TTarget, TExpression>> expression)
+		public static PropertyInfo AsPropertyInfo<TTarget, TProperty>(this Expression<Func<TTarget, TProperty>> expression)
 		{
-			if (expression.Body is UnaryExpression)
-				return ((UnaryExpression)expression.Body).Operand as MemberExpression;
-			return expression.Body as MemberExpression;
-		}
+			if (expression.Body is MemberExpression memberExpr)
+			{
+				if (memberExpr.Member is PropertyInfo property)
+					return property;
+			}
 
-		public static PropertyInfo AsPropertyInfo<TTarget, TExpression>(this Expression<Func<TTarget, TExpression>> expression) =>
-			expression.AsMemberExpression().Member as PropertyInfo;
+			if (expression.Body is UnaryExpression unary && unary.Operand is MemberExpression unaryMember)
+			{
+				if (unaryMember.Member is PropertyInfo property)
+					return property;
+			}
+
+			throw new ArgumentException($"Expression '{expression}' does not refer to a property.");
+		}
 	}
 }

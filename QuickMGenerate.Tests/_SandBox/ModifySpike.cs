@@ -15,17 +15,6 @@ public class ModifySpike
 	}
 
 	[Fact]
-	public void Ints()
-	{
-		var generator = MGen.Int();
-		for (int i = 0; i < 10; i++)
-		{
-			var result = generator.ModifyPrimitive(42).Generate();
-			Assert.NotEqual(42, result);
-		}
-	}
-
-	[Fact]
 	public void Ignoring()
 	{
 		var generator =

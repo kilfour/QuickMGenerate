@@ -4,29 +4,24 @@ namespace QuickMGenerate.UnderTheHood
 {
 	public class MoreRandom
 	{
+		private readonly Random _random;
+
+		public MoreRandom(int seed)
+		{
+			_random = new Random(seed);
+		}
+
 		public int Next(int minimumValue, int maximumValue)
 		{
 			if (maximumValue <= minimumValue)
 				return minimumValue;
 
-			var randomNumber = new byte[1];
-
-			var generator = new RNGCryptoServiceProvider();
-			generator.GetBytes(randomNumber);
-
-			double value1 = (Convert.ToDouble(randomNumber[0]) / 255d);
-			double value2 = Math.Round(value1 * (maximumValue - minimumValue - 1));
-
-			return (int)(minimumValue + value2);
+			return _random.Next(minimumValue, maximumValue);
 		}
 
 		public double NextDouble()
 		{
-			var randomNumber = new byte[1];
-
-			var generator = new RNGCryptoServiceProvider();
-			generator.GetBytes(randomNumber);
-			return (Convert.ToDouble(randomNumber[0]) / 256d);
+			return _random.NextDouble();
 		}
 	}
 }

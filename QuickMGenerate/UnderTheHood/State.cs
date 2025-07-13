@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Security.Cryptography;
 
 namespace QuickMGenerate.UnderTheHood
 {
@@ -6,7 +7,21 @@ namespace QuickMGenerate.UnderTheHood
 	public record DepthFrame(Type Type, int Depth);
 	public class State
 	{
-		public readonly MoreRandom Random = new MoreRandom();
+		public int Seed { get; }
+		public MoreRandom Random { get; }
+
+		public State()
+		{
+			Seed = RandomNumberGenerator.GetInt32(0, int.MaxValue);
+			Random = new MoreRandom(Seed);
+		}
+
+		// Optional convenience constructor
+		public State(int seed)
+		{
+			Seed = seed;
+			Random = new MoreRandom(seed);
+		}
 
 		// ---------------------------------------------------------------------
 		// Depth Control

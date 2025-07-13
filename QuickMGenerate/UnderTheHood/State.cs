@@ -49,11 +49,8 @@ namespace QuickMGenerate.UnderTheHood
 		// ---------------------------------------------------------------------
 
 		public readonly List<Type> StuffToIgnoreAll = new List<Type>();
-
-		public readonly List<PropertyInfo> StuffToIgnore = new List<PropertyInfo>();
-
-		private readonly Dictionary<object, object> generatorMemory =
-			new Dictionary<object, object>();
+		public readonly List<PropertyInfo> StuffToIgnore = [];
+		private readonly Dictionary<object, object> generatorMemory = [];
 
 		public T Get<T>(object key, T newValue)
 		{
@@ -67,21 +64,11 @@ namespace QuickMGenerate.UnderTheHood
 			generatorMemory[key] = value!;
 		}
 
-		public readonly Dictionary<Type, List<Type>> InheritanceInfo
-			= new Dictionary<Type, List<Type>>();
-
-		public Dictionary<Type, Type> TreeLeaves = new();
-
-		public readonly Dictionary<PropertyInfo, Generator<object>> Customizations
-			= new Dictionary<PropertyInfo, Generator<object>>();
-
-		public readonly Dictionary<Type, List<Func<State, object>>> Constructors
-			= new Dictionary<Type, List<Func<State, object>>>();
-
-		public readonly Dictionary<Type, List<Action<State, object>>> ActionsToApply =
-			new Dictionary<Type, List<Action<State, object>>>();
-
-		// --- MGENCHOOSEFROM --- public Stack<Type> ConstructionStack { get; } = new();
+		public readonly Dictionary<Type, List<Type>> InheritanceInfo = [];
+		public Dictionary<Type, Type> TreeLeaves = [];
+		public readonly Dictionary<PropertyInfo, Generator<object>> Customizations = [];
+		public readonly Dictionary<Type, List<Func<State, object>>> Constructors = [];
+		public readonly Dictionary<Type, List<Action<State, object>>> ActionsToApply = [];
 
 		public void AddActionToApplyFor(Type type, Action<State, object> action)
 		{
@@ -93,8 +80,8 @@ namespace QuickMGenerate.UnderTheHood
 		}
 
 		public readonly Dictionary<Type, Generator<object>> PrimitiveGenerators
-			= new Dictionary<Type, Generator<object>>
-			  	{
+			= new()
+				{
 					{ typeof(string), MGen.String().AsObject() },
 			  		{ typeof(int), MGen.Int().AsObject() },
 					{ typeof(int?), MGen.Int().Nullable().AsObject() },
@@ -119,7 +106,5 @@ namespace QuickMGenerate.UnderTheHood
 					{ typeof(TimeSpan), MGen.TimeSpan().AsObject() },
 					{ typeof(TimeSpan?), MGen.TimeSpan().Nullable().AsObject() }
 				};
-
-
 	}
 }

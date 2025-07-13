@@ -1,14 +1,12 @@
-﻿using System.Security.Cryptography;
-
-namespace QuickMGenerate.UnderTheHood
+﻿namespace QuickMGenerate.UnderTheHood
 {
 	public class MoreRandom
 	{
-		private readonly Random _random;
+		private readonly Random random;
 
 		public MoreRandom(int seed)
 		{
-			_random = new Random(seed);
+			random = new Random(seed);
 		}
 
 		public int Next(int minimumValue, int maximumValue)
@@ -16,12 +14,12 @@ namespace QuickMGenerate.UnderTheHood
 			if (maximumValue <= minimumValue)
 				return minimumValue;
 
-			return _random.Next(minimumValue, maximumValue);
+			return random.Next(minimumValue, maximumValue);
 		}
 
 		public double NextDouble()
 		{
-			return _random.NextDouble();
+			return random.NextDouble();
 		}
 	}
 }

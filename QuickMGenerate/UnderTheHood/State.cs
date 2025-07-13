@@ -4,7 +4,9 @@ using System.Security.Cryptography;
 namespace QuickMGenerate.UnderTheHood
 {
 	public record DepthConstraint(int Min, int Max);
+
 	public record DepthFrame(Type Type, int Depth);
+
 	public class State
 	{
 		public int Seed { get; }
@@ -16,7 +18,6 @@ namespace QuickMGenerate.UnderTheHood
 			Random = new MoreRandom(Seed);
 		}
 
-		// Optional convenience constructor
 		public State(int seed)
 		{
 			Seed = seed;

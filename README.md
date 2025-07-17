@@ -1,5 +1,5 @@
 # QuickMGenerate
-
+> A type-walking cheetah with a hand full of random.
 ## Introduction
 An evolution from the QuickGenerate library.
 

@@ -1,5 +1,8 @@
-# QuickMGenerate
-> A type-walking cheetah with a hand full of random.
+# QuickMGenerate (OBSOLETE)
+## WARNING WARNING WARNING
+
+⚠️ This library has been **renamed and replaced** by [QuickFuzzr](https://github.com/kilfour/QuickFuzzr).
+
 ## Introduction
 An evolution from the QuickGenerate library.
 
